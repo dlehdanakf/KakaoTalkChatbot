@@ -1,16 +1,15 @@
 <?php
 	class SkillResponse {
 		private $version;
-		protected $template;
+		protected $outputs;
+		protected $quickReplies;
 		protected $context;
 		protected $data;
 
-		protected $outputs;
-		protected $quickReplies;
-
 		public function __construct(){
 			$this->version = '2.0';
-			$this->template = [];
+			$this->outputs = [];
+			$this->quickReplies = [];
 			$this->context = [];
 			$this->data = [];
 		}
@@ -34,7 +33,7 @@
 				'data' => $this->data
 			];
 
-			foreach($this->template as $template){
+			foreach($this->outputs as $template){
 				$render = $template->render();
 				if($render != null)
 					$return_array['template']['outputs'][$template->getType()] = $render;
