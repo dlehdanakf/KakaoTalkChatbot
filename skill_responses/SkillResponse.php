@@ -5,6 +5,9 @@
 		protected $context;
 		protected $data;
 
+		protected $outputs;
+		protected $quickReplies;
+
 		public function __construct(){
 			$this->version = '2.0';
 			$this->template = [];
@@ -13,16 +16,20 @@
 		}
 
 		public function addResponseComponent(SkillTemplate $e){
-			if(count($this->template) > 3)
+			if(count($this->outputs) > 3)
 				return;
 
-			array_push($this->template, $e);
+			array_push($this->outputs, $e);
 		}
+		public function addQuickReplies(){}
 
 		public function render(){
 			$return_array = [
 				'version' => $this->version,
-				'template' => [],
+				'template' => [
+					'outputs' => [],
+					'quickReplies' => []
+				],
 				'context' => $this->context,
 				'data' => $this->data
 			];
@@ -30,11 +37,11 @@
 			foreach($this->template as $template){
 				$render = $template->render();
 				if($render != null)
-					$return_array['template'][$template->getType()] = $render;
+					$return_array['template']['outputs'][$template->getType()] = $render;
 			}
 
-			if(count($return_array['template']) < 1)
-				throw new Exception("Response Template 갯수가 1개 미만입니다.");
+			if(count($return_array['template']['outputs']) < 1)
+				throw new Exception("응답 말풍선 갯수가 1개 미만입니다.");
 
 			return $return_array;
 		}
