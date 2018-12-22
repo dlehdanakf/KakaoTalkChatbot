@@ -1,8 +1,5 @@
 <?php
-	class ListCardHeader {
-		public $title;
-		public $imageUrl;
-
+	class ListHeader extends ListItem {
 		public function render(){
 			if($this->imageUrl){
 				return [
