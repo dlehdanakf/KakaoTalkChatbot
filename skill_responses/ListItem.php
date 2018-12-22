@@ -3,8 +3,14 @@
 		public $title;
 		public $description;
 		public $imageUrl;
-		public $link;
+		/**
+		 * @var Link
+		 */
+		protected $link;
 
+		public function setLink(Link $e){
+			$this->link = $e;
+		}
 		public function render(){
 			$title = $this->title;
 			if(strlen((string) $title) < 1)
@@ -14,7 +20,7 @@
 				'title' => $title,
 				'description' => $this->description,
 				'imageUrl' => $this->imageUrl,
-				'link' => $this->link
+				'link' => $this->link !== null ? $this->link->render() : null
 			];
 		}
 	}

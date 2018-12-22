@@ -20,7 +20,10 @@
 				$listCardItem = new ListItem;
 				$listCardItem->title = (string) $item->title;
 				$listCardItem->description = (string) $item->author;
-				$listCardItem->link = (string) $item->link;
+
+				$link = new Link;
+				$link->web = (string) $item->link;
+				$listCardItem->setLink($link);
 
 				$listCard->addListItem($listCardItem);
 				$count += 1;
