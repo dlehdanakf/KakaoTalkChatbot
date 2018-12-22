@@ -1,4 +1,6 @@
 <?php
+	use Fusonic\OpenGraph\Consumer;
+
 	class NewspaperController {
 		public function skillViewNews(){
 			$popkon_url = 'http://popkon.konkuk.ac.kr/rss/allArticle.xml';
@@ -25,6 +27,10 @@
 				$link->web = (string) $item->link;
 				$listCardItem->setLink($link);
 
+				$openGraph = $this->parseOpenGraph($link->web);
+				if($openGraph['image'] && $openGraph['image'] != 'http://popkon.konkuk.ac.kr/image2006/logo.jpg')
+					$listCardItem->imageUrl = $openGraph['image'];
+
 				$listCard->addListItem($listCardItem);
 				$count += 1;
 			}
@@ -40,5 +46,24 @@
 			$response->addResponseComponent($listCard);
 
 			return json_encode($response->render());
+		}
+
+		protected function parseOpenGraph($url){
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 3000);
+
+			$html= curl_exec($ch);
+			curl_close($ch);
+
+			$openGraph = OpenGraphParser::parse($html);
+
+			return [
+				'host' => parse_url($url, PHP_URL_HOST),
+				'title' => $openGraph['og']['og:title'],
+				'description' => $openGraph['og']['og:description'],
+				'image' => $openGraph['og']['og:image']
+			];
 		}
 	}
