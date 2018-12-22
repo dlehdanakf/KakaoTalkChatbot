@@ -1,6 +1,4 @@
 <?php
-	use Fusonic\OpenGraph\Consumer;
-
 	class NewspaperController {
 		public function skillViewNews(){
 			$popkon_url = 'http://popkon.konkuk.ac.kr/rss/allArticle.xml';
