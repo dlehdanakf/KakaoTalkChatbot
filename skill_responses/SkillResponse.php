@@ -36,7 +36,9 @@
 			foreach($this->outputs as $template){
 				$render = $template->render();
 				if($render != null)
-					$return_array['template']['outputs'][$template->getType()] = $render;
+					array_push($return_array['template']['outputs'], [
+						$template->getType() => $render
+					]);
 			}
 
 			if(count($return_array['template']['outputs']) < 1)
