@@ -28,9 +28,7 @@
 				'template' => [
 					'outputs' => [],
 					'quickReplies' => []
-				],
-				'context' => $this->context,
-				'data' => $this->data
+				]
 			];
 
 			foreach($this->outputs as $template){
