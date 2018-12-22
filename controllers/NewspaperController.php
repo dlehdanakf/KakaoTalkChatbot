@@ -10,8 +10,9 @@
 			$listCard = new ListCard;
 
 			/** 0. Add ListCard Header */
-			$listCardHeader = new ListHeader;
-			$listCardHeader->imageUrl = 'http://kung.kr/files/attach/images/235/684/026/006/9baf597c6b02f31c98522bfd87240825.jpg';
+			$listCardHeader = new ListItem;
+			$listCardHeader->title = '건대신문 최신기사';
+			$listCardHeader->imageUrl = 'http://kung.kr/files/attach/images/247/689/026/006/706e2ebd610ca0c24673d3b0b27f1f15.jpg';
 
 			/** 1. Add Latest News */
 			$count = 0;
