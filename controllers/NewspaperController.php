@@ -13,6 +13,7 @@
 			$listCardHeader = new ListItem;
 			$listCardHeader->title = '건대신문';
 			$listCardHeader->description = '건국대학교 신문';
+			$listCardHeader->imageUrl = 'http://kung.kr/files/attach/images/235/684/026/006/9baf597c6b02f31c98522bfd87240825.jpg';
 
 			/** 1. Add Latest News */
 			$count = 0;
