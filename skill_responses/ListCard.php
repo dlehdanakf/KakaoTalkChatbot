@@ -47,12 +47,12 @@
 			foreach($this->items as $item){
 				$render = $item->render();
 				if($render != null)
-					array_push($return_array['items'], $item);
+					array_push($return_array['items'], $item->render());
 			}
 			foreach($this->buttons as $button){
 				$render = $button->render();
 				if($render != null)
-					array_push($return_array['buttons'], $button);
+					array_push($return_array['buttons'], $button->render());
 			}
 
 			if(count($return_array['items']) < 1)

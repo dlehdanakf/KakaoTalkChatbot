@@ -21,6 +21,8 @@
 	$router->group(['prefix' => 'skill/v1/', 'before' => 'skillBefore'], function($router){
 		$router->any('contact', ["ContactsController", "skillViewList"]);
 		$router->any('contact/detail', ["ContactsController", "skillViewDetail"]);
+
+		$router->any('popkon/news', ["NewspaperController", "skillViewNews"]);
 	});
 
 	try {
