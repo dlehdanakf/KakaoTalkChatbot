@@ -17,18 +17,26 @@
 		public function setWebLinkUrl($e){
 			$this->action = 'webLink';
 			$this->webLinkUrl = (String) $e;
+
+			return $this;
 		}
 		public function setOsLink(Link $e){
 			$this->action = 'osLink';
 			$this->osLink = $e;
+
+			return $this;
 		}
 		public function setMessageText($e){
 			$this->action = 'message';
 			$this->messageText = (String) $e;
+
+			return $this;
 		}
 		public function setPhoneNumber($e){
 			$this->action = 'phone';
 			$this->phoneNumber = (String) $e;
+
+			return $this;
 		}
 
 		public function render(){
