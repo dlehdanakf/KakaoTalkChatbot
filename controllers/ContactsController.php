@@ -18,6 +18,7 @@
 			foreach($contactGroups as $contactGroup){
 				$basicCard = new BasicCard;
 				$basicCard->title = $contactGroup->title;
+				$basicCard->description = $contactGroup->description ? $contactGroup->description : null;
 
 				$contactColleges = $contactGroup->getAllColleges();
 				foreach($contactColleges as $contactCollege){

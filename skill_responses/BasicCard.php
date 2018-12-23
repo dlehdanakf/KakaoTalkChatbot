@@ -32,6 +32,7 @@
 			$return_array = [
 				'title' => $this->title,
 				'description' => $this->description,
+				'thumbnail' => null,
 				'buttons' => []
 			];
 
