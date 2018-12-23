@@ -23,7 +23,7 @@
 				$contactColleges = $contactGroup->getAllColleges();
 				foreach($contactColleges as $contactCollege){
 					$button = new Button($contactCollege->title);
-					$button->setMessageText($contactCollege->title . " 전화번호 알려줘");
+					$button->setMessageText($contactCollege->title . " 전화번호부 보여줘");
 
 					$basicCard->addButton($button);
 				}
