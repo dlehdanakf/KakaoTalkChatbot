@@ -20,7 +20,12 @@
 
 			array_push($this->outputs, $e);
 		}
-		public function addQuickReplies(){}
+		public function addQuickReplies(QuickReply $e){
+			if(count($this->quickReplies) > 10)
+				return;
+
+			array_push($this->quickReplies, $e);
+		}
 
 		public function render(){
 			$return_array = [
@@ -37,6 +42,11 @@
 					array_push($return_array['template']['outputs'], [
 						$template->getType() => $render
 					]);
+			}
+			foreach($this->quickReplies as $quickReply){
+				$render = $quickReply->render();
+				if($render != null)
+					array_push($return_array['template']['quickReplies'], $render);
 			}
 
 			if(count($return_array['template']['outputs']) < 1)

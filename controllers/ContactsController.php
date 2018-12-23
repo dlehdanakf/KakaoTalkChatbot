@@ -32,6 +32,15 @@
 			}
 			$skillResponse->addResponseComponent($carousel);
 
+			$quickReplies = [
+				[ "찾는 부서가 없습니다", "교내 전화번호부 사이트 주소 알려줘" ],
+				[ "정보오류 신고", "전화번호부 오류 신고할래" ],
+				[ "메인으로", "메인으로" ]
+			];
+			foreach($quickReplies as $quickReply){
+				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
+			}
+
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewDetail(){
