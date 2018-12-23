@@ -55,11 +55,8 @@
 			}
 		}
 
-		private function fromCamelCase($str) {
-			$str[0] = strtolower($str[0]);
-			$func = create_function('$c', 'return "_" . strtolower($c[1]);');
-
-			return preg_replace_callback('/([A-Z])/', $func, $str);
+		private function fromCamelCase($string) {
+			return strtolower(preg_replace('/(?<=\\w)(?=[A-Z])/',"_$1", $string));
 		}
 		private function toCamelCase($str, $capitalise_first_char = false) {
 			if($capitalise_first_char) {
