@@ -67,7 +67,7 @@
 
 		public static function VALIDATE_SKILL_REQUEST_BODY($params = []){
 			$json = file_get_contents('php://input');
-			$obj = json_decode($json);
+			$obj = json_decode($json, true);
 
 			$return_array = [
 				'user' => '',
