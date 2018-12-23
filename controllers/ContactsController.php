@@ -33,9 +33,9 @@
 			$skillResponse->addResponseComponent($carousel);
 
 			$quickReplies = [
-				[ "찾는 부서가 없습니다", "교내 전화번호부 사이트 주소 알려줘" ],
-				[ "정보오류 신고", "전화번호부 오류 신고할래" ],
-				[ "메인으로", "메인으로" ]
+				[ "찾는 부서가 없습니다", "학교 전화번호부 사이트 알려줘" ],
+				[ "정보오류 제보", "전화번호부 오류 제보하기" ],
+				[ "메인으로", "메인으로 돌아가기" ]
 			];
 			foreach($quickReplies as $quickReply){
 				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
@@ -44,13 +44,81 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewDetail(){
-//			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['contact_keyword', 'contact_college']);
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['contact_keyword', 'contact_college']);
+//			$requestBody = [
+//				'user' => 'test',
+//				'utterance' => '',
+//				'params' => [
+//					'contact_keyword' => '전화번호',
+//					'contact_college' => '학생복지처'
+//				]
+//			];
 
 			$skillResponse = new SkillResponse;
-			$simpleMessage = new SimpleText("Hello World!!@!@");
+			$carousel = new Carousel;
+			$contactDepartments = ContactCollege::CREATE_BY_TITLE($requestBody['params']['contact_college'])->getAllDepartments();
+			$quickReplies = [
+				[ "찾는 부서가 없습니다", "학교 전화번호부 사이트 알려줘" ],
+				[ "정보오류 제보", "전화번호부 오류 제보하기" ],
+				[ "메인으로", "메인으로 돌아가기" ]
+			];
+			foreach($quickReplies as $quickReply){
+				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
+			}
 
-			$skillResponse->addResponseComponent($simpleMessage);
+			if(count($contactDepartments) < 1){
+				/**
+				 *	연락처 목록이 없을 경우
+				 */
+				$skillResponse->addResponseComponent(
+					new SimpleText("'" . $requestBody['params']['contact_college'] . "'에 대해 검색된 전화번호가 없습니다.")
+				);
+
+				return json_encode($skillResponse->render());
+			}
+
+			/**
+			 *	학과 리스트를 3개씩 묶어서 새로운 Array 를 생성
+			 */
+			$contactGroupedDepartments = [];
+			$temp = [];
+			foreach($contactDepartments as $i => $contactDepartment){
+				array_push($temp, $contactDepartment);
+
+				if(($i + 1) % 3 == 0){
+					array_push($contactGroupedDepartments, $temp);
+					$temp = [];
+				}
+			}
+
+			foreach($contactGroupedDepartments as $contactGroupedDepartment){
+				$basicCard = new BasicCard;
+				$title = '';
+
+				foreach($contactGroupedDepartment as $i => $contactDepartment){
+					if($i !== 0) $title += '\n';
+					$contact = $this->getLastPhoneNumber($contactDepartment->contact);
+					$title += '(H.P) ' . $contactDepartment->title . ' (' . $contact . ')';
+
+					$basicCard->addButton(
+						(new Button($contactDepartment->title . ' 전화하기'))->setPhoneNumber($contactDepartment->contact)
+					);
+				}
+
+				$basicCard->title = $title;
+				$basicCard->description = ' ';
+
+				$carousel->addCard($basicCard);
+			}
+
+			$skillResponse->addResponseComponent(new SimpleText("'전화하기' 버튼을 누르면 전화 앱으로 연결됩니다."));
+			$skillResponse->addResponseComponent($carousel);
 
 			return json_encode($skillResponse->render());
+		}
+
+		protected function getLastPhoneNumber($phone){
+			$arr = explode('-', $phone);
+			return ($arr[count($arr) - 1]);
 		}
 	}

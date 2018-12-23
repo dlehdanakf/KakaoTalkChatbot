@@ -20,6 +20,23 @@
 
 			return $return_array;
 		}
+		static public function CREATE_BY_TITLE($title){
+			$query = B::DB()->prepare("SELECT * FROM contact_college WHERE title = :t");
+			$query->execute([
+				':t' => $title
+			]);
+
+			$instance = new self;
+			if($query->rowCount() < 1)
+				throw new ModelNotFoundException(get_class($instance) . " 객체를 찾을 수 없습니다. title - " . $title);
+
+			$result = $query->fetch(PDO::FETCH_ASSOC);
+			foreach($result as $i => $v){
+				$instance->$i = $v;
+			}
+
+			return $instance;
+		}
 
 		public function save(){
 			$query = B::DB()->prepare("INSERT INTO contact_college (group_id, title) VALUE (:g, :t)");
