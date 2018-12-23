@@ -96,12 +96,12 @@
 				$title = '';
 
 				foreach($contactGroupedDepartment as $i => $contactDepartment){
-					if($i !== 0) $title .= '\n';
+					if($i !== 0) $title .= "\n";
 					$contact = $this->getLastPhoneNumber($contactDepartment->contact);
-					$title .= ( '(H.P) ' . $contactDepartment->title . ' (' . $contact . ')' );
+					$title .= ( "(H.P) " . $contactDepartment->title . " (" . $contact . ")" );
 
 					$basicCard->addButton(
-						(new Button($contactDepartment->title . ' 전화하기'))->setPhoneNumber($contactDepartment->contact)
+						(new Button($contactDepartment->title . " 전화하기"))->setPhoneNumber($contactDepartment->contact)
 					);
 				}
 
