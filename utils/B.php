@@ -66,6 +66,9 @@
 		}
 
 		public static function VALIDATE_SKILL_REQUEST_BODY($params = []){
+			$json = file_get_contents('php://input');
+			$obj = json_decode($json);
+
 			$return_array = [
 				'user' => '',
 				'utterance' => '',
@@ -74,10 +77,12 @@
 
 			/** 0. 사용자 정보 확인 */
 			try {
-				self::PARAMETER_CHECK(['userRequest']);
+				if(!isset($obj['userRequest'])){
+					throw new Exception("php://input 에서 json 형식의 userRequest 값을 찾을 수 없음");
+				}
 
-				$return_array['user'] = $_REQUEST['userRequest']['user']['properties']['plusfriendUserKey'];
-				$return_array['utterance'] = $_REQUEST['userRequest']['utterance'];
+				$return_array['user'] = $obj['userRequest']['user']['properties']['plusfriendUserKey'];
+				$return_array['utterance'] = $obj['userRequest']['utterance'];
 			} catch(Exception $e) {
 				if(self::$ENVIRONMENT->MODE === 'TEST'){
 					$return_array['user'] = 'TEST';
@@ -88,14 +93,16 @@
 
 			/** 1. 액션 정보 확인 */
 			try {
-				self::PARAMETER_CHECK(['action']);
+				if(!isset($obj['action'])){
+					throw new Exception("php://input 에서 json 형식의 action 값을 찾을 수 없음");
+				}
 
 				foreach($params as $i){
-					if(!isset($_REQUEST['action']['params'][$i])){
-						throw new Exception("Skill Entry 오류 - " . $params[$i]);
+					if(!isset($obj['action']['params'][$i])){
+						throw new Exception("Skill Entry 오류 - " . $i);
 					}
 
-					$return_array['params'][$i] = $_REQUEST['action']['params'][$i];
+					$return_array['params'][$i] = $obj['action']['params'][$i];
 				}
 			} catch(Exception $e) {
 				throw new Exception("Skill 형식을 갖추지 못했습니다 / " . $e->getMessage());
