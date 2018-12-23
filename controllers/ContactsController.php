@@ -85,7 +85,7 @@
 			foreach($contactDepartments as $i => $contactDepartment){
 				array_push($temp, $contactDepartment);
 
-				if(($i + 1) % 3 == 0){
+				if(($i + 1) % 3 == 0 || $i == count($contactDepartments) - 1){
 					array_push($contactGroupedDepartments, $temp);
 					$temp = [];
 				}
