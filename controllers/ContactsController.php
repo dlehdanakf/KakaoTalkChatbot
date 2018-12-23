@@ -96,7 +96,7 @@
 				$title = '';
 
 				foreach($contactGroupedDepartment as $i => $contactDepartment){
-					if($i !== 0) $title += '\n';
+					if($i !== 0) $title .= '\n';
 					$contact = $this->getLastPhoneNumber($contactDepartment->contact);
 					$title .= ( '(H.P) ' . $contactDepartment->title . ' (' . $contact . ')' );
 
