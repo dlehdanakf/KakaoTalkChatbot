@@ -1,15 +1,6 @@
 <?php
 	class ContactsController {
 		public function skillViewList(){
-//			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['contact_keyword']);
-			$requestBody = [
-				'user' => 'test',
-				'utterance' => '',
-				'params' => [
-					'contact_keyword' => '전화번호'
-				]
-			];
-
 			$skillResponse = new SkillResponse;
 			$skillResponse->addResponseComponent(new SimpleText("부서 목록에서 선택하세요!"));
 
@@ -45,14 +36,6 @@
 		}
 		public function skillViewDetail(){
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['contact_keyword', 'contact_college']);
-//			$requestBody = [
-//				'user' => 'test',
-//				'utterance' => '',
-//				'params' => [
-//					'contact_keyword' => '전화번호',
-//					'contact_college' => '학생복지처'
-//				]
-//			];
 
 			$skillResponse = new SkillResponse;
 			$carousel = new Carousel;
