@@ -15,13 +15,13 @@
 		}
 
 		public function addResponseComponent(SkillTemplate $e){
-			if(count($this->outputs) > 3)
+			if(count($this->outputs) > 2)
 				return;
 
 			array_push($this->outputs, $e);
 		}
 		public function addQuickReplies(QuickReply $e){
-			if(count($this->quickReplies) > 10)
+			if(count($this->quickReplies) > 9)
 				return;
 
 			array_push($this->quickReplies, $e);

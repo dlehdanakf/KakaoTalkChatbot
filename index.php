@@ -23,6 +23,8 @@
 		$router->any('contact/detail', ["ContactsController", "skillViewDetail"]);
 
 		$router->any('popkon/news', ["NewspaperController", "skillViewNews"]);
+
+		$router->any('schedule/list', ["ScheduleController", "skillViewList"]);
 	});
 
 	try {
