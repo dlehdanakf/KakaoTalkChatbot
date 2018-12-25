@@ -21,7 +21,7 @@
 
 				$schedules = SchoolCalendar::GET_ORDERED_LIST($year, $month);
 				foreach($schedules as $schedule){
-					$basicCard->title .= "\n📌 " . $schedule->title;
+					$basicCard->title .= "\n• " . $this->getCardDay($schedule->schedule) . $schedule->title;
 				}
 
 				$carousel->addCard($basicCard);
@@ -33,7 +33,14 @@
 		}
 
 		protected function getCardTitle($year, $month){
-			if($month < 10) return $year . "년 0" . $month . "월";
-			return $year . "년 " . $month . "월";
+			return "📅 " . $year . ($month < 10 ? "년 0" : "년 ") . $month . "월";
+		}
+		protected function getCardDay($schedule){
+			$weekList = ["월", "화", "수", "목", "금", "토", "일"];
+			$week = date("w", strtotime($schedule));
+			$month = date("m", strtotime($schedule));
+			$date = date("d", strtotime($schedule));
+
+			return $month . "." . $date . "(" . $weekList[$week] . ") ";
 		}
 	}
