@@ -16,8 +16,8 @@
 			foreach($months as $month){
 				$basicCard = new BasicCard;
 
-				$basicCard->title = $this->getCardTitle($year, $month) . "/n";
-				$basicCard->title .= "━━━━━━━━━━━━━━━━";
+				$basicCard->title = $this->getCardTitle($year, $month);
+				$basicCard->title .= " /n " . "━━━━━━━━━━━━━━━━";
 
 				$schedules = SchoolCalendar::GET_ORDERED_LIST($year, $month);
 				foreach($schedules as $schedule){
