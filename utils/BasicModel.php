@@ -1,6 +1,7 @@
 <?php
 	abstract class BasicModel {
 		public $id;
+		public $register_date;
 
 		static public function GET_LIST(){
 			function fromCamelCase($str) {

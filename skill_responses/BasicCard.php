@@ -31,7 +31,7 @@
 
 			$return_array = [
 				'title' => $this->title,
-				'description' => $this->description,
+				'description' => $this->description != null ? $this->description : ' ',
 				'thumbnail' => null,
 				'buttons' => []
 			];

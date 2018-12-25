@@ -1,10 +1,8 @@
 <?php
 	class ContactCollege extends BasicModel {
-		public $id;
 		protected $group_id;
 		public $title;
 		public $priority;
-		public $register_date;
 
 		static public function GET_ORDERED_LIST(ContactGroup $contactGroup){
 			$query = B::DB()->prepare("SELECT id FROM contact_college WHERE group_id = :g ORDER BY priority, id DESC");

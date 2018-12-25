@@ -1,11 +1,9 @@
 <?php
 	class ContactDepartment extends BasicModel {
-		public $id;
 		protected $college_id;
 		public $title;
 		public $contact;
 		public $priority;
-		public $register_date;
 
 		static public function GET_ORDERED_LIST(ContactCollege $contactCollege){
 			$query = B::DB()->prepare("SELECT id FROM contact_department WHERE college_id = :g ORDER BY priority, id DESC");
