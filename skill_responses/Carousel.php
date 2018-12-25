@@ -15,7 +15,7 @@
 			if(count($this->items) > 10)
 				return;
 
-			if(!in_array($e->getType(), ['basicCard', 'commerceCard']))
+			if(!in_array($e->getType(), ['simpleText', 'basicCard', 'commerceCard']))
 				return;
 
 			foreach($this->items as $card){

@@ -14,21 +14,20 @@
 			$year = 2018;
 			$months = [1, 2, 3, 4, 5, 6];
 			foreach($months as $month){
-				$basicCard = new BasicCard;
+				$simpleText = new SimpleText("");
 
-				$basicCard->title = $this->getCardTitle($year, $month) . "\n";
-				$basicCard->title .= "━━━━━━━━━━━━━━━━";
-				$basicCard->description = "";
+				$simpleText->text = $this->getCardTitle($year, $month) . "\n";
+				$simpleText->text .= "━━━━━━━━━━━━━━━━";
 
 				$schedules = SchoolCalendar::GET_ORDERED_LIST($year, $month);
 				foreach($schedules as $i => $schedule){
 					if($i > 0)
-						$basicCard->description .= "\n";
+						$simpleText->text .= "\n";
 
-					$basicCard->description .= "• " . $this->getCardDay($schedule->schedule) . $schedule->title;
+					$simpleText->text .= "• " . $this->getCardDay($schedule->schedule) . $schedule->title;
 				}
 
-				$carousel->addCard($basicCard);
+				$carousel->addCard($simpleText);
 			}
 
 			$skillResponse->addResponseComponent($carousel);
