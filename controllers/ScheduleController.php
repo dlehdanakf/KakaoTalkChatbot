@@ -33,7 +33,7 @@
 		}
 
 		protected function getCardTitle($year, $month){
-			if($month < 10) return $year . '년 0' . $month . '월';
-			return $year . '년 ' . $month . '월';
+			if($month < 10) return $year . "년 0" . $month . "월";
+			return $year . "년 " . $month . "월";
 		}
 	}
