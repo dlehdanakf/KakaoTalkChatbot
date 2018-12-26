@@ -35,10 +35,10 @@
 			$link->mobile = "fb://page/1967018396922579";
 
 			$basicCard = new BasicCard;
+			$basicCard->title = "건국대학교 학우에게만 제공되는 다양한 무료 이벤트!";
 			$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail, $temporary_alt)));
 			$basicCard->addButton((new Button("최신 문화초대 이벤트"))->setMessageText("최신 문화초대 이벤트 알려줘"));
 			$basicCard->addButton((new Button("KUNNECT 페이스북"))->setOsLink($link));
-//			$basicCard->addButton((new Button(""))->setMessageText("기타 제휴업체 알려줘"));
 			$carousel->addCard($basicCard);
 
 			/** 1.3 학사일정 */
