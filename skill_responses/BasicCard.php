@@ -30,7 +30,7 @@
 				return null;
 
 			$return_array = [
-				'title' => $this->title,
+				'title' => $this->title != null ? $this->title : " ",
 				'description' => $this->description != null ? $this->description : ' ',
 				'thumbnail' => null,
 				'buttons' => []
