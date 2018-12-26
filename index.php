@@ -19,12 +19,18 @@
 	});
 
 	$router->group(['prefix' => 'skill/v1/', 'before' => 'skillBefore'], function($router){
+		$router->any('index', ["IndexController", "skillViewApplicationIndex"]);
+
 		$router->any('contact', ["ContactsController", "skillViewList"]);
 		$router->any('contact/detail', ["ContactsController", "skillViewDetail"]);
 
 		$router->any('popkon/news', ["NewspaperController", "skillViewNews"]);
 
-		$router->any('schedule/list', ["ScheduleController", "skillViewList"]);
+		/**
+		 *	KakaoTalk 에서 BasicCard 형태에서
+		 *	글자 수를 제한함에 따라 카카오 오픈빌더에서 기능 제공
+		 */
+		/** $router->any('schedule/list', ["ScheduleController", "skillViewList"]); */
 	});
 
 	try {
