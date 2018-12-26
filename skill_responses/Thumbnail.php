@@ -21,8 +21,7 @@
 			if(!$alt) $alt = '(이미지 소개 없음)';
 
 			return [
-				'imageUrl' => $url,
-				'altText' => $alt
+				'imageUrl' => $url
 			];
 		}
 	}
