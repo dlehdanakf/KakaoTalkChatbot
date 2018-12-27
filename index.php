@@ -25,6 +25,7 @@
 		$router->any('contact/detail', ["ContactsController", "skillViewDetail"]);
 
 		$router->any('popkon/news', ["NewspaperController", "skillViewNews"]);
+		$router->any('popkon/news/more', ["NewspaperController", "skillViewNewsMore"]);
 
 		/**
 		 *	KakaoTalk 에서 BasicCard 형태에서
