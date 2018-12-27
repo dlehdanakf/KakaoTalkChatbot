@@ -21,7 +21,7 @@
 		}
 		public function skillViewNewsMore(){
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['sys_number']);
-			$page = intval($requestBody['params']['sys_number']);
+			$page = intval($requestBody['params']['sys_number']['amount']);
 
 			$skillResponse = new SkillResponse;
 			$quickReplies = [
@@ -32,7 +32,7 @@
 			}
 
 			if($page < 1 || $page > 5){
-				$skillResponse->addResponseComponent((new SimpleText("페이지가 유요하지 않습니다.\n다른 값으로 시도해주세요.")));
+				$skillResponse->addResponseComponent((new SimpleText("요청하긴 기사 페이지가 유요하지 않습니다.\n다른 페이지 값으로 다시 시도해주세요. - " . $page)));
 				return json_encode($skillResponse->render());
 			}
 
