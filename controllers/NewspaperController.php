@@ -3,7 +3,7 @@
 		public function skillViewNews(){
 			$skillResponse = new SkillResponse;
 			$quickReplies = [
-				[ "더보기", "최신기사 더보기" ],
+				[ "더보기", "건대신문 최신기사 2면 보여줘" ],
 				[ "메인으로", "메인으로 돌아가기" ]
 			];
 			foreach($quickReplies as $quickReply){
@@ -11,7 +11,7 @@
 			}
 
 			try {
-				$listCard = $this->retchLatestNews(1, 5);
+				$listCard = $this->retchLatestNews(1);
 				$skillResponse->addResponseComponent($listCard);
 			} catch(FeedException $e) {
 				throw new Exception("건대신문 최신기사를 받아오던 도중 오류가 발생했습니다.");
@@ -20,6 +20,9 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewNewsMore(){
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['sys_number']);
+			$page = intval($requestBody['params']['sys_number']);
+
 			$skillResponse = new SkillResponse;
 			$quickReplies = [
 				[ "메인으로", "메인으로 돌아가기" ]
@@ -28,8 +31,13 @@
 				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
 			}
 
+			if($page < 1 || $page > 5){
+				$skillResponse->addResponseComponent((new SimpleText("페이지가 유요하지 않습니다.\n다른 값으로 시도해주세요.")));
+				return json_encode($skillResponse->render());
+			}
+
 			try {
-				$listCard = $this->retchLatestNews(2, 5);
+				$listCard = $this->retchLatestNews($page);
 				$skillResponse->addResponseComponent($listCard);
 			} catch(FeedException $e) {
 				throw new Exception("건대신문 최신기사를 받아오던 도중 오류가 발생했습니다.");
@@ -56,11 +64,14 @@
 			$listCardHeader->imageUrl = 'http://kung.kr/files/attach/images/247/689/026/006/706e2ebd610ca0c24673d3b0b27f1f15.jpg';
 
 			/** 1. Add Latest News */
-			$index = 0;
 			$start = ( $page - 1 ) * $count;
 			$end = $page * $count - 1;
+			$index = 0;
 			foreach($rss->item as $item){
-				if($index < $start || $index >= $end) continue;
+				if($index < $start || $index >= $end) {
+					$index += 1;
+					continue;
+				}
 
 				$listCardItem = new ListItem;
 				$listCardItem->title = (string) $item->title;
