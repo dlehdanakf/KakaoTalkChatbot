@@ -68,7 +68,7 @@
 			$end = $page * $count - 1;
 			$index = 0;
 			foreach($rss->item as $item){
-				if($index < $start || $index >= $end) {
+				if($index < $start || $index > $end) {
 					$index += 1;
 					continue;
 				}
