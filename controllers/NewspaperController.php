@@ -1,21 +1,66 @@
 <?php
 	class NewspaperController {
 		public function skillViewNews(){
+			$skillResponse = new SkillResponse;
+			$quickReplies = [
+				[ "더보기", "최신기사 더보기" ],
+				[ "메인으로", "메인으로 돌아가기" ]
+			];
+			foreach($quickReplies as $quickReply){
+				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
+			}
+
+			try {
+				$listCard = $this->retchLatestNews(1, 5);
+				$skillResponse->addResponseComponent($listCard);
+			} catch(FeedException $e) {
+				throw new Exception("건대신문 최신기사를 받아오던 도중 오류가 발생했습니다.");
+			}
+
+			return json_encode($skillResponse->render());
+		}
+		public function skillViewNewsMore(){
+			$skillResponse = new SkillResponse;
+			$quickReplies = [
+				[ "메인으로", "메인으로 돌아가기" ]
+			];
+			foreach($quickReplies as $quickReply){
+				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
+			}
+
+			try {
+				$listCard = $this->retchLatestNews(2, 5);
+				$skillResponse->addResponseComponent($listCard);
+			} catch(FeedException $e) {
+				throw new Exception("건대신문 최신기사를 받아오던 도중 오류가 발생했습니다.");
+			}
+
+			return json_encode($skillResponse->render());
+		}
+
+		/**
+		 * @param int $page
+		 * @param int $count
+		 * @return ListCard
+		 * @throws FeedException
+		 */
+		protected function retchLatestNews($page = 1, $count = 5){
 			$popkon_url = 'http://popkon.konkuk.ac.kr/rss/allArticle.xml';
 			$rss = Feed::loadRss($popkon_url);
 
-			$response = new SkillResponse;
 			$listCard = new ListCard;
 
 			/** 0. Add ListCard Header */
 			$listCardHeader = new ListItem;
-			$listCardHeader->title = '건대신문 최신기사';
+			$listCardHeader->title = $page == 1 ? '건대신문 최신기사' : '건대신문 최신기사 (' . $page . '면)';
 			$listCardHeader->imageUrl = 'http://kung.kr/files/attach/images/247/689/026/006/706e2ebd610ca0c24673d3b0b27f1f15.jpg';
 
 			/** 1. Add Latest News */
-			$count = 0;
+			$index = 0;
+			$start = ( $page - 1 ) * $count;
+			$end = $page * $count - 1;
 			foreach($rss->item as $item){
-				if($count >= 5) continue;
+				if($index < $start || $index >= $end) continue;
 
 				$listCardItem = new ListItem;
 				$listCardItem->title = (string) $item->title;
@@ -30,7 +75,7 @@
 					$listCardItem->imageUrl = $openGraph['image'];
 
 				$listCard->addListItem($listCardItem);
-				$count += 1;
+				$index += 1;
 			}
 
 			/** 2. Add ListCard Footer */
@@ -39,13 +84,10 @@
 
 			/** 3. Attach header and footer to listCard */
 			$listCard->setHeader($listCardHeader);
-			$listCard->addButton($button);
+//			$listCard->addButton($button);
 
-			$response->addResponseComponent($listCard);
-
-			return json_encode($response->render());
+			return $listCard;
 		}
-
 		protected function parseOpenGraph($url){
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
