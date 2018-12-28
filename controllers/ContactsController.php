@@ -76,18 +76,6 @@
 				}
 			}
 
-			/**
-			 *	내선번호 안내
-			 */
-			$basicCard = new BasicCard;
-			$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail)));
-			$basicCard->title = "☎️ 내선번호 국번 안내️" . " \n" .
-				"👉 3, 4000번대 ▶ 450" . " \n" .
-				"👉 6000번대 ▶ 2049" . " \n" .
-				"【 ex) 02-450-4071 】"
-			;
-			$carousel->addCard($basicCard);
-
 			foreach($contactGroupedDepartments as $contactGroupedDepartment){
 				$basicCard = new BasicCard;
 				$title = '';
@@ -109,9 +97,12 @@
 			}
 
 			$skillResponse->addResponseComponent(new SimpleText(
-				"🤖 【 교내 전화번호부 114 】" . "\n" .
-				"🏢 [ " . $requestBody['params']['contact_college'] . " ] 소속 학과, 부서 전화번호입니다." . "\n\n" .
-				"🛠️ 제공된 전회번호 정보가 잘못되었을 경우 부탁드려요!!"
+				"🏢 [ " . $requestBody['params']['contact_college'] . " ] 전화번호입니다." . "\n\n" .
+				"☎️ 내선번호 국번 안내️" . " \n" .
+				"👉 3, 4000번대 ▶ 02-450" . " \n" .
+				"👉 6000번대 ▶ 02-2049" . " \n" .
+				"【 ex) 02-450-4071 】" . " \n\n" .
+				"🛠️ 제공된 전회번호 정보가 잘못되었을 경우 제보부탁드려요!!"
 			));
 			$skillResponse->addResponseComponent($carousel);
 
