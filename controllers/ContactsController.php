@@ -35,6 +35,8 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewDetail(){
+			$temporary_thumbnail = "http://kung.kr/files/attach/images/200/696/028/006/7e4144e56eb58481a3ede39b2215b75e.jpg";
+
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['contact_keyword', 'contact_college']);
 
 			$skillResponse = new SkillResponse;
@@ -78,12 +80,11 @@
 			 *	내선번호 안내
 			 */
 			$basicCard = new BasicCard;
+			$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail)));
 			$basicCard->title = "☎️ 내선번호 국번 안내️" . " \n" .
 				"👉 3, 4000번대 ▶ 450" . " \n" .
 				"👉 6000번대 ▶ 2049" . " \n" .
-				"【 ex) 02-450-4071 】" . " \n" .
-				" \n" .
-				"🛠️ 전화번호에 오류가 있을 경우 제보 부탁드려요!!"
+				"【 ex) 02-450-4071 】"
 			;
 			$carousel->addCard($basicCard);
 
@@ -107,7 +108,11 @@
 				$carousel->addCard($basicCard);
 			}
 
-			$skillResponse->addResponseComponent(new SimpleText("'전화하기' 버튼을 누르면 전화 앱으로 연결됩니다."));
+			$skillResponse->addResponseComponent(new SimpleText(
+				"🤖 【 교내 전화번호부 114 】" . "\n" .
+				"🏢 [ " . $requestBody['params']['contact_college'] . " ] 소속 학과, 부서 전화번호입니다." . "\n\n" .
+				"🛠️ 제공된 전회번호 정보가 잘못되었을 경우 부탁드려요!!"
+			));
 			$skillResponse->addResponseComponent($carousel);
 
 			return json_encode($skillResponse->render());
