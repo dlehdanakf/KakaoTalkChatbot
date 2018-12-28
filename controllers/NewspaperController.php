@@ -36,7 +36,7 @@
 
 			try {
 				if($page < 5){
-					$skillResponse->addQuickReplies((new QuickReply("더보기"))->setMessageText("건대신문 최신기사 " . $page . "면 보여줘"));
+					$skillResponse->addQuickReplies((new QuickReply("더보기"))->setMessageText("건대신문 최신기사 " . ( $page + 1 ) . "면 보여줘"));
 				}
 				foreach($quickReplies as $quickReply){
 					$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
