@@ -3,7 +3,7 @@
 		public $imageUrl;
 		public $altText;
 
-		public function __construct($url, $alt){
+		public function __construct($url, $alt = null){
 			$this->imageUrl = null;
 			$this->altText = null;
 
