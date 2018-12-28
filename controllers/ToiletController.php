@@ -29,14 +29,17 @@
 		protected function getRandomToiletMessageCard(){
 			$temporary_thumbnail = "http://kung.kr/files/attach/images/200/696/028/006/7e4144e56eb58481a3ede39b2215b75e.jpg";
 
-			$building = ToiletBuilding::GET_RANDOM_ITEM();
-			$place = $building->getRandomFloor();
+//			$building = ToiletBuilding::GET_RANDOM_ITEM();
+//			$place = $building->getRandomFloor();
 
 			$basicCard = new BasicCard;
 			$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail)));
 			$basicCard->title =
-				"단무지👼가 추천하는 혼밥 🚽💩🚰" . "\n" .
-				"🍱 【 새천년관 4층 화장실 】 🍙"
+				"단무지👼가 추천하는 혼밥 🚽💩🚰" . "\n\n" .
+				"🍱 【 새천년관 4층 화장실 】 🍙" . "\n\n" .
+				"혼밥은 부끄러운게 아닙니다❗" . "\n" .
+				"아싸는 부끄러운게 아닙니다❗" . "\n" .
+				"자매품, 오이피클 🥒"
 			;
 
 			return $basicCard;
