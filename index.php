@@ -30,6 +30,8 @@
 		$router->any('toilet', ["ToiletController", "skillViewToilet"]);
 		$router->any('toilet/more', ["ToiletController", "skillViewToiletMore"]);
 
+		$router->any('calculator', ["CalculatorController", "skillViewDDay"]);
+
 		/**
 		 *	KakaoTalk 에서 BasicCard 형태에서
 		 *	글자 수를 제한함에 따라 카카오 오픈빌더에서 기능 제공
