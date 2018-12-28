@@ -2,13 +2,8 @@
 	class ToiletController {
 		public function skillViewToilet(){
 			$skillResponse = new SkillResponse;
-			$quickReplies = [
-				[ "다시추천", "다른 화장실 추천해줘" ],
-				[ "메인으로", "메인으로 돌아가기" ]
-			];
-			foreach($quickReplies as $quickReply){
-				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
-			}
+			$skillResponse->addQuickReplies((new QuickReply("다른추천"))->setBlockID("5c25bca65f38dd44d86a098b"));
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
 			$skillResponse->addResponseComponent(new SimpleText("혼밥요정👼 단무지 소! 환! 🔯📡"));
 			$skillResponse->addResponseComponent(new SimpleText(
@@ -20,7 +15,13 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewToiletMore(){
+			$skillResponse = new SkillResponse;
+			$skillResponse->addQuickReplies((new QuickReply("다른추천"))->setBlockID("5c25bca65f38dd44d86a098b"));
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
+			$skillResponse->addResponseComponent($this->getRandomToiletMessageCard());
+
+			return json_encode($skillResponse->render());
 		}
 
 		protected function getRandomToiletMessageCard(){
