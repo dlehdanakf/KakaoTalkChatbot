@@ -27,16 +27,21 @@
 			$quickReplies = [
 				[ "메인으로", "메인으로 돌아가기" ]
 			];
-			foreach($quickReplies as $quickReply){
-				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
-			}
 
 			if($page < 1 || $page > 5){
+				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 				$skillResponse->addResponseComponent((new SimpleText($page)));
 				return json_encode($skillResponse->render());
 			}
 
 			try {
+				if($page < 5){
+					$skillResponse->addQuickReplies((new QuickReply("더보기"))->setMessageText("건대신문 최신기사 " . $page . "면 보여줘"));
+				}
+				foreach($quickReplies as $quickReply){
+					$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
+				}
+
 				$listCard = $this->retchLatestNews($page);
 				$skillResponse->addResponseComponent($listCard);
 			} catch(FeedException $e) {
