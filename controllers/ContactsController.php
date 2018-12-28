@@ -2,7 +2,11 @@
 	class ContactsController {
 		public function skillViewList(){
 			$skillResponse = new SkillResponse;
-			$skillResponse->addResponseComponent(new SimpleText("부서 목록에서 선택하세요!"));
+			$skillResponse->addResponseComponent(new SimpleText(
+				"📞🤖 【 교내 전화번호부 114 】" . "\n\n" .
+				"👉 다음 목록에서 단과대학(부서)를 선택하세요" . "\n" .
+				"👉 목록에 찾는 부서가 없을 경우 하단의 버튼을 눌러주세요"
+			));
 
 			$carousel = new Carousel;
 			$contactGroups = ContactGroup::GET_ORDERED_LIST();
@@ -24,7 +28,7 @@
 			$skillResponse->addResponseComponent($carousel);
 
 			$quickReplies = [
-				[ "찾는 부서가 없습니다", "학교 전화번호부 사이트 알려줘" ],
+				[ "찾는 단과대학(부서)가 없습니다", "학교 전화번호부 사이트 알려줘" ],
 				[ "정보오류 제보", "전화번호부 오류 제보하기" ],
 				[ "메인으로", "메인으로 돌아가기" ]
 			];
@@ -35,15 +39,13 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewDetail(){
-			$temporary_thumbnail = "http://kung.kr/files/attach/images/200/696/028/006/7e4144e56eb58481a3ede39b2215b75e.jpg";
-
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['contact_keyword', 'contact_college']);
 
 			$skillResponse = new SkillResponse;
 			$carousel = new Carousel;
 			$contactDepartments = ContactCollege::CREATE_BY_TITLE($requestBody['params']['contact_college'])->getAllDepartments();
 			$quickReplies = [
-				[ "찾는 부서가 없습니다", "학교 전화번호부 사이트 알려줘" ],
+				[ "찾는 학과(부서)가 없습니다", "학교 전화번호부 사이트 알려줘" ],
 				[ "정보오류 제보", "전화번호부 오류 제보하기" ],
 				[ "메인으로", "메인으로 돌아가기" ]
 			];
@@ -97,7 +99,7 @@
 			}
 
 			$skillResponse->addResponseComponent(new SimpleText(
-				"🏢 [ " . $requestBody['params']['contact_college'] . " ] 전화번호입니다." . "\n\n" .
+				"🏢 「 " . $requestBody['params']['contact_college'] . " 」 전화번호입니다." . "\n\n" .
 				"☎️ 내선번호 국번 안내️" . " \n" .
 				"👉 3, 4000번대 ▶ 02-450" . " \n" .
 				"👉 6000번대 ▶ 02-2049" . " \n" .
