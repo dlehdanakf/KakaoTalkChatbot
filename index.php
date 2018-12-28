@@ -27,6 +27,8 @@
 		$router->any('popkon/news', ["NewspaperController", "skillViewNews"]);
 		$router->any('popkon/news/more', ["NewspaperController", "skillViewNewsMore"]);
 
+		$router->any('toilet', ["ToiletController", "skillViewToilet"]);
+
 		/**
 		 *	KakaoTalk 에서 BasicCard 형태에서
 		 *	글자 수를 제한함에 따라 카카오 오픈빌더에서 기능 제공
