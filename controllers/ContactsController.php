@@ -74,6 +74,19 @@
 				}
 			}
 
+			/**
+			 *	내선번호 안내
+			 */
+			$basicCard = new BasicCard;
+			$basicCard->title = "☎️ 내선번호 국번 안내️" . " \n" .
+				"👉 3, 4000번대 ▶ 450" . " \n" .
+				"👉 6000번대 ▶ 2049" . " \n" .
+				"【 ex) 02-450-4071 】" . " \n" .
+				" \n" .
+				"🛠️ 전화번호에 오류가 있을 경우 제보 부탁드려요!!"
+			;
+			$carousel->addCard($basicCard);
+
 			foreach($contactGroupedDepartments as $contactGroupedDepartment){
 				$basicCard = new BasicCard;
 				$title = '';
