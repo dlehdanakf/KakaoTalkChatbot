@@ -1,6 +1,7 @@
 <?php
 	class B {
 		private static $ENVIRONMENT;
+		private static $SETTING;
 		private static $DB;
 
 		public static function LOAD_CONFIG($filename = ".env"){
@@ -8,10 +9,12 @@
 			if(!file_exists($filename)){
 				return false;
 			}
+
 			$config_file = fopen($filename, 'r');
 			if(!$config_file){
 				return false;
 			}
+
 			while(($buffer = fgets($config_file)) !== false){
 				$arr = explode('=', trim($buffer));
 				if(isset($arr[0]) && isset($arr[1])){
@@ -20,6 +23,7 @@
 					self::$ENVIRONMENT->$key = $val;
 				}
 			}
+
 			return true;
 		}
 
@@ -43,6 +47,25 @@
 		 */
 		public static function DB(){
 			return self::$DB;
+		}
+
+		public static function LOAD_SETTING(){
+			self::$SETTING = new stdClass();
+
+			$query = self::DB()->prepare("SELECT sys_key, sys_value FROM application_setting");
+			$query->execute();
+
+			$result = $query->fetchAll(PDO::FETCH_ASSOC);
+			foreach($result as $item){
+				$key = $item['sys_key'];
+				self::$SETTING->$key = $item['sys_value'];
+			}
+		}
+		public static function GET_SETTING($e){
+			if(!isset(self::$SETTING->$e))
+				throw new Exception($e . " 값을 Application Setting 에서 찾을 수 없습니다.");
+
+			return self::$SETTING->$e;
 		}
 
 		/**

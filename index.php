@@ -12,6 +12,7 @@
 	}
 
 	B::OPEN_DB();
+	B::LOAD_SETTING();
 
 	$router = new RouteCollector();
 	$router->filter('skillBefore', function(){
