@@ -62,7 +62,7 @@
 		}
 
 		protected function getDateFormat($e){
-			$weekList = ["월", "화", "수", "목", "금", "토", "일"];
+			$weekList = ["일", "월", "화", "수", "목", "금", "토"];
 			$strTime = strtotime($e);
 
 			$year = date("Y", $strTime);
