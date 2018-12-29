@@ -8,7 +8,7 @@
 			$skillResponse->addResponseComponent(new SimpleText(
 				$this->getDateFormat(date("Y-m-d")) . " 오늘의 학식메뉴를 알려드립니다." . "\n\n" .
 				"👉 다음 목록에서 식당을 선택하세요." . "\n" .
-				"👉 식단정보 출처 : (주)BABSLAB"
+				"👉 식단정보 출처 : (주)BABLABS"
 			));
 
 			/** 1. 식당리스트 추가 */
