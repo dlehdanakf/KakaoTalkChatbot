@@ -35,6 +35,14 @@
 
 			$skillResponse->addResponseComponent($basicCard);
 
+			$quickReplies = [
+				[ "전체 학사일정", "이번학기 학사일정 알려줘" ],
+				[ "메인으로", "메인으로 돌아가기" ]
+			];
+			foreach($quickReplies as $quickReply){
+				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
+			}
+
 			return json_encode($skillResponse->render());
 		}
 		protected function skillViewDDayEnd($d_day, $diffCount){
@@ -57,6 +65,14 @@
 			);
 
 			$skillResponse->addResponseComponent($basicCard);
+
+			$quickReplies = [
+				[ "전체 학사일정", "이번학기 학사일정 알려줘" ],
+				[ "메인으로", "메인으로 돌아가기" ]
+			];
+			foreach($quickReplies as $quickReply){
+				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
+			}
 
 			return json_encode($skillResponse->render());
 		}
