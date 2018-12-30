@@ -34,6 +34,7 @@
 		$router->any('calculator', ["CalculatorController", "skillViewDDay"]);
 
 		$router->any('cafeteria', ["CafeteriaController", "skillViewCafeteriaList"]);
+		$router->any('cafeteria/meal', ["CafeteriaController", "skillViewTodayMeal"]);
 
 		/**
 		 *	KakaoTalk 에서 BasicCard 형태에서
@@ -53,7 +54,7 @@
 	} catch(Exception $e) {
 		$skillResponse = new SkillResponse;
 		$skillResponse->addResponseComponent(
-			new SimpleText($e->getMessage())
+			new SimpleText("[ERROR!] " . $e->getMessage())
 		);
 
 		echo json_encode($skillResponse->render());

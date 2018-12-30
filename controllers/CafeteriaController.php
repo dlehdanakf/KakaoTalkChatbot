@@ -42,6 +42,21 @@
 
 			return json_encode($skillResponse->render());
 		}
+		public function skillViewTodayMeal(){
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['meal_cafeteria', 'meal_keyword']);
+			$skillResponse = new SkillResponse;
+
+			try {
+				$cafeteria = Cafeteria::CREATE_BY_TITLE($requestBody['params']['meal_cafeteria']);
+
+				$messageText = $cafeteria->renderTodayMeal();
+				$skillResponse->addResponseComponent(new SimpleText($messageText));
+			} catch (ModelNotFoundException $e){
+				throw new Exception("식당 이름을 채팅봇이 알아들을 수 없습니다.\n다른 이름으로 다시 시도해주세요.");
+			}
+
+			return json_encode($skillResponse->render());
+		}
 
 		protected function getDateFormat($e){
 			$weekList = ["일", "월", "화", "수", "목", "금", "토"];

@@ -67,6 +67,9 @@
 
 			return self::$SETTING->$e;
 		}
+		public static function GET_ACCESS_TOKEN(){
+			return self::$ENVIRONMENT->ACCESS_TOKEN;
+		}
 
 		/**
 		 * @param array $e
