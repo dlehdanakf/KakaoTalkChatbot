@@ -81,31 +81,11 @@
 			$snoopy->read_timeout = 3;
 			$snoopy->rawheaders['Accesstoken'] = B::GET_ACCESS_TOKEN();
 			$snoopy->fetch('https://bablabs.com/openapi/v1/campuses/MoCQZdj1hE/stores/' . $this->serial . '?date=' . $date);
+
+			if ($snoopy->status != 200)
+				throw new Exception("식단알리미 서버가 응답하지 않습니다.");
+
 			$result = $snoopy->results;
-
-
-//			$ch = curl_init();
-//			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-//			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//			curl_setopt($ch, CURLOPT_TIMEOUT, 3000);
-//			curl_setopt($ch, CURLOPT_URL,
-//				'https://bablabs.com/openapi/v1/campuses/MoCQZdj1hE/stores/' .
-//				$this->serial . '?date=' . $date
-//			);
-//			curl_setopt($ch, CURLOPT_HTTPHEADER, [
-//				'Accept' => 'application/json',
-//				'Content-Type' => 'application/json',
-//				'accesstoken' => "Ffh3BihYFMQmEte2J2qmze3yK3eX7xNAHD4vHy5zyx66W34WB8",
-//				'babsession' => ''
-//			]);
-//
-//			$result = curl_exec($ch);
-//			$curl_err = curl_errno($ch);
-//			curl_close($ch);
-//
-//			if ($curl_err > 0)
-//				throw new Exception("식단알리미 서버가 응답하지 않습니다.");
-
 			$json_result = json_decode($result, true);
 			if(json_last_error() !== JSON_ERROR_NONE)
 				throw new Exception("식단알리미 서버의 응답을 이해할 수 없습니다. - " . $result);

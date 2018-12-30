@@ -24,7 +24,7 @@
 				;
 				$basicCard->addButton(
 					(new Button("오늘의 식단 보기"))->setMessageText(
-						date("Y-m-d") . " 오늘의 식단 알려줘"
+						$cafeteria->title . " 오늘의 식단 알려줘"
 					)
 				);
 
