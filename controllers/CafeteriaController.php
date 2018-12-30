@@ -2,11 +2,15 @@
 	class CafeteriaController {
 		public function skillViewCafeteriaList(){
 			$temporary_thumbnail = "http://kung.kr/files/attach/images/200/696/028/006/7e4144e56eb58481a3ede39b2215b75e.jpg";
+
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
 			$skillResponse = new SkillResponse;
 
 			/** 0. 안내멘트 추가 */
-			$skillResponse->addResponseComponent(new SimpleText($this->getDateFormat(date("Y-m-d")) . " 오늘의 학식메뉴를 알려드립니다."));
-			$skillResponse->addResponseComponent(new SimpleText("다음 목록에서 학생식당을 선택해주세요."));
+			if(strlen($requestBody['utterance']) > 1) {
+				$skillResponse->addResponseComponent(new SimpleText($this->getDateFormat(date("Y-m-d")) . " 오늘의 학식메뉴를 알려드립니다."));
+				$skillResponse->addResponseComponent(new SimpleText("다음 목록에서 학생식당을 선택해주세요."));
+			}
 
 			/** 1. 식당리스트 추가 */
 			$carousel = new Carousel;
@@ -56,7 +60,7 @@
 				[ "정보오류 제보", "학식메뉴 오류 제보하기" ],
 				[ "메인으로", "메인으로 돌아가기" ]
 			];
-			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setBlockID('5c28655405aaa77182aa5b30'));
+			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setBlockID('5c2778fe5f38dd44d86a0e9b'));
 			foreach($quickReplies as $quickReply){
 				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
 			}
