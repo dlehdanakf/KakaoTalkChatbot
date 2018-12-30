@@ -60,7 +60,7 @@
 			$basicCard->title = "(멘붕) 별로 땡기는 메뉴가 없나요?";
 			$basicCard->description =
 				"오늘 점심은 학교 밖에서 먹는건 어때요?" . "\n" .
-				"우리학교 주변 맛집 리스트에서 골라보세요! (굿)"
+				"우리학교 주변 맛집 리스트에서 골라보세요!"
 			;
 			$basicCard->addButton((new Button("학교주변 맛집 알아보기"))->setMessageText("제휴업체"));
 			$skillResponse->addResponseComponent($basicCard);
