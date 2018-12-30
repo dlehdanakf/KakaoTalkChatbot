@@ -25,8 +25,8 @@
 			$basicCard = new BasicCard;
 			$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail, $temporary_alt)));
 			$basicCard->addButton((new Button("배달음식 주문하기"))->setMessageText("배달음식점 목록 보여줘"));
-			$basicCard->addButton((new Button("음식점, 카페, 술집"))->setMessageText("학교주변 맛집 알려줘"));
-			$basicCard->addButton((new Button("기타, 엔터테이먼트"))->setMessageText("기타 제휴업체 알려줘"));
+			$basicCard->addButton((new Button("일반음식점, 카페, 술집"))->setMessageText("학교주변 맛집 알려줘"));
+			$basicCard->addButton((new Button("문화시설, 헬스, 기타"))->setMessageText("기타 제휴업체 알려줘"));
 			$carousel->addCard($basicCard);
 
 			/** 1.2 문화초대 이벤트 */
