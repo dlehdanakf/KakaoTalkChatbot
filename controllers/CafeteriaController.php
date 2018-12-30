@@ -5,11 +5,8 @@
 			$skillResponse = new SkillResponse;
 
 			/** 0. 안내멘트 추가 */
-			$skillResponse->addResponseComponent(new SimpleText(
-				$this->getDateFormat(date("Y-m-d")) . " 오늘의 학식메뉴를 알려드립니다." . "\n\n" .
-				"👉 다음 목록에서 식당을 선택하세요." . "\n" .
-				"👉 식단정보 출처 : (주)BABLABS"
-			));
+			$skillResponse->addResponseComponent(new SimpleText($this->getDateFormat(date("Y-m-d")) . " 오늘의 학식메뉴를 알려드립니다."));
+			$skillResponse->addResponseComponent(new SimpleText("다음 목록에서 학생식당을 선택해주세요."));
 
 			/** 1. 식당리스트 추가 */
 			$carousel = new Carousel;
@@ -53,6 +50,15 @@
 				$skillResponse->addResponseComponent(new SimpleText($messageText));
 			} catch (ModelNotFoundException $e){
 				throw new Exception("식당 이름을 채팅봇이 알아들을 수 없습니다.\n다른 이름으로 다시 시도해주세요.");
+			}
+
+			$quickReplies = [
+				[ "목록으로 돌아가기", "우리학교 학생식당 목록 보여줘" ],
+				[ "정보오류 제보", "학식메뉴 오류 제보하기" ],
+				[ "메인으로", "메인으로 돌아가기" ]
+			];
+			foreach($quickReplies as $quickReply){
+				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
 			}
 
 			return json_encode($skillResponse->render());
