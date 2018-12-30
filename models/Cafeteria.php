@@ -83,7 +83,7 @@
 			$snoopy->fetch('https://bablabs.com/openapi/v1/campuses/MoCQZdj1hE/stores/' . $this->serial . '?date=' . $date);
 
 			if ($snoopy->status != 200)
-				throw new Exception("식단알리미 서버가 응답하지 않습니다. - 서버상태 : " . $snoopy->status);
+				throw new Exception("식단알리미 서버가 정상적으로 응답하지 않습니다. - 에러코드:" . $snoopy->status);
 
 			$result = $snoopy->results;
 			$json_result = json_decode($result, true);
