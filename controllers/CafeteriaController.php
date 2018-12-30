@@ -7,7 +7,7 @@
 			$skillResponse = new SkillResponse;
 
 			/** 0. 안내멘트 추가 */
-			if(strlen($requestBody['utterance']) > 1) {
+			if($requestBody['utterance'] == "오늘의 학식메뉴 알려줘") {
 				$skillResponse->addResponseComponent(new SimpleText($this->getDateFormat(date("Y-m-d")) . " 오늘의 학식메뉴를 알려드립니다."));
 				$skillResponse->addResponseComponent(new SimpleText("다음 목록에서 학생식당을 선택해주세요."));
 			}
