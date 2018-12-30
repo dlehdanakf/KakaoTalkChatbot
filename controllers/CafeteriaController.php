@@ -53,10 +53,10 @@
 			}
 
 			$quickReplies = [
-				[ "식당 목록으로", "우리학교 학생식당 목록 보여줘" ],
 				[ "정보오류 제보", "학식메뉴 오류 제보하기" ],
 				[ "메인으로", "메인으로 돌아가기" ]
 			];
+			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setBlockID('5c28655405aaa77182aa5b30'));
 			foreach($quickReplies as $quickReply){
 				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
 			}
