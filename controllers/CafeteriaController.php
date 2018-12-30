@@ -13,21 +13,24 @@
 
 			/** 1. 식당리스트 추가 */
 			$carousel = new Carousel;
-			$cafeterias = ["학생회관(1층)", "학생회관(지하)", "상허기념도서관", "교직원식당", "쿨하우스(기숙사)"];
+			$cafeterias = Cafeteria::GET_ORDERED_LIST();
 			foreach($cafeterias as $cafeteria){
 				$basicCard = new BasicCard;
 				$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail)));
-				$basicCard->title = $cafeteria;
+				$basicCard->title =
+					$cafeteria->title . "\n" .
+					"🏢 " . $cafeteria->location . "\n" .
+					"🕑 " . $cafeteria->semester_open
+				;
 				$basicCard->addButton(
 					(new Button("오늘의 식단 보기"))->setMessageText(
 						date("Y-m-d") . " " .
-						$cafeteria . " 식단 알려줘"
+						$cafeteria->title . " 식단 알려줘"
 					)
 				);
 
 				$carousel->addCard($basicCard);
 			}
-
 			$skillResponse->addResponseComponent($carousel);
 
 			/** 3. 응답버튼 추가 */
