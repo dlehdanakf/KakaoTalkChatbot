@@ -146,16 +146,19 @@
 
 				$meal = new CafeteriaMeal;
 				$menu_arr = explode(" ", trim($description));
+
+				if($i == (count($data) - 1)) { continue; }
+				if($menu_arr[0] == "양은도시락") {
+					$meal->corner = "🍱 도시락";
+					$meal->main = [ "양은도시락" ];
+					$meal->side = [];
+					continue;
+				}
 				switch($i){
 					case 0:
 						$meal->corner = "CORNER 1";
 						$meal->main = array_slice($menu_arr, 0, 2);
 						$meal->side = array_slice($menu_arr, 2);
-						break;
-					case 1:
-						$meal->corner = "🍱 도시락";
-						$meal->main = [ "양은도시락" ];
-						$meal->side = [];
 						break;
 					case 2:
 						$meal->corner = "CORNER 2";
@@ -184,8 +187,6 @@
 							default:
 								$meal->main = $menu_arr;
 						}
-					case (count($data) - 1):
-						continue; break;
 					default:
 						$meal->corner = $name;
 						$meal->main = $menu_arr;

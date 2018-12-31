@@ -18,6 +18,9 @@
 			return $r;
 		}
 		public function getSideDish(){
+			if(count($this->side) < 1)
+				return "";
+			
 			return ( "👩‍🍳 " . implode(", ", $this->side) . "\n" );
 		}
 	}
