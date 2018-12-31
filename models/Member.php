@@ -3,12 +3,19 @@
 		public $user_key;
 		public $username;
 		public $phone;
+		public $seed;
 
 		public function save(){
 			if($this->isDuplicatedKey())
 				$this->update();
 
 			$this->insert();
+		}
+		public function generateSeed(){
+			$query = B::DB()->prepare("UPDATE member SET seed = :s WHERE user_key = :k");
+			$query->execute([
+				':s' => (rand() * 100) % 100
+			]);
 		}
 
 		protected function isDuplicatedKey(){
@@ -24,11 +31,12 @@
 		}
 		protected function insert(){
 			$pdo = B::DB();
-			$query = $pdo->prepare("INSERT INTO member (user_key, username, phone) VALUE (:k, :n, :p)");
+			$query = $pdo->prepare("INSERT INTO member (user_key, username, phone, seed) VALUE (:k, :n, :p, :s)");
 			$query->execute([
 				':k' => $this->user_key,
 				':n' => $this->username,
-				':p' => $this->phone
+				':p' => $this->phone,
+				':s' => (rand() * 100) % 100
 			]);
 
 			$this->id = $pdo->lastInsertId();
