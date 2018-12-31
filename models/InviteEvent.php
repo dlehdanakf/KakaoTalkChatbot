@@ -62,7 +62,7 @@
 		}
 
 		public function addParticipant(Member $member, $content){
-			$participant = new InviteEventParticipant();
+			$participant = new InviteEventParticipant;
 			$participant->event_id = $this->id;
 			$participant->member_id = $member->id;
 			$participant->content = $content;
@@ -70,9 +70,21 @@
 			$participant->save();
 		}
 		public function getParticipantList(){
-			return InviteEventParticipant::GET_PARTICIPANT_LIST($this);
+			return InviteEventParticipant::GET_PARTICIPANT($this);
 		}
 		public function getParticipantCount(){
 			return InviteEventParticipant::GET_PARTICIPANT_AMOUNT($this);
+		}
+
+		public function addWinner(Member $member){
+			$winner = new InviteEventWinner;
+			$winner->event_id = $this->id;
+			$winner->member_id = $member->id;
+			$winner->status = InviteEventWinner::STATUS_SELECTED;
+
+			$winner->save();
+		}
+		public function getWinnerList(){
+			return InviteEventWinner::GET_WINNER($this);
 		}
 	}
