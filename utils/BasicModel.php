@@ -34,6 +34,13 @@
 			$this->fetchDataFromDB();
 		}
 		abstract public function save();
+		public function delete(){
+			$query = B::DB()->prepare("DELETE FROM invite_event WHERE id = :i");
+			$query->execute([
+				':i' => $this->id
+			]);
+		}
+
 		public function getBasicInformation(){
 			return get_object_vars($this);
 		}
