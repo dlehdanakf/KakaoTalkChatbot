@@ -4,7 +4,7 @@
 		private static $SETTING;
 		private static $DB;
 
-		public static function LOAD_CONFIG($filename = ".env"){
+		public static function LOAD_CONFIG($filename = "../.env"){
 			self::$ENVIRONMENT = new stdClass();
 			if(!file_exists($filename)){
 				return false;
