@@ -53,6 +53,7 @@ fabric.properties
 
 # composer
 /vendor/
+/node_modules/
 
 .env
 composer.lock
