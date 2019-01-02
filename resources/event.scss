@@ -1,5 +1,8 @@
 @import "_common.scss";
 
+body {
+  padding-bottom: 56px;
+}
 #doc-event {
   .content-header {
     position: relative;
@@ -109,5 +112,84 @@
         }
       }
     }
+  }
+  .content-body {
+    padding: 20px 16px;
+
+    .title {
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #E8E8E8;
+
+      h2 {
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        font-weight: bold;
+
+      }
+    }
+    .article {
+      padding: 4px 0 12px 0;
+      font-size: 16px;
+      line-height: 1.32em;
+    }
+    .youtube {
+      margin: 18px -16px 12px -16px;
+    }
+    .images {
+      text-align: center;
+
+      img {
+        display: inline-block;
+        max-width: 100%;
+        margin: 4px 0;
+      }
+    }
+  }
+}
+#event-submit {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #FFF;
+  border-top: 1px solid #017c5f;
+  padding: 8px 8px 8px 136px;
+
+  .button {
+    display: block;
+    background-color: #E8E8E8;
+    color: #212121;
+    text-align: center;
+    width: 100%;
+    padding: 4px 0;
+    border-radius: 3px;
+
+    i {
+      font-size: 20px;
+      vertical-align: bottom;
+      position: relative;
+      bottom: 2px;
+      margin-right: 6px;
+    }
+    span {
+      display: inline-block;
+      line-height: 1;
+      font-size: 14px;
+      padding: 8px 0 6px 0;
+      vertical-align: bottom;
+    }
+
+    &.apply {
+      background-color: #017c5f;
+      color: #FFF;
+    }
+  }
+  .share {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 120px;
   }
 }

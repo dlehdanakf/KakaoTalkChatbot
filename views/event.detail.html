@@ -3,6 +3,8 @@
 {% block head %}
 <link href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{css('event.css')}}" />
+
+<script src="https://twemoji.maxcdn.com/2/twemoji.min.js?11.2"></script>
 {% endblock %}
 
 {% block content %}
@@ -12,7 +14,7 @@
     </div>
     <div class="content-summary">
         <div class="outer-caution">
-            <p><i class="icon ion-ios-warning"></i><span>본 이벤트는 외부에서 참가신청이 가능합니다.</span></p>
+            <p><i class="icon ion-ios-warning"></i><span>본 이벤트는 외부에서 신청하는 이벤트입니다.</span></p>
         </div>
         <ul>
             <li>
@@ -44,5 +46,62 @@
             </li>
         </ul>
     </div>
+    <div class="content-body">
+        <div class="title">
+            <h2>연극 [옥탑방고양이] 무료초대 이벤트</h2>
+        </div>
+        <article>
+            <div class="article" id="article">
+                안녕하세요!<br/>
+                건국대학교 커뮤니티 KUNG입니다.<br/>
+                <br/>
+                요즘 날씨가 너무 춥죠 ㅜㅜ🤧<br/>
+                이 추운 날씨를 이겨내기 위해선 따뜻한 영화 한편이 최고죠!!<br/>
+                대만의 청춘스타 류이호와 대만 첫사랑 아이콘 진의함이 출연하는 영화⭐‘모어 댄 블루'⭐시사회에 건국대 학우 여러분들을 초대합니다!<br/>
+                <br/>
+                ✔️ 이벤트 기간 : 11/23(금)~11/25(일)<br/>
+                ✔️ 당첨자 발표 : 11/26 (월)<br/>
+                ✔️ 일정 : 11/29(목) 저녁 7시 30분<br/>
+                ✔️ 장소 : CGV 건대입구<br/>
+                ✔️ 초대인원 : 80명 (1인 2매)<br/>
+                <br/>
+                &lt;참여 방법&gt;<br/>
+                - STEP 1 : 게시글 좋아요👍 누르고 공유하기!<br/>
+                - STEP 2 : 해당 게시글의 댓글에 같이 볼 친구 태그하기✨
+            </div>
+        </article>
+        <div class="youtube">
+            <embed
+                src="http://www.youtube.com/v/GBaK8XzgA14?version=3&hl=ko_KR&vq=hd720&autoplay=1"
+                type="application/x-shockwave-flash"
+                width="100%"
+                height="240"
+                allowscriptaccess="always"
+                allowfullscreen="true"
+            />
+        </div>
+        <div class="images">
+            <img src="http://kung.kr/files/attach/images/277/398/967/005/2028e2c297f36c4660604013612a25eb.jpg" alt="IMAGE" />
+        </div>
+    </div>
+    <div id="event-submit">
+        <div class="share">
+            <a class="button" href="/"><i class="icon ion-ios-share"></i><span>공유하기</span></a>
+        </div>
+        <a class="button apply" href="/"><span>신청하기</span></a>
+    </div>
 </div>
+<script>
+    twemoji.parse(document.getElementById('article'), {
+        callback: function(icon, options, variant) {
+            switch ( icon ) {
+                case 'a9':      // © copyright
+                case 'ae':      // ® registered trademark
+                case '2122':    // ™ trademark
+                    return false;
+            }
+            return ''.concat(options.base, options.size, '/', icon, options.ext);
+        }
+    });
+</script>
 {% endblock %}

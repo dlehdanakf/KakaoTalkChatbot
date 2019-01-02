@@ -2,6 +2,12 @@ html, body {
   margin: 0;
   padding: 0;
 }
+img.emoji {
+  height: 1em;
+  width: 1em;
+  margin: 0 .1em 0 .2em;
+  vertical-align: top;
+}
 
 #header {
   border-bottom: 2px solid #017c5f;
@@ -26,5 +32,18 @@ html, body {
         }
       }
     }
+  }
+}
+#footer {
+  border-top: 1px solid #DCDCDC;
+  background-color: #F5F5F5;
+  padding: 16px;
+
+  p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 14px;
+    color: #A1A1A1;
   }
 }
