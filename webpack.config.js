@@ -5,8 +5,8 @@ var path = require('path');
 
 module.exports = {
     entry: {
-        './event': path.resolve(__dirname, './resources/event.scss'),
-        './event': path.resolve(__dirname, './resources/event.js')
+        './css/event': path.resolve(__dirname, './resources/event.scss'),
+        './js/event': path.resolve(__dirname, './resources/event.js')
     },
     module: {
         rules: [
@@ -47,5 +47,6 @@ module.exports = {
     },
     node: {
         fs: "empty"
-    }
+    },
+    watch: true
 };

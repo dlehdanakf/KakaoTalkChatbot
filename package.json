@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production --module-bind js=babel-loader",
-    "start": "webpack-dev-server --mode development --open"
+    "start": "webpack --mode production -d --watch --watch-poll"
   },
   "repository": {
     "type": "git",

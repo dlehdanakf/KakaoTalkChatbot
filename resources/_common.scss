@@ -1,0 +1,30 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#header {
+  border-bottom: 2px solid #017c5f;
+  margin: 0;
+  padding: 0;
+
+  .logo-area {
+    h1 {
+      text-align: center;
+      margin: 0;
+      padding: 16px 0 0 16px;
+      line-height: 1;
+      vertical-align: bottom;
+
+      a {
+        display: inline;
+        line-height: 1;
+
+        img {
+          display: block;
+          height: 50px;
+        }
+      }
+    }
+  }
+}

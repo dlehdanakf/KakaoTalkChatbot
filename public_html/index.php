@@ -19,6 +19,10 @@
 		header('Content-Type: application/json');
 	});
 
+	$router->any('events', function(){
+		return B::VIEW()->render('event.detail.html');
+	});
+
 	$router->group(['prefix' => 'skill/v1/', 'before' => 'skillBefore'], function($router){
 		$router->any('index', ["IndexController", "skillViewApplicationIndex"]);
 

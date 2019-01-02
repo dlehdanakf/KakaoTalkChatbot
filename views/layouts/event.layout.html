@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+        <title>{% block title %}건학정식과대학생활{% endblock %}</title>
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>
+        <div id="doc">
+            <header>
+                <div id="header">
+                    <div class="logo-area">
+                        <h1><a href="/"><img src="/assets/images/logo.png" alt="LOGO" /></a></h1>
+                    </div>
+                </div>
+            </header>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

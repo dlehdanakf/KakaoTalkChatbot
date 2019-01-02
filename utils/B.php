@@ -136,4 +136,38 @@
 
 			return $return_array;
 		}
+
+		public static function VIEW(){
+			$loader = new Twig_Loader_Filesystem(__DIR__ . '/../views');
+			$twig = new Twig_Environment($loader, []);
+
+			$twig->addGlobal('server_host', $_SERVER['HTTP_HOST']);
+
+			$twig->addFunction(new Twig_SimpleFunction('image', function($name){
+				return '/assets/image/' . $name;
+			}));
+			$twig->addFunction(new Twig_SimpleFunction('css', function($name){
+				return '/assets/css/' . $name;
+			}));
+			$twig->addFunction(new Twig_SimpleFunction('js', function($name){
+				return '/assets/js/' . $name;
+			}));
+
+			$twig->addFunction(new Twig_SimpleFunction('date_format', function($date, $format = 'Y-m-d'){
+				return date($format, strtotime($date));
+			}));
+
+			$twig->addFunction(new Twig_SimpleFunction('form_token', function($lock_to = null) {
+				static $csrf;
+				if ($csrf === null) {
+					$csrf = new AntiCSRF;
+				}
+				return $csrf->insertToken($lock_to, false);
+			}, [
+				'is_safe' => [
+					'html'
+				]
+			]));
+			return $twig;
+		}
 	}

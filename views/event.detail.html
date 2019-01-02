@@ -1,0 +1,48 @@
+{% extends "layouts/event.layout.html" %}
+
+{% block head %}
+<link href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{css('event.css')}}" />
+{% endblock %}
+
+{% block content %}
+<div id="doc-event">
+    <div class="content-header" style="background-image: url('http://kung.kr/files/attach/images/277/828/969/005/bd05634a8a4a786edf40e61947d7c685.jpg');">
+        <h2>연극 [옥탑방고양이] 무료초대 이벤트</h2>
+    </div>
+    <div class="content-summary">
+        <div class="outer-caution">
+            <p><i class="icon ion-ios-warning"></i><span>본 이벤트는 외부에서 참가신청이 가능합니다.</span></p>
+        </div>
+        <ul>
+            <li>
+                <span class="icon">
+                    <i class="icon ion-ios-calendar"></i>
+                    <span class="label">진행기간</span>
+                </span>
+                <div class="row">
+                    <p>2018.09.12 ~ 2018.23.23</p>
+                </div>
+            </li>
+            <li>
+                <span class="icon">
+                    <i class="icon ion-ios-people"></i>
+                    <span class="label">모집인원</span>
+                </span>
+                <div class="row">
+                    <p>50 명</p>
+                </div>
+            </li>
+            <li>
+                <span class="icon">
+                    <i class="icon ion-ios-navigate"></i>
+                    <span class="label">장소</span>
+                </span>
+                <div class="row">
+                    <p>2018년 12월 31일(월) 오후 12시 30분 롯데시네마 건대입구점</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
