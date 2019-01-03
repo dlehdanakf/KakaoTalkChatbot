@@ -47,6 +47,10 @@
 		/** $router->any('schedule/list', ["ScheduleController", "skillViewList"]); */
 	});
 
+	$router->group(['prefix' => 'admin'], function($router){
+		$router->any('/', ["AdminController", "viewIndexPage"]);
+	});
+
 	try {
 		$dispatcher = new \Phroute\Phroute\Dispatcher($router->getData());
 		$response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], strtok($_SERVER["REQUEST_URI"], '?'));

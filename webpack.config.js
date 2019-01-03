@@ -6,6 +6,7 @@ var path = require('path');
 module.exports = {
     entry: {
         './css/event': path.resolve(__dirname, './resources/event.scss'),
+        './css/admin': path.resolve(__dirname, './resources/admin.scss'),
         './js/event': path.resolve(__dirname, './resources/event.js')
     },
     module: {
