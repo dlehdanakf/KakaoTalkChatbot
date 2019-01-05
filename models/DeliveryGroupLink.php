@@ -4,7 +4,7 @@
 		public $group_id;
 		public $register_date;
 
-		public static function GET_ALL_GROUPED_AFFILIATES(DeliveryGroup $group){
+		public static function GET_ALL_GROUPED_DELIVERIES(DeliveryGroup $group){
 			$query = B::DB()->prepare("SELECT delivery_id FROM delivery_group_link WHERE group_id = :g ORDER BY register_date DESC");
 			$query->execute([
 				':g' => $group->id
@@ -18,7 +18,7 @@
 
 			return $return_array;
 		}
-		public static function GET_RANDOM_GROUPED_AFFILIATES(DeliveryGroup $group, $count = 8){
+		public static function GET_RANDOM_GROUPED_DELIVERIES(DeliveryGroup $group, $count = 8){
 			$count = intval($count);
 			if($count < 1)
 				$count = 1;

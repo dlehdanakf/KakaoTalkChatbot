@@ -6,7 +6,7 @@
 		public $priority;
 
 		public static function GET_ORDERED_LIST(){
-			$query = B::DB()->prepare("SELECT id FROM delivery_group ORDER BY priority, id DESC");
+			$query = B::DB()->prepare("SELECT id FROM delivery_group ORDER BY priority DESC");
 			$query->execute();
 
 			$return_array = [];
@@ -48,17 +48,17 @@
 		}
 
 		public function getAllDeliveries(){
-//			return AffiliateGroupLink::GET_ALL_GROUPED_AFFILIATES($this);
+			return DeliveryGroupLink::GET_ALL_GROUPED_DELIVERIES($this);
 		}
 		public function getRandomDeliveries($count = 10){
-//			return AffiliateGroupLink::GET_RANDOM_GROUPED_AFFILIATES($this, $count);
+			return DeliveryGroupLink::GET_RANDOM_GROUPED_DELIVERIES($this, $count);
 		}
 		public function addAffiliate(Delivery $delivery){
-//			$deliveryLink = new AffiliateGroupLink($delivery, $this);
-//			$deliveryLink->save();
+			$deliveryLink = new DeliveryGroupLink($delivery, $this);
+			$deliveryLink->save();
 		}
 		public function deleteAffiliate(Delivery $delivery){
-//			$deliveryLink = new AffiliateGroupLink($delivery, $this);
-//			$deliveryLink->delete();
+			$deliveryLink = new DeliveryGroupLink($delivery, $this);
+			$deliveryLink->delete();
 		}
 	}
