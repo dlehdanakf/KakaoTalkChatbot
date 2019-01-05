@@ -1,6 +1,5 @@
 <?php
 	class Attachment extends BasicModel {
-		public $member;
 		public $file_srl;
 		public $directory;
 		public $hashed_name;

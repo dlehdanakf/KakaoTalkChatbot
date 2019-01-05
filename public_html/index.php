@@ -23,6 +23,11 @@
 		return B::VIEW()->render('event.detail.html');
 	});
 
+	$router->group(['prefix' => '/attachment'], function($router){
+		$router->post('/upload', ["AttachmentController", "uploadAttachment"]);
+		$router->get('/download', ["AttachmentController", "downloadAttachment"]);
+	});
+
 	$router->group(['prefix' => 'skill/v1/', 'before' => 'skillBefore'], function($router){
 		$router->any('index', ["IndexController", "skillViewApplicationIndex"]);
 
@@ -48,7 +53,7 @@
 	});
 
 	$router->group(['prefix' => 'admin'], function($router){
-		$router->any('/', ["AdminController", "viewIndexPage"]);
+		$router->get('/', ["AdminController", "viewIndexPage"]);
 	});
 
 	try {
