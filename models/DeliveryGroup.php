@@ -1,6 +1,7 @@
 <?php
 	class DeliveryGroup extends BasicModel {
 		public $title;
+		public $label;
 		public $description;
 		protected $thumbnail_id;
 		public $priority;
@@ -17,12 +18,30 @@
 
 			return $return_array;
 		}
+		public static function CREATE_BY_LABEL($label){
+			$query = B::DB()->prepare("SELECT * FROM delivery WHERE label = :l");
+			$query->execute([
+				':l' => $label
+			]);
+
+			$instance = new self;
+			if($query->rowCount() < 1)
+				throw new ModelNotFoundException(get_class($instance) . " 객체를 찾을 수 없습니다. label - " . $label);
+
+			$result = $query->fetch(PDO::FETCH_ASSOC);
+			foreach($result as $i => $v){
+				$instance->$i = $v;
+			}
+
+			return $instance;
+		}
 
 		public function save() {
 			$pdo = B::DB();
-			$query = $pdo->prepare("INSERT INTO delivery_group (title, description, thumbnail_id, priority) VALUE (:t, :d, :i, :p)");
+			$query = $pdo->prepare("INSERT INTO delivery_group (title, label, description, thumbnail_id, priority) VALUE (:t, :l, :d, :i, :p)");
 			$query->execute([
 				':t' => $this->title,
+				':l' => $this->label,
 				':d' => $this->description,
 				':i' => $this->thumbnail_id,
 				':p' => $this->priority

@@ -29,4 +29,49 @@
 
 			return json_encode($skillResponse->render());
 		}
+		public function skillViewDeliveryList(){
+			$temporary_thumbnail = "http://kung.kr/files/attach/images/200/696/028/006/7e4144e56eb58481a3ede39b2215b75e.jpg";
+
+			$skillResponse = new SkillResponse;
+			$skillResponse->addResponseComponent(new SimpleText(
+				"우리학교 주변 【 분식 】 배달업체" . "\n\n" .
+				"모르겠다"
+			));
+
+			$carousel = new Carousel;
+		}
+
+		public function adminViewDeliveryGroupList(){
+			$groups = DeliveryGroup::GET_LIST();
+
+			return $this->adminView()->render('admin.delivery.groups.html', [
+				'sub_title' => "배달업체 그룹 목록",
+				'active_title' => "배달업체 그룹 목록",
+				'group_list' => $groups
+			]);
+		}
+
+		/**
+		 * @return Twig_Environment
+		 */
+		protected function adminView(){
+			$twig = B::VIEW();
+			$twig->addGlobal('sub_nav', [
+				[
+					"href" => "/admin/delivery/add",
+					"label" => "배달업체 추가"
+				], [
+					"href" => "/admin/delivery",
+					"label" => "배달업체 목록"
+				], [
+					"href" => "/admin/delivery/groups/add",
+					"label" => "배달업체 그룹 추가"
+				], [
+					"href" => "/admin/delivery/groups",
+					"label" => "배달업체 그룹 목록"
+				]
+			]);
+
+			return $twig;
+		}
 	}

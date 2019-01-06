@@ -1,0 +1,40 @@
+{% extends "layouts/admin.layout.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="middle-content" id="delivery-group-list">
+    <aside>
+        <div class="aside">
+            <h2>배달업체 관리</h2>
+            <nav>
+                <ul>
+                    {% for i in range(0, sub_nav|length - 1) %}
+                        {% set item = sub_nav[i] %}
+                        <li>
+                            <a href="{{item.href}}" {% if item.label == active_title %}class="active"{% endif %}>
+                                <span>{{item.label}}</span>
+                                <i class="icon ion-ios-arrow-dropright"></i>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </aside>
+    <section>
+        <div class="article">
+            <h3 class="article-title">
+                {% if sub_title %}
+                    {{sub_title}}
+                {% else %}
+                    서브페이지 제목
+                {% endif %}
+            </h3>
+            {% block article %}
+            {% endblock %}
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -56,6 +56,10 @@
 
 	$router->group(['prefix' => 'admin'], function($router){
 		$router->get('/', ["AdminController", "viewIndexPage"]);
+
+		$router->group(['prefix' => 'delivery'], function($router){
+			$router->get('groups', ["DeliveryController", "adminViewDeliveryGroupList"]);
+		});
 	});
 
 	try {
