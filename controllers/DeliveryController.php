@@ -111,6 +111,12 @@
 
 			header('Location: /admin/delivery/groups/' . $group->id);
 		}
+		public function processDeleteDeliveryGroup($group_id){
+			$group = new DeliveryGroup($group_id);
+			$group->delete();
+
+			header('Location: /admin/delivery/groups');
+		}
 
 		/**
 		 * @return Twig_Environment

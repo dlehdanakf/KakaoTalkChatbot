@@ -58,6 +58,16 @@
         $("#f-thumbnail").on('change', function(e){
             $('#upload-thumbnail').attr('disabled', false);
         });
+
+        $("#group-delete").on('submit', function(e){
+            if(!confirm("정말로 삭제하시겠습니까?")){
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+
+            return true;
+        });
     });
 </script>
 {% endblock %}
@@ -82,7 +92,7 @@
         </div>
     </div>
     <h4 class="section-title">그룹정보 수정</h4>
-    <form class="aui" action="/admin/delivery/groups/{{group.id}}" method="POST">
+    <form class="aui" action="/admin/delivery/groups/{{group.id}}/edit" method="POST">
         <div class="field-group">
             <label for="f-title">카드 제목<span class="aui-icon icon-required"></span></label>
             <input class="text long-field" type="text" id="f-title" name="title" title="그룹 제목" value="{{group.title}}" />
@@ -128,6 +138,14 @@
                 <button type="submit" class="aui-button aui-button-primary">수정하기</button>
                 <a class="cancel" href="/admin/delivery/groups">취소</a>
             </div>
+        </div>
+    </form>
+    <h4 class="section-title">그룹정보 수정</h4>
+    <form class="aui" action="/admin/delivery/groups/{{group.id}}/delete" method="POST" id="group-delete">
+        <div class="field-group">
+            <label for="f-priority">그룹 삭제</label>
+            <button type="submit" class="aui-button">삭제하기</button>
+            <div class="description">주의, 본 작업은 되돌릴 수 없습니다.</div>
         </div>
     </form>
 </div>
