@@ -60,6 +60,7 @@
 		$router->group(['prefix' => 'delivery'], function($router){
 			$router->get('groups', ["DeliveryController", "adminViewDeliveryGroupList"]);
 			$router->get('groups/add', ["DeliveryController", "adminViewDeliveryGroupAdd"]);
+			$router->post('groups/add', ["DeliveryController", "processAddDeliveryGroup"]);
 		});
 	});
 

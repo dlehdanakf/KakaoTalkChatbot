@@ -57,6 +57,28 @@
 			]);
 		}
 
+		public function processAddDeliveryGroup(){
+			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority']);
+
+			$group = new DeliveryGroup;
+			$group->title = $_REQUEST['title'];
+			$group->description = $_REQUEST['description'];
+			$group->label = $_REQUEST['label'];
+			$group->priority = intval($_REQUEST['priority']);
+
+			if(intval($_REQUEST['thumbnail']) > 0) {
+				$group->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+			}
+
+			/***
+			 *	TODO - label 칼럼 중복 검사
+			 */
+
+			$group->save();
+
+			header('Location: /admin/delivery/groups');
+		}
+
 		/**
 		 * @return Twig_Environment
 		 */
