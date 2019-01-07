@@ -66,6 +66,12 @@
 				'thumbnail' => $group->getThumbnail()
 			]);
 		}
+		public function adminViewDeliveryList(){
+			return $this->adminView()->render('admin.delivery.list.html', [
+				'sub_title' => "배달업체 목록",
+				'active_title' => "배달업체 목록"
+			]);
+		}
 		public function adminViewDeliveryAdd(){
 			$groups = DeliveryGroup::GET_LIST();
 
@@ -127,7 +133,25 @@
 			header('Location: /admin/delivery/groups');
 		}
 		public function processAddDelivery(){
+			B::PARAMETER_CHECK(['title', 'description', 'contact', 'thumbnail', 'contract', 'promotion', 'groups']);
 
+			$delivery = new Delivery;
+			$delivery->title = $_REQUEST['title'];
+			$delivery->description = $_REQUEST['description'];
+			$delivery->contact = $_REQUEST['contact'];
+
+			if(in_array($_REQUEST['contract'], [1, 2])) $delivery->contract = $_REQUEST['contract'];
+			if(in_array($_REQUEST['promotion'], [1, 2, 3])) $delivery->promotion = $_REQUEST['promotion'];
+			if(intval($_REQUEST['thumbnail']) > 0) $delivery->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+
+			$delivery->save();
+
+			foreach($_REQUEST['groups'] as $group_id){
+				$group = new DeliveryGroup(intval($group_id));
+				$group->addAffiliate($delivery);
+			}
+
+			header('Location: /admin/delivery');
 		}
 
 		/**

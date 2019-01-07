@@ -58,6 +58,7 @@
 		$router->get('/', ["AdminController", "viewIndexPage"]);
 
 		$router->group(['prefix' => 'delivery'], function($router){
+			$router->get('/', ["DeliveryController", "adminViewDeliveryList"]);
 			$router->get('add', ["DeliveryController", "adminViewDeliveryAdd"]);
 			$router->post('add', ["DeliveryController", "processAddDelivery"]);
 

@@ -65,7 +65,7 @@
 
 {% block article %}
 <div class="article-content delivery-group-add">
-    <form class="aui" style="margin-top: 24px;" action="/admin/delivery/groups/add" method="POST">
+    <form class="aui" style="margin-top: 24px;" action="/admin/delivery/add" method="POST">
         <div class="field-group">
             <label for="f-title">업체명<span class="aui-icon icon-required"></span></label>
             <input class="text long-field" type="text" id="f-title" name="title" title="업체명" />
@@ -78,7 +78,7 @@
         <div class="field-group">
             <label for="select-group">소속된 그룹<span class="aui-icon icon-required"></span></label>
             <div>
-                <select id="select-group" multiple="">
+                <select id="select-group" multiple="" name="groups[]">
                     {% for i in range(0, group_list|length - 1) %}
                         {% set item = group_list[i] %}
                         <option value="{{item.id}}">{{item.label}}</option>
@@ -107,6 +107,25 @@
             <div class="description">
                 * 권장 이미지 크기 : 800 x 400, 600 x 300, 2:1 비율<br/>
                 * 지원되는 파일 형식 : jpg, jpeg, png, gif
+            </div>
+        </div>
+        <div class="field-group">
+            <label for="f-description">할인유형<span class="aui-icon icon-required"></span></label>
+            <div class="radio">
+                <input class="radio" type="radio" checked="checked" name="promotion" id="f-promotion-1" value="0" />
+                <label for="f-promotion-1">할인 없음</label>
+            </div>
+            <div class="radio">
+                <input class="radio" type="radio" name="promotion" id="f-promotion-2" value="1" />
+                <label for="f-promotion-2">재학생 할인</label>
+            </div>
+            <div class="radio">
+                <input class="radio" type="radio" name="promotion" id="f-promotion-3" value="2" />
+                <label for="f-promotion-3">음료수 제공</label>
+            </div>
+            <div class="radio">
+                <input class="radio" type="radio" name="promotion" id="f-promotion-4" value="3" />
+                <label for="f-promotion-4">사이드메뉴 제공</label>
             </div>
         </div>
         <div class="field-group">
