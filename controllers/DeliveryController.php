@@ -56,6 +56,16 @@
 				'active_title' => "배달업체 그룹 추가"
 			]);
 		}
+		public function adminViewDeliveryGroupInfo($group_id){
+			$group = new DeliveryGroup($group_id);
+
+			return $this->adminView()->render('admin.delivery.groups.edit.html', [
+				'sub_title' => "배달업체 그룹 정보",
+				'active_title' => "배달업체 그룹 목록",
+				'group' => $group,
+				'thumbnail' => $group->getThumbnail()
+			]);
+		}
 
 		public function processAddDeliveryGroup(){
 			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority']);

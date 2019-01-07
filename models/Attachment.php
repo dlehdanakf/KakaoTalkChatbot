@@ -98,7 +98,6 @@
 
 			$result = $query->fetch(PDO::FETCH_ASSOC);
 			$this->id			 = $result['id'];
-			$this->member		 = $result['member'];
 			$this->file_srl		 = $result['file_srl'];
 			$this->directory	 = $result['directory'];
 			$this->hashed_name	 = $result['hashed_name'];

@@ -62,6 +62,9 @@
 
 			return Attachment::CREATE_BY_MYSQLID($this->thumbnail_id);
 		}
+		public function getThumbnailID(){
+			return $this->thumbnail_id;
+		}
 		public function setThumbnail(Attachment $attachment){
 			$this->thumbnail_id = $attachment->id;
 		}

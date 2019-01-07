@@ -71,6 +71,79 @@ img.emoji {
     clear: both;
   }
 }
+h4.section-title {
+  margin: 20px 0 12px 0;
+}
+.basicCard {
+  min-width: 120px;
+  border-radius: 3px;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 1px 6px -1px rgba(0,0,0,.2);
+  -moz-box-shadow: 0px 1px 6px -1px rgba(0,0,0,.2);
+  box-shadow: 0px 1px 6px -1px rgba(0,0,0,.2);
+
+  .thumbnail {
+    position: relative;
+    padding-bottom: 50%;
+    border-radius: 3px 3px 0 0;
+    background: url("https://placehold.it/600x300") no-repeat center #F5F5F5;
+    background-size: cover;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border: 1px solid rgba(0,0,0,.1);
+      border-radius: 3px 3px 0 0;
+    }
+  }
+  .content {
+    padding: 6px 8px;
+
+    .title {
+      display: -webkit-box;
+      line-height: 1.41em;
+      color: #222;
+      font-size: 14px;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .description {
+      margin-top: 2px;
+      display: -webkit-box;
+      line-height: 1.41em;
+      color: #888;
+      font-size: 12px;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .buttons {
+    padding: 0 8px 8px 8px;
+
+    .button {
+      display: block;
+      padding: 11px 0 9px 0;
+      border: 1px solid #DCDCDC;
+      color: #08c;
+      text-align: center;
+      line-height: 1;
+      font-size: 14px;
+      font-weight: normal;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
 
 #header {
   margin: 0;
