@@ -62,6 +62,7 @@
 			$router->get('groups/add', ["DeliveryController", "adminViewDeliveryGroupAdd"]);
 			$router->post('groups/add', ["DeliveryController", "processAddDeliveryGroup"]);
 			$router->get('groups/{group_id:i}', ["DeliveryController", "adminViewDeliveryGroupInfo"]);
+			$router->post('groups/{group_id:i}', ["DeliveryController", "processUpdateDeliveryGroup"]);
 		});
 	});
 

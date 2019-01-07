@@ -49,6 +49,17 @@
 
 			$this->id = $pdo->lastInsertId();
 		}
+		public function update(){
+			$query = B::DB()->prepare("UPDATE delivery_group SET title = :t, label = :l, description = :d, thumbnail_id = :i, priority = :p WHERE id = :id");
+			$query->execute([
+				':t' => $this->title,
+				':l' => $this->label,
+				':d' => $this->description,
+				':i' => $this->thumbnail_id,
+				':p' => $this->priority,
+				':id' => $this->id
+			]);
+		}
 		public function delete(){
 			$query = B::DB()->prepare("DELETE FROM delivery_group WHERE id = :i");
 			$query->execute([
@@ -67,6 +78,9 @@
 		}
 		public function setThumbnail(Attachment $attachment){
 			$this->thumbnail_id = $attachment->id;
+		}
+		public function removeThumbnail(){
+			$this->thumbnail_id = null;
 		}
 
 		public function getAllDeliveries(){

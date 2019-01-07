@@ -88,6 +88,29 @@
 
 			header('Location: /admin/delivery/groups');
 		}
+		public function processUpdateDeliveryGroup($group_id){
+			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority']);
+
+			$group = new DeliveryGroup($group_id);
+			$group->title = $_REQUEST['title'];
+			$group->description = $_REQUEST['description'];
+			$group->label = $_REQUEST['label'];
+			$group->priority = intval($_REQUEST['priority']);
+
+			if(intval($_REQUEST['thumbnail']) > 0) {
+				$group->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+			} else {
+				$group->removeThumbnail();
+			}
+
+			/***
+			 *	TODO - label 칼럼 중복 검사
+			 */
+
+			$group->update();
+
+			header('Location: /admin/delivery/groups/' . $group->id);
+		}
 
 		/**
 		 * @return Twig_Environment
