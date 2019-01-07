@@ -66,6 +66,15 @@
 				'thumbnail' => $group->getThumbnail()
 			]);
 		}
+		public function adminViewDeliveryAdd(){
+			$groups = DeliveryGroup::GET_LIST();
+
+			return $this->adminView()->render('admin.delivery.add.html', [
+				'sub_title' => "배달업체 추가",
+				'active_title' => "배달업체 추가",
+				'group_list' => $groups
+			]);
+		}
 
 		public function processAddDeliveryGroup(){
 			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority']);
@@ -116,6 +125,9 @@
 			$group->delete();
 
 			header('Location: /admin/delivery/groups');
+		}
+		public function processAddDelivery(){
+
 		}
 
 		/**
