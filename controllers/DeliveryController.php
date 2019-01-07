@@ -67,9 +67,12 @@
 			]);
 		}
 		public function adminViewDeliveryList(){
-			return $this->adminView()->render('admin.delivery.list.html', [
+			$deliveries = Delivery::GET_LIST();
+
+			return $this->adminView()->render('admin.delivery.html', [
 				'sub_title' => "배달업체 목록",
-				'active_title' => "배달업체 목록"
+				'active_title' => "배달업체 목록",
+				'delivery_list' => $deliveries
 			]);
 		}
 		public function adminViewDeliveryAdd(){

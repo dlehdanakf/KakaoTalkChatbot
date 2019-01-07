@@ -36,6 +36,22 @@
 			$this->id = $pdo->lastInsertId();
 		}
 
+		public function getContract(){
+			switch($this->contract){
+				case 0: return "임의";
+				case self::CONTRACT_FREE: return "무료";
+				case self::CONTRACT_PAID: return "유료";
+			}
+		}
+		public function getPromotion(){
+			switch($this->promotion){
+				case 0: return "없음";
+				case self::PROMOTION_DISCOUNT: return "할인";
+				case self::PROMOTION_DRINK: return "음료수";
+				case self::PROMOTION_FREE: return "무료";
+			}
+		}
+
 		public function getThumbnail(){
 			if(!$this->thumbnail_id)
 				return null;
