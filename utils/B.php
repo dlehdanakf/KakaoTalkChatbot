@@ -83,7 +83,7 @@
 					if($z){
 						return false;
 					} else {
-						throw new Exception("호출 파라미터 오류 - " . $e[$i]);
+						throw new ParameterException("호출 파라미터 오류 - " . $e[$i]);
 					}
 				}
 			}
@@ -169,5 +169,14 @@
 				]
 			]));
 			return $twig;
+		}
+
+		public static function DIE_MESSAGE($num, $msg, $rts = NULL, $jsonp = false){
+			B::CLOSE_DB();
+			die(json_encode([
+				"result" => $num,
+				"message" => $msg,
+				"returns" => $rts
+			]));
 		}
 	}

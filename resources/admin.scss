@@ -14,6 +14,63 @@ img.emoji {
   width: 780px;
   margin: 0 auto;
 }
+.form-thumbnail {
+  .thumbnail {
+    position: relative;
+    float: left;
+    width: 200px;
+    height: 100px;
+    background-color: #F5F5F5;
+
+    span.placeholder {
+      display: block;
+      line-height: 1;
+      font-size: 16px;
+      font-weight: normal;
+      color: #8a8a8a;
+      text-align: center;
+      padding: 42px 0;
+    }
+    img {
+      display: block;
+      position: relative;
+      z-index: 2;
+      width: 200px;
+      height: 100px;
+    }
+    div.img {
+      display: block;
+      width: 200px;
+      height: 100px;
+      background: url("https://placehold.it/800x400") no-repeat center;
+      background-size: cover;
+    }
+    
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border: 1px solid rgba(0,0,0,.1);
+      z-index: 9;
+    }
+  }
+  button {
+    float: left;
+    margin-left: 12px;
+    vertical-align: bottom;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    float: none;
+    clear: both;
+  }
+}
 
 #header {
   margin: 0;
@@ -144,7 +201,9 @@ img.emoji {
     }
   }
   .article {
-    margin-left: 224px;
+    margin-left: 24px;
+    float: left;
+    width: 556px;
 
     .article-title {
       margin: 0;

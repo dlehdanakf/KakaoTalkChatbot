@@ -50,6 +50,12 @@
 				'group_list' => $groups
 			]);
 		}
+		public function adminViewDeliveryGroupAdd(){
+			return $this->adminView()->render('admin.delivery.groups.add.html', [
+				'sub_title' => "배달업체 그룹 추가",
+				'active_title' => "배달업체 그룹 추가"
+			]);
+		}
 
 		/**
 		 * @return Twig_Environment

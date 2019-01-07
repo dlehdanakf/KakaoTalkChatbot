@@ -33,10 +33,9 @@
 		}
 		public function save(){
 			$pdo = B::DB();
-			$query = $pdo->prepare("INSERT INTO attachment (file_srl, member, directory, extension, hashed_name, original_name) VALUES (:n, :m, :d, :e, :h, :o)");
+			$query = $pdo->prepare("INSERT INTO attachment (file_srl, directory, extension, hashed_name, original_name) VALUES (:n, :d, :e, :h, :o)");
 			$query->execute([
 				":n" => $this->file_srl,
-				":m" => $this->member,
 				":d" => $this->directory,
 				":e" => $this->extension,
 				":h" => $this->hashed_name,

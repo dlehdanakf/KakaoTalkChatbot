@@ -46,12 +46,6 @@
 					throw new RuntimeException('해당 확장자는 업로드할 수 없습니다');
 				}
 
-				try {
-					$member = new Member($_SESSION['id']);
-				} catch(Exception $e) {
-					B::DIE_MESSAGE(401, '파일 업로드 권한없음');
-				}
-
 				$attachment = new Attachment($_FILES['attachment']['name']);
 				$attachment->extension = $ext;
 				$attachment->hashed_name = $attachment->hashed_name . '.' . $ext;
