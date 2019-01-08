@@ -211,6 +211,27 @@
 
 			header('Location: /admin/delivery');
 		}
+		public function processAddDeliveryItem($delivery_id){
+			B::PARAMETER_CHECK(['title', 'price', 'discount', 'thumbnail', 'is_visible']);
+			$delivery = new Delivery($delivery_id);
+
+			$deliveryItem = new DeliveryItem;
+			$deliveryItem->title = $_REQUEST['title'];
+			$deliveryItem->price = $_REQUEST['price'];
+			$deliveryItem->discount = $_REQUEST['discount'];
+
+			$deliveryItem->is_visible = 'Y';
+			if(in_array($_REQUEST['is_visible'], ['Y', 'N']))
+				$deliveryItem->is_visible = $_REQUEST['is_visible'];
+
+			$deliveryItem->setDelivery($delivery);
+			if(intval($_REQUEST['thumbnail']) > 0)
+				$delivery->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+
+			$deliveryItem->save();
+
+			header('Location: /admin/delivery/' . $delivery->id);
+		}
 
 		/**
 		 * @return Twig_Environment

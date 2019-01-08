@@ -65,7 +65,7 @@
 
 {% block article %}
 <div class="article-content delivery-group-add">
-    <form class="aui" style="margin-top: 24px;" action="/admin/delivery/add" method="POST">
+    <form class="aui" style="margin-top: 24px;" action="/admin/delivery/{{delivery.id}}/item/add" method="POST">
         <div class="field-group">
             <label for="f-delivery">배달업체</label>
             <input class="text" type="text" id="f-delivery" title="배달업체명" readonly value="{{delivery.title}}" />
@@ -105,11 +105,11 @@
         <div class="field-group">
             <label>노출여부<span class="aui-icon icon-required"></span></label>
             <div class="radio">
-                <input class="radio" type="radio" checked="checked" name="visible" id="f-visible-1" value="Y" />
+                <input class="radio" type="radio" checked="checked" name="is_visible" id="f-visible-1" value="Y" />
                 <label for="f-visible-1">카카오톡에 노출</label>
             </div>
             <div class="radio">
-                <input class="radio" type="radio" name="visible" id="f-visible-2" value="N" />
+                <input class="radio" type="radio" name="is_visible" id="f-visible-2" value="N" />
                 <label for="f-visible-2">채팅봇 응답에서 숨김</label>
             </div>
         </div>

@@ -48,8 +48,9 @@
 
 		public function save() {
 			$pdo = B::DB();
-			$query = $pdo->prepare("INSERT INTO delivery_item (title, price, discount, thumbnail_id, is_visible) VALUE (:t, :p, :d, :i, :v)");
+			$query = $pdo->prepare("INSERT INTO delivery_item (delivery_id, title, price, discount, thumbnail_id, is_visible) VALUE (:di, :t, :p, :d, :i, :v)");
 			$query->execute([
+				':di' => $this->delivery_id,
 				':t' => $this->title,
 				':p' => intval($this->price),
 				':d' => intval($this->discount),

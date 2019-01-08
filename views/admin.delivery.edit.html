@@ -119,10 +119,10 @@
             {% for i in range(0, item_list|length - 1) %}
                 {% set item = item_list[i] %}
                 <tr>
-                    <td>{{i}}</td>
+                    <td>{{i+1}}</td>
                     <td><a href="/admin/delivery/{{delivery.id}}/item/{{item.id}}">{{item.title}}</a></td>
-                    <td>{{item.price}}</td>
-                    <td>{{item.discount}}</td>
+                    <td>{{number_format(item.price)}}</td>
+                    <td>{{number_format(item.discount)}}</td>
                     <td>{{date_format(item.register_date, "Y.m.d H:i")}}</td>
                 </tr>
             {% endfor %}

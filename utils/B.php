@@ -156,6 +156,9 @@
 			$twig->addFunction(new Twig_SimpleFunction('date_format', function($date, $format = 'Y-m-d'){
 				return date($format, strtotime($date));
 			}));
+			$twig->addFunction(new Twig_SimpleFunction('number_format', function($e){
+				return number_format($e);
+			}));
 
 			$twig->addFunction(new Twig_SimpleFunction('form_token', function($lock_to = null) {
 				static $csrf;
