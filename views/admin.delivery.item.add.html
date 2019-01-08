@@ -67,29 +67,22 @@
 <div class="article-content delivery-group-add">
     <form class="aui" style="margin-top: 24px;" action="/admin/delivery/add" method="POST">
         <div class="field-group">
-            <label for="f-title">업체명<span class="aui-icon icon-required"></span></label>
-            <input class="text long-field" type="text" id="f-title" name="title" title="업체명" />
+            <label for="f-delivery">배달업체</label>
+            <input class="text" type="text" id="f-delivery" title="배달업체명" readonly value="{{delivery.title}}" />
         </div>
         <div class="field-group">
-            <label for="f-description">설명<span class="aui-icon icon-required"></span></label>
-            <input class="text long-field" type="text" id="f-description" name="description" title="설명" />
-            <div class="description">카카오톡 카드의 제목 아래에 노출될 설명을 입력하세요. 최대 32글자</div>
+            <label for="f-title">아이템 이름<span class="aui-icon icon-required"></span></label>
+            <input class="text long-field" type="text" id="f-title" name="title" title="이름" />
+            <div class="description">카카오톡 카드의 썸네일, 가격란 아래에 노출될 설명을 입력하세요. 최대 32글자</div>
         </div>
         <div class="field-group">
-            <label for="select-group">소속된 그룹<span class="aui-icon icon-required"></span></label>
-            <div>
-                <select id="select-group" multiple="" name="groups[]">
-                    {% for i in range(0, group_list|length - 1) %}
-                    {% set item = group_list[i] %}
-                    <option value="{{item.id}}">{{item.label}}</option>
-                    {% endfor %}
-                </select>
-            </div>
+            <label for="f-price">가격<span class="aui-icon icon-required"></span></label>
+            <input class="text" type="number" id="f-price" name="price" title="아이템 가격" />
         </div>
         <div class="field-group">
-            <label for="f-description">전화번호<span class="aui-icon icon-required"></span></label>
-            <input class="text" type="text" id="f-contact" name="contact" title="전화번호" />
-            <div class="description">ex) 02-1234-5678 | 양식 준수할 것.</div>
+            <label for="f-price">할인폭</label>
+            <input class="text" type="number" id="f-discount" name="discount" title="할인 가격" value="0" />
+            <div class="description">할인 정도를 입력해주세요. 6,000원 → 5,000원이라면 1,000원 입력</div>
         </div>
         <div class="field-group">
             <label for="f-thumbnail">썸네일</label>
@@ -110,37 +103,14 @@
             </div>
         </div>
         <div class="field-group">
-            <label for="f-description">할인유형<span class="aui-icon icon-required"></span></label>
+            <label>노출여부<span class="aui-icon icon-required"></span></label>
             <div class="radio">
-                <input class="radio" type="radio" checked="checked" name="promotion" id="f-promotion-1" value="0" />
-                <label for="f-promotion-1">할인 없음</label>
+                <input class="radio" type="radio" checked="checked" name="visible" id="f-visible-1" value="Y" />
+                <label for="f-visible-1">카카오톡에 노출</label>
             </div>
             <div class="radio">
-                <input class="radio" type="radio" name="promotion" id="f-promotion-2" value="1" />
-                <label for="f-promotion-2">재학생 할인</label>
-            </div>
-            <div class="radio">
-                <input class="radio" type="radio" name="promotion" id="f-promotion-3" value="2" />
-                <label for="f-promotion-3">음료수 제공</label>
-            </div>
-            <div class="radio">
-                <input class="radio" type="radio" name="promotion" id="f-promotion-4" value="3" />
-                <label for="f-promotion-4">사이드메뉴 제공</label>
-            </div>
-        </div>
-        <div class="field-group">
-            <label for="f-description">게재유형<span class="aui-icon icon-required"></span></label>
-            <div class="radio">
-                <input class="radio" type="radio" checked="checked" name="contract" id="f-contract-1" value="0" />
-                <label for="f-contract-1">운영진이 임의로 추가함</label>
-            </div>
-            <div class="radio">
-                <input class="radio" type="radio" name="contract" id="f-contract-2" value="1" />
-                <label for="f-contract-2">무료로 게재할 것을 합의함</label>
-            </div>
-            <div class="radio">
-                <input class="radio" type="radio" name="contract" id="f-contract-3" value="2" />
-                <label for="f-contract-3">유료로 계약함</label>
+                <input class="radio" type="radio" name="visible" id="f-visible-2" value="N" />
+                <label for="f-visible-2">채팅봇 응답에서 숨김</label>
             </div>
         </div>
         <div class="buttons-container">

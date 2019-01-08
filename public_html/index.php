@@ -71,6 +71,10 @@
 			$router->get('/{delivery_id:i}', ["DeliveryController", "adminViewDeliveryInfo"]);
 			$router->post('/{delivery_id:i}/edit', ["DeliveryController", "processUpdateDelivery"]);
 			$router->post('/{delivery_id:i}/delete', ["DeliveryController", "processDeleteDelivery"]);
+			$router->get('/{delivery_id:i}/item/add', ["DeliveryController", "adminViewAddDeliveryItem"]);
+			$router->post('/{delivery_id:i}/item/add', ["DeliveryController", "processAddDeliveryItem"]);
+			$router->get('/{delivery_id:i}/item/{item_id:i}', ["DeliveryController", "adminViewDeliveryItem"]);
+			$router->post('/{delivery_id:i}/item/{item_id:i}/edit', ["DeliveryController", "processUpdateDeliveryItem"]);
 		});
 	});
 

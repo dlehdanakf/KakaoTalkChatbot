@@ -99,6 +99,15 @@
 				'thumbnail' => $delivery->getThumbnail()
 			]);
 		}
+		public function adminViewAddDeliveryItem($delivery_id){
+			$delivery = new Delivery($delivery_id);
+
+			return $this->adminView()->render('admin.delivery.item.add.html', [
+				'sub_title' => "배달업체 아이템 추가",
+				'active_title' => "배달업체 목록",
+				'delivery' => $delivery
+			]);
+		}
 
 		public function processAddDeliveryGroup(){
 			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority']);
