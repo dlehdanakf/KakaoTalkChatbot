@@ -32,7 +32,12 @@
 		public function skillViewDeliveryList(){
 			$temporary_thumbnail = "http://kung.kr/files/attach/images/200/696/028/006/7e4144e56eb58481a3ede39b2215b75e.jpg";
 
-			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['delivery_category']);
+//			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['delivery_category']);
+			$requestBody = [
+				'params' => [
+					'delivery_category' => '중식당'
+				]
+			];
 
 			$groupLabel = $requestBody['params']['delivery_category'];
 			try {
@@ -66,8 +71,11 @@
 				$basicCard->description = $delivery->description;
 
 				$thumbnail = $delivery->getThumbnail();
+				$thumbnailLink = $temporary_thumbnail;
+				if($thumbnail != null)
+					$thumbnailLink = "http://chatbot.kunnect.net" . $thumbnail->getDownloadLinkDirectory();
 
-				$basicCard->setThumbnail(new Thumbnail("http://chatbot.kunnect.net" . $thumbnail->getDownloadLinkDirectory()));
+				$basicCard->setThumbnail(new Thumbnail($thumbnailLink));
 				$basicCard->addButton((new Button("배달 주문하기"))->setPhoneNumber($delivery->contact));
 				$basicCard->addButton((new Button("상세메뉴 확인하기"))->setWebLinkUrl('https://www.naver.com'));
 
