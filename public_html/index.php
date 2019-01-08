@@ -69,6 +69,8 @@
 			$router->get('add', ["DeliveryController", "adminViewDeliveryAdd"]);
 			$router->post('add', ["DeliveryController", "processAddDelivery"]);
 			$router->get('/{delivery_id:i}', ["DeliveryController", "adminViewDeliveryInfo"]);
+			$router->post('/{delivery_id:i}/edit', ["DeliveryController", "processUpdateDelivery"]);
+			$router->post('/{delivery_id:i}/delete', ["DeliveryController", "processDeleteDelivery"]);
 		});
 	});
 

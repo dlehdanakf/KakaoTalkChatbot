@@ -169,6 +169,36 @@
 
 			header('Location: /admin/delivery');
 		}
+		public function processUpdateDelivery($delivery_id){
+			B::PARAMETER_CHECK(['title', 'description', 'contact', 'thumbnail', 'contract', 'promotion', 'groups']);
+
+			$delivery = new Delivery($delivery_id);
+			$delivery->title = $_REQUEST['title'];
+			$delivery->description = $_REQUEST['description'];
+			$delivery->contact = $_REQUEST['contact'];
+
+			if(in_array($_REQUEST['contract'], [1, 2])) $delivery->contract = $_REQUEST['contract'];
+			if(in_array($_REQUEST['promotion'], [1, 2, 3])) $delivery->promotion = $_REQUEST['promotion'];
+			if(intval($_REQUEST['thumbnail']) > 0)
+				$delivery->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+			else
+				$delivery->removeThumbnail();
+
+			$delivery->update();
+
+			foreach($_REQUEST['groups'] as $group_id){
+				$group = new DeliveryGroup(intval($group_id));
+				try { $group->addAffiliate($delivery); } catch (Exception $e) {}
+			}
+
+			header('Location: /admin/delivery/' . $delivery->id);
+		}
+		public function processDeleteDelivery($delivery_id){
+			$group = new Delivery($delivery_id);
+			$group->delete();
+
+			header('Location: /admin/delivery');
+		}
 
 		/**
 		 * @return Twig_Environment

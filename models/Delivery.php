@@ -35,6 +35,24 @@
 
 			$this->id = $pdo->lastInsertId();
 		}
+		public function update(){
+			$query = B::DB()->prepare("UPDATE delivery SET title = :t, description = :d, thumbnail_id = :i, contact = :c, contract = :r, promotion = :p WHERE id = :id");
+			$query->execute([
+				':t' => $this->title,
+				':d' => $this->description,
+				':i' => $this->thumbnail_id,
+				':c' => $this->contact,
+				':r' => $this->contract,
+				':p' => $this->promotion,
+				':id' => $this->id
+			]);
+		}
+		public function delete(){
+			$query = B::DB()->prepare("DELETE FROM delivery WHERE id = :i");
+			$query->execute([
+				':i' => $this->id
+			]);
+		}
 
 		public function getContract(){
 			switch($this->contract){
