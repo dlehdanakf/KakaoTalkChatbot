@@ -89,4 +89,7 @@
 		public function getBelongingGroups(){
 			return DeliveryGroupLink::GET_BELONGING_GROUPS($this);
 		}
+		public function releaseAllBelongingGroups(){
+			DeliveryGroupLink::DELETE_ALL_BELONGING_GROUPS($this);
+		}
 	}

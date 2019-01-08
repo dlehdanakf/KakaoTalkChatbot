@@ -50,6 +50,18 @@
 
 			return $return_array;
 		}
+		public static function DELETE_ALL_DELIVERIES(DeliveryGroup $group){
+			$query = B::DB()->prepare("DELETE FROM delivery_group_link WHERE group_id = :g");
+			$query->execute([
+				':g' => $group->id
+			]);
+		}
+		public static function DELETE_ALL_BELONGING_GROUPS(Delivery $delivery){
+			$query = B::DB()->prepare("DELETE FROM delivery_group_link WHERE delivery_id = :d");
+			$query->execute([
+				':d' => $delivery->id
+			]);
+		}
 
 		public function __construct(Delivery $delivery = null, DeliveryGroup $group = null){
 			if($delivery === null || $group === null)

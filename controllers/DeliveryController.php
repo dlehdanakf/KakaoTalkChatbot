@@ -164,7 +164,7 @@
 
 			foreach($_REQUEST['groups'] as $group_id){
 				$group = new DeliveryGroup(intval($group_id));
-				$group->addAffiliate($delivery);
+				$group->addDelivery($delivery);
 			}
 
 			header('Location: /admin/delivery');
@@ -186,9 +186,10 @@
 
 			$delivery->update();
 
+			$delivery->releaseAllBelongingGroups();
 			foreach($_REQUEST['groups'] as $group_id){
 				$group = new DeliveryGroup(intval($group_id));
-				try { $group->addAffiliate($delivery); } catch (Exception $e) {}
+				$group->addDelivery($delivery);
 			}
 
 			header('Location: /admin/delivery/' . $delivery->id);

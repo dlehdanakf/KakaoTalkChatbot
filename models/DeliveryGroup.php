@@ -89,12 +89,15 @@
 		public function getRandomDeliveries($count = 10){
 			return DeliveryGroupLink::GET_RANDOM_GROUPED_DELIVERIES($this, $count);
 		}
-		public function addAffiliate(Delivery $delivery){
+		public function addDelivery(Delivery $delivery){
 			$deliveryLink = new DeliveryGroupLink($delivery, $this);
 			$deliveryLink->save();
 		}
-		public function deleteAffiliate(Delivery $delivery){
+		public function deleteDelivery(Delivery $delivery){
 			$deliveryLink = new DeliveryGroupLink($delivery, $this);
 			$deliveryLink->delete();
+		}
+		public function deleteAllDeliveries(){
+			DeliveryGroupLink::DELETE_ALL_DELIVERIES($this);
 		}
 	}
