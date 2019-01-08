@@ -247,6 +247,43 @@
 
 			header('Location: /admin/delivery/' . $delivery->id);
 		}
+		public function processUpdateDeliveryItem($delivery_id, $item_id){
+			B::PARAMETER_CHECK(['title', 'price', 'discount', 'thumbnail', 'is_visible']);
+			$delivery = new Delivery($delivery_id);
+			$deliveryItem = new DeliveryItem($item_id);
+
+			if($deliveryItem->getDeliveryID() !== $delivery->id)
+				throw new \Phroute\Phroute\Exception\HttpRouteNotFoundException();
+
+			$deliveryItem->title = $_REQUEST['title'];
+			$deliveryItem->price = $_REQUEST['price'];
+			$deliveryItem->discount = $_REQUEST['discount'];
+
+			$deliveryItem->is_visible = 'Y';
+			if(in_array($_REQUEST['is_visible'], ['Y', 'N']))
+				$deliveryItem->is_visible = $_REQUEST['is_visible'];
+
+			$deliveryItem->setDelivery($delivery);
+			if(intval($_REQUEST['thumbnail']) > 0)
+				$delivery->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+			else
+				$delivery->removeThumbnail();
+
+			$deliveryItem->update();
+
+			header('Location: /admin/delivery/' . $delivery->id . '/item/' . $deliveryItem->id);
+		}
+		public function processDeleteDeliveryItem($delivery_id, $item_id){
+			$delivery = new Delivery($delivery_id);
+			$deliveryItem = new DeliveryItem($item_id);
+
+			if($deliveryItem->getDeliveryID() !== $delivery->id)
+				throw new \Phroute\Phroute\Exception\HttpRouteNotFoundException();
+
+			$deliveryItem->delete();
+
+			header('Location: /admin/delivery/' . $delivery->id);
+		}
 
 		/**
 		 * @return Twig_Environment
