@@ -20,7 +20,7 @@
 				$basicCard->description = $group->description;
 
 				$basicCard->setThumbnail(new Thumbnail($temporary_thumbnail));
-				$basicCard->addButton((new Button("식당목록"))->setWebLinkUrl("https://m.naver.com"));
+				$basicCard->addButton((new Button("식당목록"))->setMessageText($group->label . " 배달음식점 목록 보여줘"));
 
 				$carousel->addCard($basicCard);
 			}
