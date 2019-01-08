@@ -37,6 +37,12 @@
 
 			return $return_array;
 		}
+		public static function DELETE_ALL_DELIVERY_GROUPED_ITEM(Delivery $delivery){
+			$query = B::DB()->prepare("DELETE FROM delivery_item WHERE delivery_id = :i");
+			$query->execute([
+				':i' => $delivery->id
+			]);
+		}
 
 		public function __construct($id = 0) {
 			$this->price = 0;

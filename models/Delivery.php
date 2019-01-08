@@ -48,6 +48,8 @@
 			]);
 		}
 		public function delete(){
+			$this->deleteAllItems();
+
 			$query = B::DB()->prepare("DELETE FROM delivery WHERE id = :i");
 			$query->execute([
 				':i' => $this->id
@@ -98,5 +100,8 @@
 		}
 		public function getRandomItems($count = 10){
 			return DeliveryItem::GET_RANDOM_DELIVERY_GROUPED_LIST($this, $count);
+		}
+		public function deleteAllItems(){
+			DeliveryItem::DELETE_ALL_DELIVERY_GROUPED_ITEM($this);
 		}
 	}
