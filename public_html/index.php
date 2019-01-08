@@ -46,6 +46,7 @@
 		$router->any('cafeteria/meal', ["CafeteriaController", "skillViewTodayMeal"]);
 
 		$router->any('delivery', ["DeliveryController", "skillViewDeliveryGroups"]);
+		$router->any('delivery/group', ["DeliveryController", "skillViewDeliveryList"]);
 
 		/**
 		 *	KakaoTalk 에서 BasicCard 형태에서

@@ -12,7 +12,7 @@
 			$carousel = new Carousel;
 			$groups = DeliveryGroup::GET_ORDERED_LIST();
 			if(count($groups) < 1)
-				throw new Exception("식당 그룹을 가져오는데 오류가 발생했습니다.\n잠시 후 다시시도 부탁드려요 ㅠㅠ");
+				throw new Exception("🛠️ 식당 그룹을 가져오는데 오류가 발생했습니다.");
 
 			foreach($groups as $group){
 				$basicCard = new BasicCard;
@@ -32,13 +32,54 @@
 		public function skillViewDeliveryList(){
 			$temporary_thumbnail = "http://kung.kr/files/attach/images/200/696/028/006/7e4144e56eb58481a3ede39b2215b75e.jpg";
 
+//			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
+			$requestBody = [
+				'params' => [
+					'delivery_category' => '중식당'
+				]
+			];
+
+			$groupLabel = $requestBody['params']['delivery_category'];
+			try {
+				$deliveryGroup = DeliveryGroup::CREATE_BY_LABEL($groupLabel);
+			} catch(ModelNotFoundException $e) {
+				throw new Exception($groupLabel . " 배달업체 그룹을 찾을 수 없습니다.");
+			}
+
 			$skillResponse = new SkillResponse;
+			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setMessageText("배달음식점 목록 보여줘"));
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
+
+			$deliveries = $deliveryGroup->getRandomDeliveries(10);
+			if(count($deliveries) < 1){
+				$skillResponse->addResponseComponent(new SimpleText(
+					"우리학교 주변에 등록된 【 $deliveryGroup->label 】 배달업체를 찾을 수 없습니다."
+				));
+
+				return json_encode($skillResponse->render());
+			}
+
 			$skillResponse->addResponseComponent(new SimpleText(
-				"우리학교 주변 【 분식 】 배달업체" . "\n\n" .
-				"모르겠다"
+				"우리학교 주변 【 $deliveryGroup->label 】 배달업체 목록" . "\n\n" .
+				"문구 추가해야함"
 			));
 
 			$carousel = new Carousel;
+			foreach($deliveries as $delivery){
+				$basicCard = new BasicCard;
+				$basicCard->title = $delivery->title;
+				$basicCard->description = $delivery->description;
+
+				$basicCard->setThumbnail(new Thumbnail($temporary_thumbnail));
+				$basicCard->addButton((new Button("배달 주문하기"))->setPhoneNumber($delivery->contact));
+				$basicCard->addButton((new Button("상세메뉴 확인하기"))->setWebLinkUrl('https://www.naver.com'));
+
+				$carousel->addCard($basicCard);
+			}
+
+			$skillResponse->addResponseComponent($carousel);
+
+			return json_encode($skillResponse->render());
 		}
 
 		public function adminViewDeliveryGroupList(){

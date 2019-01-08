@@ -19,7 +19,7 @@
 			return $return_array;
 		}
 		public static function CREATE_BY_LABEL($label){
-			$query = B::DB()->prepare("SELECT * FROM delivery WHERE label = :l");
+			$query = B::DB()->prepare("SELECT * FROM delivery_group WHERE label = :l");
 			$query->execute([
 				':l' => $label
 			]);
