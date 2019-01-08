@@ -9,7 +9,7 @@
 
 		public static function GET_ALL_DELIVERY_GROUPED_LIST(Delivery $delivery, $count = 10){
 			$count = intval($count);
-			$query = B::DB()->prepare("SELECT id FROM delivery_item WHERE delivery_id = :i LIMIT $count ORDER BY id DESC");
+			$query = B::DB()->prepare("SELECT id FROM delivery_item WHERE delivery_id = :i ORDER BY id DESC LIMIT $count");
 			$query->execute([
 				':i' => $delivery->id
 			]);
@@ -24,7 +24,7 @@
 		}
 		public static function GET_RANDOM_DELIVERY_GROUPED_LIST(Delivery $delivery, $count = 10){
 			$count = intval($count);
-			$query = B::DB()->prepare("SELECT id FROM delivery_item WHERE delivery_id = :i LIMIT $count ORDER BY RAND() DESC");
+			$query = B::DB()->prepare("SELECT id FROM delivery_item WHERE delivery_id = :i ORDER BY RAND() DESC LIMIT $count");
 			$query->execute([
 				':i' => $delivery->id
 			]);

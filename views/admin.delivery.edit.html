@@ -96,7 +96,7 @@
     <h4 class="section-title">
         배달메뉴 관리
         <a
-            href="/admin/delivery/{{delivery.id}}/service/add"
+            href="/admin/delivery/{{delivery.id}}/item/add"
             style="vertical-align: bottom; margin-left: 9px;"
             class="aui-button aui-button-compact aui-button-primary"
         >
@@ -109,8 +109,29 @@
             <tr>
                 <th>#</th>
                 <th>제목</th>
+                <th>가격</th>
+                <th>할인</th>
+                <th>등록일</th>
             </tr>
         </thead>
+        <tbody>
+            {% if item_list|length > 0 %}
+            {% for i in range(0, item_list|length - 1) %}
+                {% set item = item_list[i] %}
+                <tr>
+                    <td>{{i}}</td>
+                    <td><a href="/admin/delivery/{{delivery.id}}/item/{{item.id}}">{{item.title}}</a></td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.discount}}</td>
+                    <td>{{date_format(item.register_date, "Y.m.d H:i")}}</td>
+                </tr>
+            {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; font-style: italic;">등록된 아이템이 없습니다</td>
+                </tr>
+            {% endif %}
+        </tbody>
     </table>
     <h4 class="section-title">배달업체 정보 수정</h4>
     <form class="aui" style="margin-top: 24px;" action="/admin/delivery/{{delivery.id}}/edit" method="POST">

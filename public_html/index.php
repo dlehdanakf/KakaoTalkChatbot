@@ -83,6 +83,8 @@
 	} catch (\Phroute\Phroute\Exception\HttpMethodNotAllowedException $e) {
 		echo "404! HTTP Method not found";
 	} catch(Exception $e) {
+		throw $e;
+
 		$skillResponse = new SkillResponse;
 		$skillResponse->addResponseComponent(
 			new SimpleText("[ERROR!] " . $e->getMessage())
