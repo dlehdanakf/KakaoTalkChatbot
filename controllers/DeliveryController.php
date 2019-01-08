@@ -65,7 +65,9 @@
 				$basicCard->title = $delivery->title;
 				$basicCard->description = $delivery->description;
 
-				$basicCard->setThumbnail(new Thumbnail($temporary_thumbnail));
+				$thumbnail = $delivery->getThumbnail();
+
+				$basicCard->setThumbnail(new Thumbnail("http://chatbot.kunnect.net" . $thumbnail->getDownloadLinkDirectory()));
 				$basicCard->addButton((new Button("배달 주문하기"))->setPhoneNumber($delivery->contact));
 				$basicCard->addButton((new Button("상세메뉴 확인하기"))->setWebLinkUrl('https://www.naver.com'));
 
