@@ -112,6 +112,22 @@ h4.section-title {
       line-clamp: 2;
       overflow: hidden;
       text-overflow: ellipsis;
+      vertical-align: text-bottom;
+
+      .discount {
+        display: inline-block;
+        color: #AAA;
+        text-decoration: line-through;
+        font-size: 13px;
+        vertical-align: bottom;
+        margin-left: 6px;
+      }
+
+      &.commerce {
+        color: red;
+        font-size: 13px;
+        margin: 2px 0 6px 0;
+      }
     }
     .description {
       margin-top: 2px;
