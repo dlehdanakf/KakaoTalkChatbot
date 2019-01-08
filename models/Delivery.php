@@ -92,4 +92,11 @@
 		public function releaseAllBelongingGroups(){
 			DeliveryGroupLink::DELETE_ALL_BELONGING_GROUPS($this);
 		}
+
+		public function getAllItems($count = 999){
+			return DeliveryItem::GET_ALL_DELIVERY_GROUPED_LIST($this, $count);
+		}
+		public function getRandomItems($count = 10){
+			return DeliveryItem::GET_RANDOM_DELIVERY_GROUPED_LIST($this, $count);
+		}
 	}

@@ -1,0 +1,105 @@
+<?php
+	class DeliveryItem extends BasicModel {
+		protected $delivery_id;
+		public $title;
+		public $price;
+		public $discount;
+		protected $thumbnail_id;
+		public $is_visible;
+
+		public static function GET_ALL_DELIVERY_GROUPED_LIST(Delivery $delivery, $count = 10){
+			$count = intval($count);
+			$query = B::DB()->prepare("SELECT id FROM delivery_item WHERE delivery_id = :i LIMIT $count ORDER BY id DESC");
+			$query->execute([
+				':i' => $delivery->id
+			]);
+
+			$return_array = [];
+			$result = $query->fetchAll(PDO::FETCH_COLUMN);
+			foreach($result as $v){
+				array_push($return_array, new self($v));
+			}
+
+			return $return_array;
+		}
+		public static function GET_RANDOM_DELIVERY_GROUPED_LIST(Delivery $delivery, $count = 10){
+			$count = intval($count);
+			$query = B::DB()->prepare("SELECT id FROM delivery_item WHERE delivery_id = :i LIMIT $count ORDER BY RAND() DESC");
+			$query->execute([
+				':i' => $delivery->id
+			]);
+
+			$return_array = [];
+			$result = $query->fetchAll(PDO::FETCH_COLUMN);
+			foreach($result as $v){
+				array_push($return_array, new self($v));
+			}
+
+			return $return_array;
+		}
+
+		public function __construct($id = 0) {
+			$this->price = 0;
+			$this->discount = 0;
+			$this->is_visible = 'N';
+
+			parent::__construct($id);
+		}
+
+		public function save() {
+			$pdo = B::DB();
+			$query = $pdo->prepare("INSERT INTO delivery_item (title, price, discount, thumbnail_id, is_visible) VALUE (:t, :p, :d, :i, :v)");
+			$query->execute([
+				':t' => $this->title,
+				':p' => intval($this->price),
+				':d' => intval($this->discount),
+				':i' => $this->thumbnail_id,
+				':v' => $this->is_visible
+			]);
+
+			$this->id = $pdo->lastInsertId();
+		}
+		public function update(){
+			$query = B::DB()->prepare("UPDATE delivery_item SET title = :t, price = :p, discount = :d, thumbnail_id = :i, is_visible = :v WHERE id = :id");
+			$query->execute([
+				':t' => $this->title,
+				':p' => intval($this->price),
+				':d' => intval($this->discount),
+				':i' => $this->thumbnail_id,
+				':v' => $this->is_visible,
+				':id' => $this->id
+			]);
+		}
+		public function delete(){
+			$query = B::DB()->prepare("DELETE FROM delivery_item WHERE id = :i");
+			$query->execute([
+				':i' => $this->id
+			]);
+		}
+
+		public function getDelivery(){
+			return new Delivery($this->delivery_id);
+		}
+		public function getDeliveryID(){
+			return $this->delivery_id;
+		}
+		public function setDelivery(Delivery $delivery){
+			$this->delivery_id = $delivery->id;
+		}
+
+		public function getThumbnail(){
+			if(!$this->thumbnail_id)
+				return null;
+
+			return Attachment::CREATE_BY_MYSQLID($this->thumbnail_id);
+		}
+		public function getThumbnailID(){
+			return $this->thumbnail_id;
+		}
+		public function setThumbnail(Attachment $attachment){
+			$this->thumbnail_id = $attachment->id;
+		}
+		public function removeThumbnail(){
+			$this->thumbnail_id = null;
+		}
+	}

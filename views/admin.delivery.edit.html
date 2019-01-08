@@ -93,6 +93,25 @@
             </div>
         </div>
     </div>
+    <h4 class="section-title">
+        배달메뉴 관리
+        <a
+            href="/admin/delivery/{{delivery.id}}/service/add"
+            style="vertical-align: bottom; margin-left: 9px;"
+            class="aui-button aui-button-compact aui-button-primary"
+        >
+            추가하기
+        </a>
+    </h4>
+    <p>배달업체 당 서비스 갯수는 최대 10개까지 등록 가능합니다.</p>
+    <table class="aui">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>제목</th>
+            </tr>
+        </thead>
+    </table>
     <h4 class="section-title">배달업체 정보 수정</h4>
     <form class="aui" style="margin-top: 24px;" action="/admin/delivery/{{delivery.id}}/edit" method="POST">
         <div class="field-group">
