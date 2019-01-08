@@ -84,6 +84,19 @@
 				'group_list' => $groups
 			]);
 		}
+		public function adminViewDeliveryInfo($delivery_id){
+			$delivery = new Delivery($delivery_id);
+			$groups = DeliveryGroup::GET_LIST();
+
+			return $this->adminView()->render('admin.delivery.edit.html', [
+				'sub_title' => "배달업체 정보",
+				'active_title' => "배달업체 목록",
+				'delivery' => $delivery,
+				'group_list' => $groups,
+				'belonging' => $delivery->getBelongingGroups(),
+				'thumbnail' => $delivery->getThumbnail()
+			]);
+		}
 
 		public function processAddDeliveryGroup(){
 			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority']);
