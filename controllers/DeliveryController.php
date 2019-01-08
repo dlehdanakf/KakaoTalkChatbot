@@ -108,6 +108,21 @@
 				'delivery' => $delivery
 			]);
 		}
+		public function adminViewDeliveryItem($delivery_id, $item_id){
+			$delivery = new Delivery($delivery_id);
+			$item = new DeliveryItem($item_id);
+
+			if($item->getDeliveryID() !== $delivery->id)
+				throw new \Phroute\Phroute\Exception\HttpRouteNotFoundException();
+
+			return $this->adminView()->render('admin.delivery.item.edit.html', [
+				'sub_title' => "배달업체 아이템 정보",
+				'active_title' => "배달업체 목록",
+				'delivery' => $delivery,
+				'deliveryItem' => $item,
+				'thumbnail' => $item->getThumbnail()
+			]);
+		}
 
 		public function processAddDeliveryGroup(){
 			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority']);
