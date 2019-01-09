@@ -38,6 +38,11 @@
 
 			return $this;
 		}
+		public function setActionShare(){
+			$this->action = 'share';
+
+			return $this;
+		}
 
 		public function render(){
 			$label = $this->label;
@@ -75,6 +80,12 @@
 						'action' => 'phone',
 						'label' => $label,
 						'phoneNumber' => $this->phoneNumber
+					];
+
+				case 'share':
+					return [
+						'action' => 'share',
+						'label' => $label
 					];
 
 				default:
