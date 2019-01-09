@@ -75,7 +75,7 @@
 			if($utteranceArray[count($utteranceArray) - 1] != "대표메뉴")
 				throw new Exception("채팅봇이 질의 내용을 이해하지 못했습니다.");
 
-			$utterance = implode(' ', array_slice($utteranceArray, 0, count($utteranceArray) - 2));
+			$utterance = implode(' ', array_slice($utteranceArray, 0, count($utteranceArray) - 1));
 
 			$skillResponse = new SkillResponse;
 			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setMessageText("배달음식점 목록 보여줘"));
