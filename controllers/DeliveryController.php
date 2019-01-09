@@ -57,10 +57,11 @@
 				return json_encode($skillResponse->render());
 			}
 
-			$skillResponse->addResponseComponent(new SimpleText(
-				"우리학교 주변 【 $deliveryGroup->label 】 배달업체 목록" . "\n\n" .
-				"문구 추가해야함"
-			));
+			if($requestBody['utterance'] != "더보기")
+				$skillResponse->addResponseComponent(new SimpleText(
+					"우리학교 주변 【 $deliveryGroup->label 】 배달업체 목록" . "\n\n" .
+					"문구 추가해야함"
+				));
 
 			$carousel = new Carousel;
 			foreach($deliveries as $delivery){
