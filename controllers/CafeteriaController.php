@@ -1,7 +1,7 @@
 <?php
 	class CafeteriaController {
 		public function skillViewCafeteriaList(){
-			$temporary_thumbnail = "http://kung.kr/files/attach/images/200/696/028/006/7e4144e56eb58481a3ede39b2215b75e.jpg";
+			$temporary_thumbnail = "http://kung.kr/files/attach/images/247/123/041/006/bca9d3b106a8d89f73a9fc40daef22b2.png";
 
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
 			$skillResponse = new SkillResponse;
