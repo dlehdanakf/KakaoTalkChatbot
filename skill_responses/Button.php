@@ -102,6 +102,7 @@
 				case 'block':
 					$return_array = [
 						'action' => 'block',
+						'label' => $label,
 						'blockId' => $this->blockId
 					];
 					if($this->messageText)
