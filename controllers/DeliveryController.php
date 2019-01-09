@@ -69,12 +69,9 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewDeliveryItemList(){
-//			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['delivery_id']);
-			$requestBody = [
-				'params' => [
-					'delivery_id' => 1
-				]
-			];
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
+
+			throw new Exception($requestBody['utterance']);
 
 			$skillResponse = new SkillResponse;
 			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setMessageText("배달음식점 목록 보여줘"));
