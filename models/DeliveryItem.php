@@ -129,7 +129,12 @@
 			if(intval($this->discount) > 0)
 				$commerceCard->discount = (int) $this->discount;
 
-			$commerceCard->addThumbnail(new DefaultThumbnail);
+			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
+				$thumbnail = new Thumbnail("http://chatbot.kunnect.net" . $this->getThumbnail()->getDownloadLinkDirectory());
+			else
+				$thumbnail = new DefaultThumbnail;
+
+			$commerceCard->addThumbnail($thumbnail);
 			$commerceCard->addButtons((new Button("공유하기"))->setActionShare());
 
 			return $commerceCard;
