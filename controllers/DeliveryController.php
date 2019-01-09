@@ -308,7 +308,7 @@
 
 			$deliveryItem->setDelivery($delivery);
 			if(intval($_REQUEST['thumbnail']) > 0)
-				$delivery->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+				$deliveryItem->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
 
 			$deliveryItem->save();
 
