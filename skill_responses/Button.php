@@ -46,11 +46,10 @@
 
 			return $this;
 		}
-		public function setBlockID($block_id, $messageText, $extra = []){
+		public function setBlockID($block_id, $messageText = ""){
 			$this->action = 'block';
 			$this->blockId = $block_id;
 			$this->messageText = (String) $messageText;
-			if(is_array($extra)) $this->extra = $extra;
 
 			return $this;
 		}
@@ -107,8 +106,6 @@
 					];
 					if($this->messageText)
 						$return_array['messageText'] = $this->messageText;
-					if(is_array($this->extra) && count($this->extra) > 0)
-						$return_array['extra'] = $this->extra;
 
 					return $return_array;
 
