@@ -41,7 +41,7 @@
 
 			$skillResponse = new SkillResponse;
 			$count = $deliveryGroup->getDeliveryCount();
-			if($count > 10 || true)
+			if($count > 10)
 				$skillResponse->addQuickReplies((new QuickReply("더보기"))->setBlockID("5c35e4c6384c5518d1200aa4", [
 					'delivery_category' => $requestBody['params']['delivery_category']
 				]));
