@@ -7,6 +7,14 @@
 		protected $thumbnail_id;
 		public $is_visible;
 
+		public static function GET_DELIVERY_GROUPED_COUNT(Delivery $delivery){
+			$query = B::DB()->prepare("SELECT COUNT(id) AS `cnt` FROM delivery_item WHERE delivery_id = :i");
+			$query->execute([
+				':i' => $delivery->id
+			]);
+
+			return intval($query->fetch(PDO::FETCH_ASSOC)['cnt']);
+		}
 		public static function GET_ALL_DELIVERY_GROUPED_LIST(Delivery $delivery, $count = 10){
 			$count = intval($count);
 			$query = B::DB()->prepare("SELECT id FROM delivery_item WHERE delivery_id = :i ORDER BY id DESC LIMIT $count");

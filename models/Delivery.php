@@ -113,6 +113,9 @@
 			DeliveryGroupLink::DELETE_ALL_BELONGING_GROUPS($this);
 		}
 
+		public function getItemCount(){
+			return DeliveryItem::GET_DELIVERY_GROUPED_COUNT($this);
+		}
 		public function getAllItems($count = 999){
 			return DeliveryItem::GET_ALL_DELIVERY_GROUPED_LIST($this, $count);
 		}
@@ -132,7 +135,8 @@
 			else $thumbnail = new DefaultThumbnail;
 
 			$basicCard->setThumbnail($thumbnail);
-			$basicCard->addButton((new Button("대표메뉴"))->setBlockID('5c3596ce384c5518d1200851', $this->title ." 대표메뉴"));
+			if($this->getItemCount() > 0)
+				$basicCard->addButton((new Button("대표메뉴"))->setBlockID('5c3596ce384c5518d1200851', $this->title ." 대표메뉴"));
 			$basicCard->addButton((new Button("배달 주문하기"))->setPhoneNumber($this->contact));
 			$basicCard->addButton((new Button("공유하기"))->setActionShare());
 
