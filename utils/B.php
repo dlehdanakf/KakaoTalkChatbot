@@ -101,11 +101,6 @@
 				'params' => []
 			];
 
-			$application_setting = new ApplicationSetting;
-			$application_setting->sys_key = 'last_skill';
-			$application_setting->sys_value = $json;
-			$application_setting->save();
-
 			/** 0. 사용자 정보 확인 */
 			try {
 				if(!isset($obj['userRequest'])){
@@ -129,11 +124,18 @@
 				}
 
 				foreach($params as $i){
-					if(!isset($obj['action']['params'][$i])){
-						throw new Exception("Skill Entry 오류 - " . $i);
+					$pass = false;
+					if(isset($obj['action']['clientExtra'][$i])){
+						$return_array['params'][$i] = $obj['action']['clientExtra'][$i];
+						$pass = true;
+					}
+					if(isset($obj['action']['params'][$i])){
+						$return_array['params'][$i] = $obj['action']['params'][$i];
+						$pass = true;
 					}
 
-					$return_array['params'][$i] = $obj['action']['params'][$i];
+					if($pass === false)
+						throw new Exception("Skill Entry 오류 - " . $i);
 				}
 			} catch(Exception $e) {
 				throw new Exception("Skill 형식을 갖추지 못했습니다 / " . $e->getMessage());
