@@ -30,12 +30,7 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewDeliveryList(){
-//			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['delivery_category']);
-			$requestBody = [
-				'params' => [
-					'delivery_category' => '중식당'
-				]
-			];
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['delivery_category']);
 
 			$groupLabel = $requestBody['params']['delivery_category'];
 			try {
