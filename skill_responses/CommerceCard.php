@@ -39,12 +39,14 @@
 
 			$return_array = [
 				'description' => $description,
-				'price' => $this->price,
+				'price' => (int) $this->price,
 				'currency' => $this->currency,
-				'discount' => $this->discount,
 				'thumbnails' => [],
 				'buttons' => []
 			];
+
+			if(intval($this->discount) > 0)
+				$return_array['discount'] = (int) $this->discount;
 
 			foreach($this->thumbnails as $thumbnail){
 				$tnl = $thumbnail->render();
