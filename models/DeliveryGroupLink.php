@@ -4,6 +4,14 @@
 		public $group_id;
 		public $register_date;
 
+		public static function GET_GROUPED_DELIVERIES_COUNT(DeliveryGroup $group){
+			$query = B::DB()->prepare("SELECT COUNT(delivery_id) AS `cnt` FROM delivery_group_link WHERE group_id = :g");
+			$query->execute([
+				':g' => $group->id
+			]);
+
+			return (int) $query->fetch(PDO::FETCH_ASSOC)['cnt'];
+		}
 		public static function GET_ALL_GROUPED_DELIVERIES(DeliveryGroup $group){
 			$query = B::DB()->prepare("SELECT delivery_id FROM delivery_group_link WHERE group_id = :g ORDER BY register_date DESC");
 			$query->execute([

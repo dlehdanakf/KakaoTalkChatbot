@@ -40,6 +40,11 @@
 			}
 
 			$skillResponse = new SkillResponse;
+			$count = $deliveryGroup->getDeliveryCount();
+			if($count > 10 || true)
+				$skillResponse->addQuickReplies((new QuickReply("더보기"))->setBlockID("5c30a7de384c5518d11fec0b", "더보기", [
+					'delivery_category' => $requestBody['params']['delivery_category']
+				]));
 			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setMessageText("배달음식점 목록 보여줘"));
 			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 

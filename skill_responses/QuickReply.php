@@ -8,6 +8,7 @@
 
 		public function __construct($label){
 			$this->label = (string) $label;
+			$this->extra = [];
 		}
 
 		public function setMessageText($text){
@@ -16,9 +17,12 @@
 
 			return $this;
 		}
-		public function setBlockID($id){
+		public function setBlockID($id, $text = "", $extra = []){
 			$this->action = 'block';
 			$this->blockId = $id;
+			$this->messageText = (string) $text;
+			if(is_array($extra))
+				$this->extra = $extra;
 
 			return $this;
 		}
@@ -28,12 +32,18 @@
 				return null;
 
 			if($this->action === 'block'){
-				return [
+				$return_array = [
 					'label' => $this->label,
 					'action' => $this->action,
-					'blockId' => $this->blockId,
-					'extra' => null
+					'blockId' => $this->blockId
 				];
+
+				if($this->messageText)
+					$return_array['messageText'] = $this->messageText;
+				if(is_array($this->extra) && count($this->extra) > 0)
+					$return_array['extra'] = $this->extra;
+
+				return $return_array;
 			}
 
 			return [

@@ -83,6 +83,9 @@
 			$this->thumbnail_id = null;
 		}
 
+		public function getDeliveryCount(){
+			return DeliveryGroupLink::GET_GROUPED_DELIVERIES_COUNT($this);
+		}
 		public function getAllDeliveries(){
 			return DeliveryGroupLink::GET_ALL_GROUPED_DELIVERIES($this);
 		}
