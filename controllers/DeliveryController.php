@@ -82,7 +82,7 @@
 			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
 			try {
-				$delivery = new Delivery(intval($requestBody['params']['delivery_id']));
+				$delivery = Delivery::CREATE_BY_TITLE($utterance);
 				$items = $delivery->getRandomItems();
 
 				if(count($items) < 1){
