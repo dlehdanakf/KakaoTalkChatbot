@@ -14,6 +14,24 @@
 		public $contract;
 		public $promotion;
 
+		public static function CREATE_BY_TITLE($title){
+			$query = B::DB()->prepare("SELECT * FROM delivery WHERE title = :t");
+			$query->execute([
+				':t' => $title
+			]);
+
+			$instance = new self;
+			if($query->rowCount() < 1)
+				throw new ModelNotFoundException(get_class($instance) . " 객체를 찾을 수 없습니다. label - " . $title);
+
+			$result = $query->fetch(PDO::FETCH_ASSOC);
+			foreach($result as $i => $v){
+				$instance->$i = $v;
+			}
+
+			return $instance;
+		}
+
 		public function __construct($id = 0) {
 			$this->contract = 0;
 			$this->promotion = 0;

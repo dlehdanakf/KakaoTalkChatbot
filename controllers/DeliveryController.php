@@ -71,31 +71,43 @@
 		public function skillViewDeliveryItemList(){
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
 
-			throw new Exception($requestBody['utterance']);
+			$utteranceArray = explode(' ', $requestBody['utterance']);
+			if($utteranceArray[count($utteranceArray) - 1] != "대표메뉴")
+				throw new Exception("채팅봇이 질의 내용을 이해하지 못했습니다.");
+
+			$utterance = implode(' ', array_slice($utteranceArray, 0, count($utteranceArray) - 2));
 
 			$skillResponse = new SkillResponse;
 			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setMessageText("배달음식점 목록 보여줘"));
 			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
-			$delivery = new Delivery(intval($requestBody['params']['delivery_id']));
-			$items = $delivery->getRandomItems();
+			try {
+				$delivery = new Delivery(intval($requestBody['params']['delivery_id']));
+				$items = $delivery->getRandomItems();
 
-			if(count($items) < 1){
+				if(count($items) < 1){
+					$skillResponse->addResponseComponent(new SimpleText(
+						"배달업체 【 $delivery->title 】 에 등록된 대표메뉴가 없습니다."
+					));
+
+					return json_encode($skillResponse->render());
+				}
+
+				$carousel = new Carousel;
+				foreach($items as $item){
+					$carousel->addCard($item->getCommerceCard());
+				}
+
+				$skillResponse->addResponseComponent($carousel);
+
+				return json_encode($skillResponse->render());
+			} catch(ModelNotFoundException $e) {
 				$skillResponse->addResponseComponent(new SimpleText(
-					"배달업체 【 $delivery->title 】 에 등록된 대표메뉴가 없습니다."
+					$utterance . " 업체를 찾을 수 없습니다."
 				));
 
 				return json_encode($skillResponse->render());
 			}
-
-			$carousel = new Carousel;
-			foreach($items as $item){
-				$carousel->addCard($item->getCommerceCard());
-			}
-
-			$skillResponse->addResponseComponent($carousel);
-
-			return json_encode($skillResponse->render());
 		}
 
 		public function adminViewDeliveryGroupList(){
