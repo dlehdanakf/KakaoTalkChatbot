@@ -1,8 +1,6 @@
 <?php
 	class DeliveryController {
 		public function skillViewDeliveryGroups(){
-			$temporary_thumbnail = "http://kung.kr/files/attach/images/247/123/041/006/bca9d3b106a8d89f73a9fc40daef22b2.png";
-
 			$skillResponse = new SkillResponse;
 			$skillResponse->addResponseComponent(new SimpleText(
 				"교내에서 배달주문할 땐?" . "\n\n" .
@@ -15,14 +13,7 @@
 				throw new Exception("🛠️ 식당 그룹을 가져오는데 오류가 발생했습니다.");
 
 			foreach($groups as $group){
-				$basicCard = new BasicCard;
-				$basicCard->title = $group->title;
-				$basicCard->description = $group->description;
-
-				$basicCard->setThumbnail(new Thumbnail($temporary_thumbnail));
-				$basicCard->addButton((new Button("식당목록"))->setMessageText($group->label . " 배달음식점 목록 보여줘"));
-
-				$carousel->addCard($basicCard);
+				$carousel->addCard($group->getBasicCard());
 			}
 
 			$skillResponse->addResponseComponent($carousel);

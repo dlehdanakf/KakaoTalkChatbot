@@ -103,4 +103,18 @@
 		public function deleteAllDeliveries(){
 			DeliveryGroupLink::DELETE_ALL_DELIVERIES($this);
 		}
+
+		public function getBasicCard(){
+			$basicCard = new BasicCard;
+			$basicCard->title = $this->title;
+			$basicCard->description = $this->description;
+
+			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
+				$thumbnail = new Thumbnail("http://chatbot.kunnect.net" . $this->getThumbnail()->getDownloadLinkDirectory());
+			else
+				$thumbnail = new DefaultThumbnail;
+
+			$basicCard->setThumbnail($thumbnail);
+			$basicCard->addButton((new Button("식당목록"))->setMessageText($this->label . " 배달음식점 목록 보여줘"));
+		}
 	}
