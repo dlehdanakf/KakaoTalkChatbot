@@ -104,4 +104,20 @@
 		public function deleteAllItems(){
 			DeliveryItem::DELETE_ALL_DELIVERY_GROUPED_ITEM($this);
 		}
+
+		public function getBasicCard(){
+			$basicCard = new BasicCard;
+			$basicCard->title = $this->title;
+			$basicCard->description = $this->description;
+
+			if($this->thumbnail_id) $thumbnail = new Thumbnail($this->getThumbnail()->getDownloadLinkDirectory());
+			else $thumbnail = new DefaultThumbnail;
+
+			$basicCard->setThumbnail($thumbnail);
+			$basicCard->addButton((new Button("대표메뉴"))->setBlockID('5c3596ce384c5518d1200851', $this->title ." 대표메뉴"));
+			$basicCard->addButton((new Button("배달 주문하기"))->setPhoneNumber($this->contact));
+			$basicCard->addButton((new Button("공유하기"))->setActionShare());
+
+			return $basicCard;
+		}
 	}
