@@ -30,9 +30,12 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewDeliveryList(){
-			$temporary_thumbnail = "http://kung.kr/files/attach/images/247/123/041/006/bca9d3b106a8d89f73a9fc40daef22b2.png";
-
-			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['delivery_category']);
+//			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['delivery_category']);
+			$requestBody = [
+				'params' => [
+					'delivery_category' => '중식당'
+				]
+			];
 
 			$groupLabel = $requestBody['params']['delivery_category'];
 			try {

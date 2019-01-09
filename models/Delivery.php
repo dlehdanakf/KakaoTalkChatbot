@@ -132,7 +132,7 @@
 			$basicCard->description = $this->description;
 
 			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
-				$thumbnail = new Thumbnail($this->getThumbnail()->getDownloadLinkDirectory());
+				$thumbnail = new Thumbnail("http://chatbot.kunnect.net" . $this->getThumbnail()->getDownloadLinkDirectory());
 			else
 				$thumbnail = new DefaultThumbnail;
 
