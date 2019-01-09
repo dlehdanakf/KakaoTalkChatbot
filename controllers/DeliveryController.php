@@ -71,9 +71,9 @@
 					$thumbnailLink = "http://chatbot.kunnect.net" . $thumbnail->getDownloadLinkDirectory();
 
 				$basicCard->setThumbnail(new Thumbnail($thumbnailLink));
-				$basicCard->addButton((new Button("대표 메뉴판"))->setBlockID('5c3596ce384c5518d1200851', $delivery->title ." 대표메뉴"));
-				$basicCard->addButton((new Button("공유하기"))->setActionShare());
+				$basicCard->addButton((new Button("대표메뉴"))->setBlockID('5c3596ce384c5518d1200851', $delivery->title ." 대표메뉴"));
 				$basicCard->addButton((new Button("배달 주문하기"))->setPhoneNumber($delivery->contact));
+				$basicCard->addButton((new Button("공유하기"))->setActionShare());
 
 				$carousel->addCard($basicCard);
 			}
