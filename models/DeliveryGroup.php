@@ -104,6 +104,9 @@
 			DeliveryGroupLink::DELETE_ALL_DELIVERIES($this);
 		}
 
+		/**
+		 * @return BasicCard
+		 */
 		public function getBasicCard(){
 			$basicCard = new BasicCard;
 			$basicCard->title = $this->title;
@@ -116,5 +119,7 @@
 
 			$basicCard->setThumbnail($thumbnail);
 			$basicCard->addButton((new Button("식당목록"))->setMessageText($this->label . " 배달음식점 목록 보여줘"));
+
+			return $basicCard;
 		}
 	}
