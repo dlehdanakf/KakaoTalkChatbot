@@ -131,8 +131,10 @@
 			$basicCard->title = $this->title;
 			$basicCard->description = $this->description;
 
-			if($this->thumbnail_id) $thumbnail = new Thumbnail($this->getThumbnail()->getDownloadLinkDirectory());
-			else $thumbnail = new DefaultThumbnail;
+			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
+				$thumbnail = new Thumbnail($this->getThumbnail()->getDownloadLinkDirectory());
+			else
+				$thumbnail = new DefaultThumbnail;
 
 			$basicCard->setThumbnail($thumbnail);
 			if($this->getItemCount() > 0)
