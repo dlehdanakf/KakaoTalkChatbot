@@ -330,11 +330,10 @@
 			if(in_array($_REQUEST['is_visible'], ['Y', 'N']))
 				$deliveryItem->is_visible = $_REQUEST['is_visible'];
 
-			$deliveryItem->setDelivery($delivery);
 			if(intval($_REQUEST['thumbnail']) > 0)
-				$delivery->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+				$deliveryItem->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
 			else
-				$delivery->removeThumbnail();
+				$deliveryItem->removeThumbnail();
 
 			$deliveryItem->update();
 
