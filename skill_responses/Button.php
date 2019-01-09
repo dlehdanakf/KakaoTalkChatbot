@@ -9,9 +9,12 @@
 		public $osLink;
 		public $messageText;
 		public $phoneNumber;
+		public $blockId;
+		public $extra;
 
 		public function __construct($label){
 			$this->label = $label;
+			$this->extra = [];
 		}
 
 		public function setWebLinkUrl($e){
@@ -40,6 +43,14 @@
 		}
 		public function setActionShare(){
 			$this->action = 'share';
+
+			return $this;
+		}
+		public function setBlockID($block_id, $messageText, $extra = []){
+			$this->action = 'block';
+			$this->blockId = $block_id;
+			$this->messageText = (String) $messageText;
+			if(is_array($extra)) $this->extra = $extra;
 
 			return $this;
 		}
@@ -87,6 +98,18 @@
 						'action' => 'share',
 						'label' => $label
 					];
+
+				case 'block':
+					$return_array = [
+						'action' => 'block',
+						'blockId' => $this->blockId
+					];
+					if($this->messageText)
+						$return_array['messageText'] = $this->messageText;
+					if(is_array($this->extra) && count($this->extra) > 0)
+						$return_array['extra'] = $this->extra;
+
+					return $return_array;
 
 				default:
 					return null;

@@ -71,7 +71,7 @@
 					$thumbnailLink = "http://chatbot.kunnect.net" . $thumbnail->getDownloadLinkDirectory();
 
 				$basicCard->setThumbnail(new Thumbnail($thumbnailLink));
-				$basicCard->addButton((new Button("상세메뉴 확인하기"))->setWebLinkUrl('https://www.naver.com'));
+				$basicCard->addButton((new Button("대표 메뉴판"))->setWebLinkUrl('https://www.naver.com'));
 				$basicCard->addButton((new Button("공유하기"))->setActionShare());
 				$basicCard->addButton((new Button("배달 주문하기"))->setPhoneNumber($delivery->contact));
 
