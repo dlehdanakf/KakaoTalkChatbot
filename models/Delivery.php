@@ -129,7 +129,7 @@
 		public function getBasicCard(){
 			$basicCard = new BasicCard;
 			$basicCard->title = $this->title;
-			$basicCard->description = $this->description;
+			$basicCard->description = $this->getBasicCardDescription();
 
 			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
 				$thumbnail = new Thumbnail("http://chatbot.kunnect.net" . $this->getThumbnail()->getDownloadLinkDirectory());
@@ -143,5 +143,20 @@
 			$basicCard->addButton((new Button("공유하기"))->setActionShare());
 
 			return $basicCard;
+		}
+
+		protected function getBasicCardDescription(){
+			$items = DeliveryItem::GET_RANDOM_DELIVERY_GROUPED_LIST($this, 4);
+			if(count($items) > 0){
+				$description = "";
+				foreach($items as $i => $item){
+					if($i > 0) $description .= ", ";
+					$description .= $item->title;
+				}
+
+				return $description;
+			}
+
+			return $this->description;
 		}
 	}
