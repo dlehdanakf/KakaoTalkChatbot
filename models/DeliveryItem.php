@@ -109,4 +109,21 @@
 		public function removeThumbnail(){
 			$this->thumbnail_id = null;
 		}
+
+		/**
+		 * @return CommerceCard
+		 */
+		public function getCommerceCard(){
+			$commerceCard = new CommerceCard;
+			$commerceCard->description = (string) $this->title;
+			$commerceCard->price = (int) $this->price;
+
+			if(intval($this->discount) > 0)
+				$commerceCard->discount = (int) $this->discount;
+
+			$commerceCard->addThumbnail(new DefaultThumbnail);
+			$commerceCard->addButtons((new Button("공유하기"))->setActionShare());
+
+			return $commerceCard;
+		}
 	}
