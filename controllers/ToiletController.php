@@ -25,7 +25,7 @@
 		}
 
 		protected function getRandomToiletMessageCard(){
-			$temporary_thumbnail = "http://kung.kr/files/attach/images/247/123/041/006/bca9d3b106a8d89f73a9fc40daef22b2.png";
+			$temporary_thumbnail = "http://kung.kr/files/attach/images/247/379/042/006/54d71a8c34d0dd0934bfe5ac8783d0fc.png";
 
 			$building = ToiletBuilding::GET_RANDOM_ITEM();
 			$place = $building->getRandomFloor();
