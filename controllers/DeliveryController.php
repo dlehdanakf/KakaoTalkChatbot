@@ -186,6 +186,15 @@
 				'thumbnail' => $item->getThumbnail()
 			]);
 		}
+		public function adminViewDeliveryCategory(){
+			$categories = DeliveryGroupCategory::GET_LIST();
+
+			return $this->adminView()->render('admin.delivery.category.html', [
+				'sub_title' => "배달업체 카테고리",
+				'active_title' => "배달업체 카테고리",
+				'category_list' => $categories
+			]);
+		}
 
 		public function processAddDeliveryGroup(){
 			B::PARAMETER_CHECK(['title', 'description', 'label']);
@@ -353,6 +362,9 @@
 				], [
 					"href" => "/admin/delivery/groups",
 					"label" => "배달업체 그룹 목록"
+				], [
+					"href" => "/admin/delivery/category",
+					"label" => "배달업체 카테고리"
 				]
 			]);
 

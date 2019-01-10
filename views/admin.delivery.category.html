@@ -1,0 +1,35 @@
+{% extends "layouts/admin.delivery.layout.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block article %}
+<div class="article-content delivery-group-list">
+    <table class="aui">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>제목</th>
+            <th>설명</th>
+            <th>버튼1</th>
+            <th>버튼2</th>
+            <th>버튼3</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in range(0, category_list|length - 1) %}
+        {% set item = category_list[i] %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td><a href="/admin/delivery/category/{{item.id}}">{{item.title}}</a></td>
+            <td><span style="font-size: 12px; color: #AAA;">{% if item.description %}{{item.description}}{% else %}없음{% endif %}</span></td>
+            {% set btns = item.getDeliveryGroupLabel %}
+            <td>{{btns[0]}}</td>
+            <td>{{btns[1]}}</td>
+            <td>{{btns[2]}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

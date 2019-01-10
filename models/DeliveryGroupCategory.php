@@ -118,6 +118,22 @@
 			}
 		}
 
+		public function getDeliveryGroupLabel(){
+			$return_array = [];
+			$int = [1, 2, 3];
+			foreach($int as $i){
+				$group = $this->getDeliveryGroup($i);
+				if($group === null) {
+					array_push($return_array, "-");
+					continue;
+				}
+
+				array_push($return_array, $group->label);
+			}
+
+			return $return_array;
+		}
+
 		public function getBasicCard(){
 			$basicCard = new BasicCard;
 			$basicCard->title = $this->description;
