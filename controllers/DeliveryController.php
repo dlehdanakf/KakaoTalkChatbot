@@ -134,7 +134,8 @@
 			return $this->adminView()->render('admin.delivery.groups.edit.html', [
 				'sub_title' => "배달업체 그룹 정보",
 				'active_title' => "배달업체 그룹 목록",
-				'group' => $group
+				'group' => $group,
+				'thumbnail' => $group->getThumbnail()
 			]);
 		}
 		public function adminViewDeliveryList(){

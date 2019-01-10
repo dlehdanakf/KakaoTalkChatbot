@@ -180,7 +180,7 @@
                 <button type="button" class="aui-button aui-button-compact" id="delete-thumbnail" {% if not thumbnail %}disabled{% endif %}>삭제</button>
             </div>
             <div style="padding: 6px 0;">
-                <input type="hidden" name="thumbnail" id="thumbnail-value" />
+                <input type="hidden" name="thumbnail" id="thumbnail-value" value="{{thumbnail.id}}" />
                 <input class="upfile" type="file" id="f-thumbnail" title="upload file" />
                 <button type="button" id="upload-thumbnail" class="aui-button aui-button-compact" disabled>업로드</button>
             </div>
