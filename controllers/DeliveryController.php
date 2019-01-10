@@ -55,6 +55,14 @@
 				));
 
 			$carousel = new Carousel;
+
+			if(true){
+				try {
+					$yasik = DeliveryGroup::CREATE_BY_LABEL("야식");
+					$carousel->addCard($yasik);
+				} catch(Exception $e) {}
+			}
+
 			foreach($deliveries as $delivery){
 				$carousel->addCard($delivery->getBasicCard());
 			}
@@ -220,6 +228,9 @@
 			$group->description = $_REQUEST['description'];
 			$group->label = $_REQUEST['label'];
 
+			if(intval($_REQUEST['thumbnail']) > 0)
+				$group->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+
 			/***
 			 *	TODO - label 칼럼 중복 검사
 			 */
@@ -235,6 +246,11 @@
 			$group->title = $_REQUEST['title'];
 			$group->description = $_REQUEST['description'];
 			$group->label = $_REQUEST['label'];
+
+			if(intval($_REQUEST['thumbnail']) > 0)
+				$group->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+			else
+				$group->removeThumbnail();
 
 			/***
 			 *	TODO - label 칼럼 중복 검사
