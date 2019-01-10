@@ -7,19 +7,6 @@
 				"건학정식과대학생활 배달음식 주문하기!"
 			));
 
-//			$carousel = new Carousel;
-//			$groups = DeliveryGroup::GET_ORDERED_LIST();
-//			if(count($groups) < 1)
-//				throw new Exception("🛠️ 식당 그룹을 가져오는데 오류가 발생했습니다.");
-//
-//			foreach($groups as $group){
-//				$carousel->addCard($group->getBasicCard());
-//			}
-//
-//			$skillResponse->addResponseComponent($carousel);
-//
-//			return json_encode($skillResponse->render());
-
 			$carousel = new Carousel;
 			$categories = DeliveryGroupCategory::GET_ORDERED_LIST();
 			if(count($categories) < 1)
@@ -139,8 +126,7 @@
 			return $this->adminView()->render('admin.delivery.groups.edit.html', [
 				'sub_title' => "배달업체 그룹 정보",
 				'active_title' => "배달업체 그룹 목록",
-				'group' => $group,
-				'thumbnail' => $group->getThumbnail()
+				'group' => $group
 			]);
 		}
 		public function adminViewDeliveryList(){
@@ -202,17 +188,12 @@
 		}
 
 		public function processAddDeliveryGroup(){
-			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority']);
+			B::PARAMETER_CHECK(['title', 'description', 'label']);
 
 			$group = new DeliveryGroup;
 			$group->title = $_REQUEST['title'];
 			$group->description = $_REQUEST['description'];
 			$group->label = $_REQUEST['label'];
-			$group->priority = intval($_REQUEST['priority']);
-
-			if(intval($_REQUEST['thumbnail']) > 0) {
-				$group->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
-			}
 
 			/***
 			 *	TODO - label 칼럼 중복 검사
@@ -223,19 +204,12 @@
 			header('Location: /admin/delivery/groups');
 		}
 		public function processUpdateDeliveryGroup($group_id){
-			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority']);
+			B::PARAMETER_CHECK(['title', 'description', 'label']);
 
 			$group = new DeliveryGroup($group_id);
 			$group->title = $_REQUEST['title'];
 			$group->description = $_REQUEST['description'];
 			$group->label = $_REQUEST['label'];
-			$group->priority = intval($_REQUEST['priority']);
-
-			if(intval($_REQUEST['thumbnail']) > 0) {
-				$group->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
-			} else {
-				$group->removeThumbnail();
-			}
 
 			/***
 			 *	TODO - label 칼럼 중복 검사

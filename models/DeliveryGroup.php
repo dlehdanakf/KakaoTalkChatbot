@@ -3,8 +3,6 @@
 		public $title;
 		public $label;
 		public $description;
-		protected $thumbnail_id;
-		public $priority;
 
 		public static function GET_ORDERED_LIST(){
 			$query = B::DB()->prepare("SELECT id FROM delivery_group ORDER BY priority DESC");
@@ -38,25 +36,21 @@
 
 		public function save() {
 			$pdo = B::DB();
-			$query = $pdo->prepare("INSERT INTO delivery_group (title, label, description, thumbnail_id, priority) VALUE (:t, :l, :d, :i, :p)");
+			$query = $pdo->prepare("INSERT INTO delivery_group (title, label, description) VALUE (:t, :l, :d)");
 			$query->execute([
 				':t' => $this->title,
 				':l' => $this->label,
-				':d' => $this->description,
-				':i' => $this->thumbnail_id,
-				':p' => $this->priority
+				':d' => $this->description
 			]);
 
 			$this->id = $pdo->lastInsertId();
 		}
 		public function update(){
-			$query = B::DB()->prepare("UPDATE delivery_group SET title = :t, label = :l, description = :d, thumbnail_id = :i, priority = :p WHERE id = :id");
+			$query = B::DB()->prepare("UPDATE delivery_group SET title = :t, label = :l, description = :d WHERE id = :id");
 			$query->execute([
 				':t' => $this->title,
 				':l' => $this->label,
 				':d' => $this->description,
-				':i' => $this->thumbnail_id,
-				':p' => $this->priority,
 				':id' => $this->id
 			]);
 		}
@@ -65,22 +59,6 @@
 			$query->execute([
 				':i' => $this->id
 			]);
-		}
-
-		public function getThumbnail(){
-			if(!$this->thumbnail_id)
-				return null;
-
-			return Attachment::CREATE_BY_MYSQLID($this->thumbnail_id);
-		}
-		public function getThumbnailID(){
-			return $this->thumbnail_id;
-		}
-		public function setThumbnail(Attachment $attachment){
-			$this->thumbnail_id = $attachment->id;
-		}
-		public function removeThumbnail(){
-			$this->thumbnail_id = null;
 		}
 
 		public function getDeliveryCount(){
@@ -111,13 +89,6 @@
 			$basicCard = new BasicCard;
 			$basicCard->title = $this->title;
 			$basicCard->description = $this->description;
-
-			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
-				$thumbnail = new Thumbnail("http://chatbot.kunnect.net" . $this->getThumbnail()->getDownloadLinkDirectory());
-			else
-				$thumbnail = new DefaultThumbnail;
-
-			$basicCard->setThumbnail($thumbnail);
 			$basicCard->addButton((new Button("식당목록"))->setMessageText($this->label . " 배달음식점 목록 보여줘"));
 
 			return $basicCard;
