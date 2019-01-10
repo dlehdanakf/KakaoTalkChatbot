@@ -11,8 +11,7 @@
                 <th>#</th>
                 <th>제목</th>
                 <th>라벨</th>
-                <th>우선순위</th>
-                <th>등록일</th>
+                <th>설명</th>
             </tr>
         </thead>
         <tbody>
@@ -22,8 +21,7 @@
                     <td>{{item.id}}</td>
                     <td><a href="/admin/delivery/groups/{{item.id}}">{{item.title}}</a></td>
                     <td><span class="aui-label">{{item.label}}</span></td>
-                    <td>{{item.priority}}</td>
-                    <td>{{date_format(item.register_date, "Y.m.d H:i")}}</td>
+                    <td><span style="font-size: 12px; color: #AAA;">{% if item.description %}{{item.description}}{% else %}없음{% endif %}</span></td>
                 </tr>
             {% endfor %}
         </tbody>

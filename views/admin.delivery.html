@@ -12,6 +12,7 @@
                 <th>제목</th>
                 <th>계약유형</th>
                 <th>할인</th>
+                <th>메뉴</th>
                 <th>등록일</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                 <td><a href="/admin/delivery/{{item.id}}">{{item.title}}</a></td>
                 <td><span class="aui-label">{{item.getContract}}</span></td>
                 <td>{{item.getPromotion}}</td>
+                <td>{{item.getItemCount}}</td>
                 <td>{{date_format(item.register_date, "Y.m.d H:i")}}</td>
             </tr>
             {% endfor %}
