@@ -12,6 +12,14 @@
 			if(count($categories) < 1)
 				throw new Exception("🛠️ 배달업체 카테고리을 가져오는데 오류가 발생했습니다.");
 
+
+			if(true){
+				try {
+					$yasik = DeliveryGroup::CREATE_BY_LABEL("야식");
+					$carousel->addCard($yasik->getBasicCard());
+				} catch(Exception $e) {}
+			}
+
 			foreach($categories as $category){
 				$carousel->addCard($category->getBasicCard());
 			}
@@ -55,14 +63,6 @@
 				));
 
 			$carousel = new Carousel;
-
-			if(true){
-				try {
-					$yasik = DeliveryGroup::CREATE_BY_LABEL("야식");
-					$carousel->addCard($yasik->getBasicCard());
-				} catch(Exception $e) {}
-			}
-
 			foreach($deliveries as $delivery){
 				$carousel->addCard($delivery->getBasicCard());
 			}
