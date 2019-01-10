@@ -3,7 +3,7 @@
 		public function skillViewDeliveryGroups(){
 			$skillResponse = new SkillResponse;
 			$skillResponse->addResponseComponent(new SimpleText(
-				"☎️ 🏍️ 🍗 배달 주문하기" . "\n\n" .
+				"(콜) 배달 주문하기" . "\n\n" .
 				"교내로 배달이 가능한 업체만 모아놨어요!" . "\n" .
 				"다음 목록에서 주문하고싶은 음식의 분류를 선택해주세요."
 			));
