@@ -58,7 +58,7 @@
 			}
 
 			if($requestBody['utterance'] != "더보기")
-				$skillResponse->addResponseComponent(new SimpleImage(
+				$skillResponse->addResponseComponent(new SimpleText(
 					"【 " . $groupLabel . " 】" . "\n\n" .
 					"우리학교 주변 배달업체 목록을 랜덤으로 보여드려요." . "\n" .
 					"더보기 버튼을 누르시면 계속해서 다른 업체도 볼 수 있습니다."
@@ -98,7 +98,7 @@
 					return json_encode($skillResponse->render());
 				}
 
-				$skillResponse->addResponseComponent(new SimpleImage(
+				$skillResponse->addResponseComponent(new SimpleText(
 					"【 " . $delivery->title . " 】" . "\n\n" .
 					"배달업체의 대표메뉴(최대 10개)를 보여드려요." . "\n" .
 					"공유하기 버튼을 통해 친구에게 전달할 수 있습니다."
