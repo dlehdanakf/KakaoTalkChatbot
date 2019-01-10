@@ -24,7 +24,12 @@
                 <td><a href="/admin/delivery/{{item.id}}">{{item.title}}</a></td>
                 <td><span class="aui-label">{{item.getContract}}</span></td>
                 <td>{{item.getPromotion}}</td>
-                <td>{{item.getItemCount}}</td>
+                {% set count = item.getItemCount %}
+                {% if count > 0 %}
+                <td>{{count}}</td>
+                {% else %}
+                <td><span style="color: #AAA; font-size: 12px;">-</span></td>
+                {% endif %}
                 <td>{{date_format(item.register_date, "Y.m.d H:i")}}</td>
             </tr>
             {% endfor %}
