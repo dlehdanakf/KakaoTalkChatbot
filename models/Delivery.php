@@ -146,6 +146,9 @@
 		}
 
 		protected function getBasicCardDescription(){
+			if($this->description)
+				return $this->description;
+
 			$items = DeliveryItem::GET_RANDOM_DELIVERY_GROUPED_LIST($this, 4);
 			if(count($items) > 0){
 				$description = "";
@@ -157,6 +160,6 @@
 				return $description;
 			}
 
-			return $this->description;
+			return " ";
 		}
 	}
