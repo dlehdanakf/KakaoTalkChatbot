@@ -110,7 +110,7 @@
 				case 3: if($this->group3_id) return new DeliveryGroup($this->group3_id); else return null;
 			}
 		}
-		public function releaseDeliveryGroupID($int){
+		public function releaseDeliveryGroup($int){
 			switch($int){
 				case 1: $this->group1_id = null; return;
 				case 2: $this->group2_id = null; return;
@@ -118,17 +118,20 @@
 			}
 		}
 
-		public function getDeliveryGroupLabel(){
+		public function getDeliveryGroupLabel($title = false){
 			$return_array = [];
 			$int = [1, 2, 3];
 			foreach($int as $i){
 				$group = $this->getDeliveryGroup($i);
 				if($group === null) {
-					array_push($return_array, "-");
+					if($title) array_push($return_array, null);
+					else array_push($return_array, "-");
+
 					continue;
 				}
 
-				array_push($return_array, $group->label);
+				if($title) array_push($return_array, $group->title);
+				else array_push($return_array, $group->label);
 			}
 
 			return $return_array;

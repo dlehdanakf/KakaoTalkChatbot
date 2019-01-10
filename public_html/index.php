@@ -68,7 +68,8 @@
 			$router->post('groups/{group_id:i}/delete', ["DeliveryController", "processDeleteDeliveryGroup"]);
 
 			$router->get('category', ["DeliveryController", "adminViewDeliveryCategory"]);
-			$router->post('category/{group_id:i}/delete', ["DeliveryController", "processDeleteDeliveryGroup"]);
+			$router->get('category/{category_id:i}', ["DeliveryController", "adminViewDeliveryCategoryInfo"]);
+			$router->post('category/{category_id:i}/edit', ["DeliveryController", "processUpdateDeliveryCategory"]);
 
 			$router->get('/', ["DeliveryController", "adminViewDeliveryList"]);
 			$router->get('add', ["DeliveryController", "adminViewDeliveryAdd"]);

@@ -195,6 +195,22 @@
 				'category_list' => $categories
 			]);
 		}
+		public function adminViewDeliveryCategoryInfo($category_id){
+			$category = new DeliveryGroupCategory($category_id);
+			$groups = DeliveryGroup::GET_LIST();
+
+			return $this->adminView()->render('admin.delivery.category.edit.html', [
+				'sub_title' => "배달업체 카테고리 정보",
+				'active_title' => "배달업체 카테고리",
+				'category' => $category,
+				'thumbnail' => $category->getThumbnail(),
+				'title_list' => $category->getDeliveryGroupLabel(true),
+				'group_list' => $groups,
+				'button_1' => $category->getDeliveryGroup(1),
+				'button_2' => $category->getDeliveryGroup(2),
+				'button_3' => $category->getDeliveryGroup(3)
+			]);
+		}
 
 		public function processAddDeliveryGroup(){
 			B::PARAMETER_CHECK(['title', 'description', 'label']);
@@ -342,6 +358,38 @@
 			$deliveryItem->delete();
 
 			header('Location: /admin/delivery/' . $delivery->id);
+		}
+		public function processUpdateDeliveryCategory($category_id){
+			B::PARAMETER_CHECK(['title', 'description', 'priority', 'thumbnail']);
+
+			$category = new DeliveryGroupCategory($category_id);
+			$category->title = $_REQUEST['title'];
+			$category->description = $_REQUEST['description'];
+			$category->priority = (int) $_REQUEST['priority'];
+
+			if(intval($_REQUEST['thumbnail']) > 0)
+				$category->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+			else
+				$category->removeThumbnail();
+
+			if(B::PARAMETER_CHECK(['group_1'], true) && intval($_REQUEST['group_1']) > 0)
+				$category->setDeliveryGroup(1, new DeliveryGroup($_REQUEST['group_1']));
+			else
+				$category->releaseDeliveryGroup(1);
+
+			if(B::PARAMETER_CHECK(['group_2'], true) && intval($_REQUEST['group_2']) > 0)
+				$category->setDeliveryGroup(2, new DeliveryGroup($_REQUEST['group_2']));
+			else
+				$category->releaseDeliveryGroup(2);
+
+			if(B::PARAMETER_CHECK(['group_3'], true) && intval($_REQUEST['group_3']) > 0)
+				$category->setDeliveryGroup(3, new DeliveryGroup($_REQUEST['group_3']));
+			else
+				$category->releaseDeliveryGroup(3);
+
+			$category->update();
+
+			header("Location: /admin/delivery/category/" . $category->id);
 		}
 
 		/**
