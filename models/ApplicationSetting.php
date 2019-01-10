@@ -6,8 +6,8 @@
 		public function save() {
 			if($this->isDuplicatedKey())
 				$this->update();
-
-			$this->insert();
+			else
+				$this->insert();
 		}
 
 		protected function isDuplicatedKey(){

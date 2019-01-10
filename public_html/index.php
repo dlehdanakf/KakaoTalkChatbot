@@ -84,6 +84,13 @@
 			$router->post('/{delivery_id:i}/item/{item_id:i}/edit', ["DeliveryController", "processUpdateDeliveryItem"]);
 			$router->post('/{delivery_id:i}/item/{item_id:i}/delete', ["DeliveryController", "processDeleteDeliveryItem"]);
 		});
+
+		$router->group(['prefix' => 'service'], function($router){
+			$router->get('/', function(){ header('Location: /admin/service/thumbnail'); });
+
+			$router->get('thumbnail', ["AdminController", "adminViewServiceThumbnail"]);
+			$router->post('thumbnail', ["AdminController", "processUpdateServiceThumbnail"]);
+		});
 	});
 
 	try {

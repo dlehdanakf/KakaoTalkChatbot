@@ -1,0 +1,135 @@
+{% extends "layouts/admin.delivery.layout.html" %}
+
+{% block head %}
+<script>
+    AJS.$(function(){
+        $(document).on('click', ".delete-thumbnail", function(e){
+            var _input = $(this).attr('data-value');
+            var _button = $(this).attr('data-button');
+            var _preview = $(this).attr('data-preview');
+
+            $(_input).val(0);
+            $(_button).attr('disabled', false);
+            $(this).attr('disabled', true);
+
+            var span = $("<span class='placeholder'>이미지를 선택하세요</span>");
+            $(_preview).empty().append(span);
+        });
+        $('.upload-thumbnail').on('click', function(e){
+            var _this = this;
+            var _input = $(this).attr('data-input');
+            var _delete = $(this).attr('data-delete');
+            var _preview = $(this).attr('data-preview');
+            var _value = $(this).attr('data-value');
+
+            if(document.getElementById(_input).files.length == 0){
+                alert('업로드할 파일을 선택해주세요.');
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('attachment', document.getElementById(_input).files[0]);
+            $.ajax({
+                url: '/attachment/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function(){
+                    $(_this).attr('disabled', true);
+                },
+                success: function(data){
+                    if(data.result == 200){
+                        var id = data.returns.id,
+                            dir = data.returns.dir,
+                            ext = data.returns.ext;
+
+                        if((['jpg', 'jpeg', 'png', 'gif']).indexOf(ext) == -1){
+                            alert("지원되는 이미지 형식이 아닙니다!");
+                            return;
+                        }
+
+                        var div = $("<div class='img' style='background-image: url(" + dir + ");'></div>");
+                        $(_delete).attr('disabled', false);
+                        $(_preview).empty().append(div);
+                        $(_value).val(id);
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function(request, status, error){
+                    alert(error);
+                },
+                complete: function(){
+                    document.getElementById(_input).value = "";
+                }
+            });
+        });
+        $(".upfile").on('change', function(e){
+            var _button = $(this).attr('data-button');
+            $(_button).attr('disabled', false);
+        });
+    });
+</script>
+{% endblock %}
+
+{% block article %}
+<div class="article-content delivery-group-info">
+    <form class="aui" method="POST">
+        {% for i in range(0, card_list|length - 1) %}
+            {% set item = card_list[i] %}
+            {% set k = i + 1 %}
+            {% set thumbnail = item.thumbnail %}
+            <div class="field-group">
+                <label for="f-thumbnail-{{k}}">{{item.title}} 썸네일</label>
+                <div class="form-thumbnail">
+                    <div class="thumbnail" id="thumbnail-preview-{{k}}">
+                        {% if thumbnail %}
+                        <div class="img" style="background-image: url('{{thumbnail.getDownloadLinkDirectory}}')"></div>
+                        {% else %}
+                        <span class="placeholder">이미지를 선택하세요</span>
+                        {% endif %}
+                    </div>
+                    <button
+                        type="button"
+                        class="aui-button aui-button-compact delete-thumbnail"
+                        id="delete-thumbnail-{{k}}"
+                        data-value="#thumbnail-value-{{k}}"
+                        data-button="#upload-thumbnail-{{k}}"
+                        data-preview="#thumbnail-preview-{{k}}"
+                        {% if not thumbnail %}disabled{% endif %}
+                    >
+                        삭제
+                    </button>
+                </div>
+                <div style="padding: 6px 0;">
+                    <input type="hidden" name="thumbnail-{{k}}" id="thumbnail-value-{{k}}" value="{{thumbnail.id}}" />
+                    <input class="upfile" type="file" id="f-thumbnail-{{k}}" title="upload file" data-button="#upload-thumbnail-{{k}}" />
+                    <button
+                        type="button"
+                        id="upload-thumbnail-{{k}}"
+                        class="aui-button aui-button-compact upload-thumbnail"
+                        data-input="f-thumbnail-{{k}}"
+                        data-delete="#delete-thumbnail-{{k}}"
+                        data-preview="#thumbnail-preview-{{k}}"
+                        data-value="#thumbnail-value-{{k}}"
+                        disabled
+                    >
+                        업로드
+                    </button>
+                </div>
+                <div class="description">
+                    * 권장 이미지 크기 : 800 x 400, 600 x 300, 2:1 비율<br/>
+                    * 지원되는 파일 형식 : jpg, jpeg, png, gif
+                </div>
+            </div>
+        {% endfor %}
+        <div class="buttons-container">
+            <div class="buttons">
+                <button type="submit" class="aui-button aui-button-primary">수정하기</button>
+                <a class="cancel" href="/admin/delivery/groups">취소</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
