@@ -3,14 +3,15 @@
 		public function skillViewDeliveryGroups(){
 			$skillResponse = new SkillResponse;
 			$skillResponse->addResponseComponent(new SimpleText(
-				"교내에서 배달주문할 땐?" . "\n\n" .
-				"건학정식과대학생활 배달음식 주문하기!"
+				"☎️ 🏍️ 🍗 배달 주문하기" . "\n\n" .
+				"교내로 배달이 가능한 업체만 모아놨어요!" . "\n" .
+				"다음 목록에서 주문하고싶은 음식의 분류를 선택해주세요."
 			));
 
 			$carousel = new Carousel;
 			$categories = DeliveryGroupCategory::GET_ORDERED_LIST();
 			if(count($categories) < 1)
-				throw new Exception("🛠️ 배달업체 카테고리을 가져오는데 오류가 발생했습니다.");
+				throw new Exception("배달업체 카테고리을 가져오는데 오류가 발생했습니다.");
 
 
 			if(true){
@@ -50,16 +51,17 @@
 			$deliveries = $deliveryGroup->getRandomDeliveries(10);
 			if(count($deliveries) < 1){
 				$skillResponse->addResponseComponent(new SimpleText(
-					"우리학교 주변에 등록된 【 $deliveryGroup->label 】 배달업체를 찾을 수 없습니다."
+					"🚫 우리학교 주변에 등록된 【 $deliveryGroup->label 】 배달업체를 찾을 수 없습니다."
 				));
 
 				return json_encode($skillResponse->render());
 			}
 
 			if($requestBody['utterance'] != "더보기")
-				$skillResponse->addResponseComponent(new SimpleText(
-					"우리학교 주변 【 $deliveryGroup->label 】 배달업체 목록" . "\n\n" .
-					"문구 추가해야함"
+				$skillResponse->addResponseComponent(new SimpleImage(
+					"【 " . $groupLabel . " 】" . "\n\n" .
+					"우리학교 주변 배달업체 목록을 랜덤으로 보여드려요." . "\n" .
+					"더보기 버튼을 누르시면 계속해서 다른 업체도 볼 수 있습니다."
 				));
 
 			$carousel = new Carousel;
@@ -90,11 +92,17 @@
 
 				if(count($items) < 1){
 					$skillResponse->addResponseComponent(new SimpleText(
-						"배달업체 【 $delivery->title 】 에 등록된 대표메뉴가 없습니다."
+						"🚫 배달업체 【 $delivery->title 】 에 등록된 대표메뉴가 없습니다."
 					));
 
 					return json_encode($skillResponse->render());
 				}
+
+				$skillResponse->addResponseComponent(new SimpleImage(
+					"【 " . $delivery->title . " 】" . "\n\n" .
+					"배달업체의 대표메뉴(최대 10개)를 보여드려요." . "\n" .
+					"공유하기 버튼을 통해 친구에게 전달할 수 있습니다."
+				));
 
 				$carousel = new Carousel;
 				foreach($items as $item){
