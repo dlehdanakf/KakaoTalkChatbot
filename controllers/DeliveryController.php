@@ -59,7 +59,7 @@
 			if(true){
 				try {
 					$yasik = DeliveryGroup::CREATE_BY_LABEL("야식");
-					$carousel->addCard($yasik);
+					$carousel->addCard($yasik->getBasicCard());
 				} catch(Exception $e) {}
 			}
 
