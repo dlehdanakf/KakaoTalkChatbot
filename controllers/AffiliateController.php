@@ -60,7 +60,7 @@
 			$affiliates = $affiliateGroup->getRandomAffiliates();
 			if(count($affiliates) < 1){
 				$skillResponse->addResponseComponent(new SimpleText(
-					"🚫 " . $affiliates->label ." 그룹에 등록된 업체를 찾을 수 없습니다."
+					"🚫 " . $groupLabel ." 그룹에 등록된 업체를 찾을 수 없습니다."
 				));
 
 				return json_encode($skillResponse->render());
