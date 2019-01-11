@@ -12,8 +12,13 @@
 			if(count($categories) < 1)
 				throw new Exception("배달업체 카테고리을 가져오는데 오류가 발생했습니다.");
 
+			$in_night = false;
+			$current_time = strtotime('now');
+			if ($current_time > strtotime('21:00') && $current_time < strtotime('05:00'))
+				$in_night = true;
 
-			if(true){
+
+			if($in_night === true){
 				try {
 					$yasik = DeliveryGroup::CREATE_BY_LABEL("야식");
 					$carousel->addCard($yasik->getBasicCard());
@@ -22,6 +27,13 @@
 
 			foreach($categories as $category){
 				$carousel->addCard($category->getBasicCard());
+			}
+
+			if($in_night === false){
+				try {
+					$yasik = DeliveryGroup::CREATE_BY_LABEL("야식");
+					$carousel->addCard($yasik->getBasicCard());
+				} catch(Exception $e) {}
 			}
 
 			$skillResponse->addResponseComponent($carousel);
