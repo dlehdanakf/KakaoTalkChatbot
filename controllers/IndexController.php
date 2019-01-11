@@ -37,7 +37,7 @@
 			$basicCard->setThumbnail($this->getCardThumbnail(3));
 			$basicCard->addButton((new Button("최신 문화초대 이벤트"))->setMessageText("최신 문화초대 이벤트 알려줘"));
 			$basicCard->addButton((new Button("쿠넥트 페이스북 페이지"))->setOsLink($link));
-			$carousel->addCard($basicCard);
+//			$carousel->addCard($basicCard);
 
 			/** 1.3 학사일정 */
 			$basicCard = new BasicCard;
