@@ -11,7 +11,7 @@
 			$groups = AffiliateGroup::GET_ORDERED_LIST($category);
 			if(count($groups) < 1) {
 				$skillResponse->addResponseComponent(new SimpleText(
-					$requestBody['params']['affiliate_category'] . " 제휴업체를 찾을 수 없습니다."
+					"🚫 " . $requestBody['params']['affiliate_category'] . " 제휴업체를 찾을 수 없습니다."
 				));
 
 				return json_encode($skillResponse->render());
@@ -22,10 +22,17 @@
 				$carousel->addCard($group->getBasicCard());
 			}
 
-			$skillResponse->addResponseComponent(new SimpleText(
-				"🙋 맛집탐방 메뉴선정은 저에게 맡겨주세요!" . "\n" .
-				"보기쉽게 정돈된 우리학교 맛집 알아보기 👇"
-			));
+			if($requestBody['params']['affiliate_category'] == '맛집') {
+				$skillResponse->addResponseComponent(new SimpleText(
+					"🙋 맛집탐방 메뉴선정은 저에게 맡겨주세요!" . "\n" .
+					"보기쉽게 정돈된 우리학교 맛집 알아보기 👇"
+				));
+			} else if($requestBody['params']['affiliate_category'] == '문화시설') {
+				$skillResponse->addResponseComponent(new SimpleText(
+					"😎 공강시간을 재밌게 보내고 싶다면?" . "\n" .
+					"학교주변 오락시설, 헬스장 및 기타 업체목록을 확인해보세요!"
+				));
+			}
 			$skillResponse->addResponseComponent($carousel);
 
 			return json_encode($skillResponse->render());
