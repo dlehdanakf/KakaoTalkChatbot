@@ -98,15 +98,15 @@
 			$router->get('add', ["AffiliateController", "adminViewAffiliateAdd"]);
 			$router->post('add', ["AffiliateController", "processAddAffiliate"]);
 			$router->get('/{delivery_id:i}', ["AffiliateController", "adminViewAffiliateInfo"]);
-			$router->post('/{delivery_id:i}/edit', ["AffiliateController", "processUpdateDelivery"]);
-			$router->post('/{delivery_id:i}/delete', ["AffiliateController", "processDeleteDelivery"]);
+			$router->post('/{delivery_id:i}/edit', ["AffiliateController", "processUpdateAffiliate"]);
+			$router->post('/{delivery_id:i}/delete', ["AffiliateController", "processDeleteAffiliate"]);
 
 			$router->get('/{delivery_id:i}/item', function($delivery_id){ header('Location: /admin/delivery/' . $delivery_id); });
-			$router->get('/{delivery_id:i}/item/add', ["AffiliateController", "adminViewAddDeliveryItem"]);
-			$router->post('/{delivery_id:i}/item/add', ["AffiliateController", "processAddDeliveryItem"]);
-			$router->get('/{delivery_id:i}/item/{item_id:i}', ["AffiliateController", "adminViewDeliveryItem"]);
-			$router->post('/{delivery_id:i}/item/{item_id:i}/edit', ["AffiliateController", "processUpdateDeliveryItem"]);
-			$router->post('/{delivery_id:i}/item/{item_id:i}/delete', ["AffiliateController", "processDeleteDeliveryItem"]);
+			$router->get('/{delivery_id:i}/item/add', ["AffiliateController", "adminViewAddAffiliateItem"]);
+			$router->post('/{delivery_id:i}/item/add', ["AffiliateController", "processAddAffiliateItem"]);
+			$router->get('/{delivery_id:i}/item/{item_id:i}', ["AffiliateController", "adminViewAffiliateItemInfo"]);
+			$router->post('/{delivery_id:i}/item/{item_id:i}/edit', ["AffiliateController", "processUpdateAffiliateItem"]);
+			$router->post('/{delivery_id:i}/item/{item_id:i}/delete', ["AffiliateController", "processDeleteAffiliateItem"]);
 		});
 
 		$router->group(['prefix' => 'service'], function($router){

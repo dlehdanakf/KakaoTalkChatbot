@@ -120,7 +120,7 @@
                 {% set item = item_list[i] %}
                 <tr>
                     <td>{{i+1}}</td>
-                    <td><a href="/admin/delivery/{{affiliate.id}}/item/{{item.id}}">{{item.title}}</a></td>
+                    <td><a href="/admin/affiliate/{{affiliate.id}}/item/{{item.id}}">{{item.title}}</a></td>
                     <td>{{number_format(item.price)}}</td>
                     <td>{{number_format(item.discount)}}</td>
                     <td>{{date_format(item.register_date, "Y.m.d H:i")}}</td>
@@ -134,7 +134,7 @@
         </tbody>
     </table>
     <h4 class="section-title">제휴업체 정보 수정</h4>
-    <form class="aui" style="margin-top: 24px;" action="/admin/delivery/{{affiliate.id}}/edit" method="POST">
+    <form class="aui" style="margin-top: 24px;" action="/admin/affiliate/{{affiliate.id}}/edit" method="POST">
         <div class="field-group">
             <label for="f-title">업체명<span class="aui-icon icon-required"></span></label>
             <input class="text long-field" type="text" id="f-title" name="title" title="업체명" value="{{affiliate.title}}" />
@@ -236,12 +236,12 @@
         <div class="buttons-container">
             <div class="buttons">
                 <button type="submit" class="aui-button aui-button-primary">수정하기</button>
-                <a class="cancel" href="/admin/delivery">취소</a>
+                <a class="cancel" href="/admin/affiliate">취소</a>
             </div>
         </div>
     </form>
     <h4 class="section-title">제휴업체 정보 삭제</h4>
-    <form class="aui" action="/admin/delivery/{{affiliate.id}}/delete" method="POST" id="group-delete">
+    <form class="aui" action="/admin/affiliate/{{affiliate.id}}/delete" method="POST" id="group-delete">
         <div class="field-group">
             <label>제휴업체 삭제</label>
             <button type="submit" class="aui-button">삭제하기</button>

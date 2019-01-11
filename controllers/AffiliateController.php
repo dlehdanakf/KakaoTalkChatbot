@@ -65,6 +65,15 @@
 				'thumbnail' => $affiliate->getThumbnail()
 			]);
 		}
+		public function adminViewAddAffiliateItem($affiliate_id){
+			$affiliate = new Delivery($affiliate_id);
+
+			return $this->adminView()->render('admin.affiliate.item.add.html', [
+				'sub_title' => "제휴업체 아이템 추가",
+				'active_title' => "제휴업체 목록",
+				'affiliate' => $affiliate
+			]);
+		}
 
 		public function processAddAffiliateGroup(){
 			B::PARAMETER_CHECK(['title', 'description', 'label', 'thumbnail', 'priority', 'category']);
@@ -148,7 +157,7 @@
 
 			header('Location: /admin/affiliate');
 		}
-		public function processUpdateDelivery($affiliate_id){
+		public function processUpdateAffiliate($affiliate_id){
 			B::PARAMETER_CHECK(['title', 'description', 'thumbnail', 'location', 'map_x', 'map_x', 'contact', 'contract', 'promotion']);
 
 			$affiliate = new Affiliate($affiliate_id);
@@ -178,11 +187,68 @@
 
 			header('Location: /admin/affiliate/' . $affiliate->id);
 		}
-		public function processDeleteDelivery($affiliate_id){
+		public function processDeleteAffiliate($affiliate_id){
 			$affiliate = new Affiliate($affiliate_id);
 			$affiliate->delete();
 
 			header('Location: /admin/affiliate');
+		}
+		public function processAddAffiliateItem($affiliate_id){
+			B::PARAMETER_CHECK(['title', 'price', 'discount', 'thumbnail', 'is_visible']);
+			$affiliate = new Affiliate($affiliate_id);
+
+			$affiliateItem = new AffiliateItem;
+			$affiliateItem->title = $_REQUEST['title'];
+			$affiliateItem->price = $_REQUEST['price'];
+			$affiliateItem->discount = $_REQUEST['discount'];
+
+			$affiliateItem->is_visible = 'Y';
+			if(in_array($_REQUEST['is_visible'], ['Y', 'N']))
+				$affiliateItem->is_visible = $_REQUEST['is_visible'];
+
+			$affiliateItem->setAffiliate($affiliate);
+			if(intval($_REQUEST['thumbnail']) > 0)
+				$affiliateItem->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+
+			$affiliateItem->save();
+
+			header('Location: /admin/affiliate/' . $affiliate->id);
+		}
+		public function processUpdateAffiliateItem($affiliate_id, $item_id){
+			B::PARAMETER_CHECK(['title', 'price', 'discount', 'thumbnail', 'is_visible']);
+			$affiliate = new Affiliate($affiliate_id);
+			$affiliateItem = new AffiliateItem($item_id);
+
+			if($affiliateItem->getDeliveryID() !== $affiliate->id)
+				throw new \Phroute\Phroute\Exception\HttpRouteNotFoundException();
+
+			$affiliateItem->title = $_REQUEST['title'];
+			$affiliateItem->price = $_REQUEST['price'];
+			$affiliateItem->discount = $_REQUEST['discount'];
+
+			$affiliateItem->is_visible = 'Y';
+			if(in_array($_REQUEST['is_visible'], ['Y', 'N']))
+				$affiliateItem->is_visible = $_REQUEST['is_visible'];
+
+			if(intval($_REQUEST['thumbnail']) > 0)
+				$affiliateItem->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+			else
+				$affiliateItem->removeThumbnail();
+
+			$affiliateItem->update();
+
+			header('Location: /admin/delivery/' . $affiliate->id . '/item/' . $affiliateItem->id);
+		}
+		public function processDeleteAffiliateItem($affiliate_id, $item_id){
+			$affiliate = new Affiliate($affiliate_id);
+			$affiliateItem = new AffiliateItem($item_id);
+
+			if($affiliateItem->getDeliveryID() !== $affiliate->id)
+				throw new \Phroute\Phroute\Exception\HttpRouteNotFoundException();
+
+			$affiliateItem->delete();
+
+			header('Location: /admin/delivery/' . $affiliate->id);
 		}
 
 		/**
