@@ -40,7 +40,9 @@
 		public function skillViewAffiliateList(){
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['sys_text']);
 
-			$groupLabel = $requestBody['params']['sys_text'];
+			if($requestBody['utterance'] == '더보기') $groupLabel = $requestBody['params']['affiliate_group'];
+			else $groupLabel = explode(' ', $requestBody['utterance'])[0];
+			
 			try {
 				$affiliateGroup = AffiliateGroup::CREATE_BY_LABEL($groupLabel);
 			} catch(ModelNotFoundException $e) {
@@ -51,7 +53,7 @@
 			$count = $affiliateGroup->getAffiliateCount();
 			if($count > 10)
 				$skillResponse->addQuickReplies((new QuickReply("더보기"))->setBlockID("5c389f6b5f38dd44d86a5805", [
-					'sys_text' => $requestBody['params']['sys_text']
+					'affiliate_group' => $groupLabel
 				]));
 			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
