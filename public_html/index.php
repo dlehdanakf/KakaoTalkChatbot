@@ -49,6 +49,10 @@
 		$router->any('delivery/group', ["DeliveryController", "skillViewDeliveryList"]);
 		$router->any('delivery/item', ["DeliveryController", "skillViewDeliveryItemList"]);
 
+		$router->any('affiliate', ["AffiliateController", "skillViewAffiliateGroups"]);
+		$router->any('affiliate/group', ["AffiliateController", "skillViewAffiliateList"]);
+		$router->any('affiliate/item', ["AffiliateController", "skillViewAffiliateItemList"]);
+
 		/**
 		 *	KakaoTalk 에서 BasicCard 형태에서
 		 *	글자 수를 제한함에 따라 카카오 오픈빌더에서 기능 제공
