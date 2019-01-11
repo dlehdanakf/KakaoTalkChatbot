@@ -24,7 +24,7 @@
 
 			$skillResponse->addResponseComponent(new SimpleText(
 				"🙋 맛집탐방 메뉴선정은 저에게 맡겨주세요!" . "\n" .
-				"보기쉽게 정돈된 우리학교 맛집 알아보기 👇👇"
+				"보기쉽게 정돈된 우리학교 맛집 알아보기 👇"
 			));
 			$skillResponse->addResponseComponent($carousel);
 
