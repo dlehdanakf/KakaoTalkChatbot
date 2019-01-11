@@ -280,7 +280,7 @@
 		 */
 		protected function adminView(){
 			$twig = B::VIEW();
-			$twig->addGlobal('sub_title', '제휴업체 관리');
+			$twig->addGlobal('sub_section_title', '제휴업체 관리');
 			$twig->addGlobal('sub_nav', [
 				[
 					"href" => "/admin/affiliate/add",

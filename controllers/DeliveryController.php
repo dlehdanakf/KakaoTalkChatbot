@@ -437,7 +437,7 @@
 		 */
 		protected function adminView(){
 			$twig = B::VIEW();
-			$twig->addGlobal('sub_title', '배달업체 관리');
+			$twig->addGlobal('sub_section_title', '배달업체 관리');
 			$twig->addGlobal('sub_nav', [
 				[
 					"href" => "/admin/delivery/add",

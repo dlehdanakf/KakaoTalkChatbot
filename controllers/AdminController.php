@@ -38,7 +38,7 @@
 		 */
 		protected function adminView(){
 			$twig = B::VIEW();
-			$twig->addGlobal('sub_title', '서비스 관리');
+			$twig->addGlobal('sub_section_title', '서비스 관리');
 			$twig->addGlobal('sub_nav', [
 				[
 					"href" => "/admin/service/thumbnail",
