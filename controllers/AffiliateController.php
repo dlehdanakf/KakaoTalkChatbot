@@ -1,10 +1,34 @@
 <?php
 	class AffiliateController {
-		public function skillViewFoodGroup(){
+		public function skillViewAffiliateGroups(){
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['affiliate_category']);
+			$category = AffiliateGroup::CATEGORY_FOOD;
+			if($requestBody['params']['affiliate_category'] == '문화시설')
+				$category = AffiliateGroup::CATEGORY_PLAY;
 
-		}
-		public function skillViewPlayGroup(){
+			$skillResponse = new SkillResponse;
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
+			$groups = AffiliateGroup::GET_ORDERED_LIST($category);
+			if(count($groups) < 1) {
+				$skillResponse->addResponseComponent(new SimpleText(
+					$requestBody['params']['affiliate_category'] . " 제휴업체를 찾을 수 없습니다."
+				));
 
+				return json_encode($skillResponse->render());
+			}
+
+			$carousel = new Carousel;
+			foreach($groups as $group){
+				$carousel->addCard($group->getBasicCard());
+			}
+
+			$skillResponse->addResponseComponent(new SimpleText(
+				"🙋 맛집탐방 메뉴선정은 저에게 맡겨주세요!" . "\n" .
+				"보기쉽게 정돈된 우리학교 맛집 알아보기 👉👉"
+			));
+			$skillResponse->addResponseComponent($carousel);
+
+			return json_encode($skillResponse->render());
 		}
 
 		public function adminViewAffiliateGroupList(){

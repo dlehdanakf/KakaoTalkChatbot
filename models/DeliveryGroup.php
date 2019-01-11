@@ -115,7 +115,7 @@
 				$thumbnail = new DefaultThumbnail;
 
 			$basicCard->setThumbnail($thumbnail);
-			$basicCard->addButton((new Button("식당목록"))->setMessageText($this->label . " 배달음식점 목록 보여줘"));
+			$basicCard->addButton((new Button("목록보기"))->setMessageText($this->label . " 배달음식점 목록 보여줘"));
 
 			return $basicCard;
 		}

@@ -96,4 +96,20 @@
 			$affiliateLink = new AffiliateGroupLink($affiliate, $this);
 			$affiliateLink->delete();
 		}
+
+		public function getBasicCard(){
+			$basicCard = new BasicCard;
+			$basicCard->title = $this->title;
+			$basicCard->description = $this->description;
+
+			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
+				$thumbnail = new Thumbnail("http://chatbot.kunnect.net" . $this->getThumbnail()->getDownloadLinkDirectory());
+			else
+				$thumbnail = new DefaultThumbnail;
+
+			$basicCard->setThumbnail($thumbnail);
+			$basicCard->addButton((new Button("목록보기"))->setMessageText($this->label . " 목록 보여줘"));
+
+			return $basicCard;
+		}
 	}
