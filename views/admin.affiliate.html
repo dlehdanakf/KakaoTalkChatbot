@@ -1,0 +1,39 @@
+{% extends "layouts/admin.delivery.layout.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block article %}
+<div class="article-content affiliate-group-list">
+    <table class="aui">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>제목</th>
+            <th>계약유형</th>
+            <th>할인</th>
+            <th>메뉴</th>
+            <th>등록일</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in range(0, affiliate_list|length - 1) %}
+        {% set item = affiliate_list[i] %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td><a href="/admin/affiliate/{{item.id}}">{{item.title}}</a></td>
+            <td><span class="aui-label">{{item.getContract}}</span></td>
+            <td>{{item.getPromotion}}</td>
+            {% set count = item.getItemCount %}
+            {% if count > 0 %}
+            <td>{{count}}</td>
+            {% else %}
+            <td><span style="color: #AAA; font-size: 12px;">-</span></td>
+            {% endif %}
+            <td>{{date_format(item.register_date, "Y.m.d H:i")}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

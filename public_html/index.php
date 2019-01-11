@@ -77,6 +77,7 @@
 			$router->get('/{delivery_id:i}', ["DeliveryController", "adminViewDeliveryInfo"]);
 			$router->post('/{delivery_id:i}/edit', ["DeliveryController", "processUpdateDelivery"]);
 			$router->post('/{delivery_id:i}/delete', ["DeliveryController", "processDeleteDelivery"]);
+
 			$router->get('/{delivery_id:i}/item', function($delivery_id){ header('Location: /admin/delivery/' . $delivery_id); });
 			$router->get('/{delivery_id:i}/item/add', ["DeliveryController", "adminViewAddDeliveryItem"]);
 			$router->post('/{delivery_id:i}/item/add', ["DeliveryController", "processAddDeliveryItem"]);
@@ -93,16 +94,13 @@
 			$router->post('groups/{group_id:i}/edit', ["AffiliateController", "processUpdateAffiliateGroup"]);
 			$router->post('groups/{group_id:i}/delete', ["AffiliateController", "processDeleteAffiliateGroup"]);
 
-			$router->get('category', ["AffiliateController", "adminViewDeliveryCategory"]);
-			$router->get('category/{category_id:i}', ["AffiliateController", "adminViewDeliveryCategoryInfo"]);
-			$router->post('category/{category_id:i}/edit', ["AffiliateController", "processUpdateDeliveryCategory"]);
-
-			$router->get('/', ["AffiliateController", "adminViewDeliveryList"]);
-			$router->get('add', ["AffiliateController", "adminViewDeliveryAdd"]);
-			$router->post('add', ["AffiliateController", "processAddDelivery"]);
-			$router->get('/{delivery_id:i}', ["AffiliateController", "adminViewDeliveryInfo"]);
+			$router->get('/', ["AffiliateController", "adminViewAffiliateList"]);
+			$router->get('add', ["AffiliateController", "adminViewAffiliateAdd"]);
+			$router->post('add', ["AffiliateController", "processAddAffiliate"]);
+			$router->get('/{delivery_id:i}', ["AffiliateController", "adminViewAffiliateInfo"]);
 			$router->post('/{delivery_id:i}/edit', ["AffiliateController", "processUpdateDelivery"]);
 			$router->post('/{delivery_id:i}/delete', ["AffiliateController", "processDeleteDelivery"]);
+
 			$router->get('/{delivery_id:i}/item', function($delivery_id){ header('Location: /admin/delivery/' . $delivery_id); });
 			$router->get('/{delivery_id:i}/item/add', ["AffiliateController", "adminViewAddDeliveryItem"]);
 			$router->post('/{delivery_id:i}/item/add', ["AffiliateController", "processAddDeliveryItem"]);

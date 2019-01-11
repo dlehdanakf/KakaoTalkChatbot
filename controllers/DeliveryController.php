@@ -287,7 +287,7 @@
 			header('Location: /admin/delivery/groups');
 		}
 		public function processAddDelivery(){
-			B::PARAMETER_CHECK(['title', 'description', 'contact', 'thumbnail', 'contract', 'promotion', 'groups']);
+			B::PARAMETER_CHECK(['title', 'description', 'contact', 'thumbnail', 'contract', 'promotion']);
 
 			$delivery = new Delivery;
 			$delivery->title = $_REQUEST['title'];
@@ -300,15 +300,17 @@
 
 			$delivery->save();
 
-			foreach($_REQUEST['groups'] as $group_id){
-				$group = new DeliveryGroup(intval($group_id));
-				$group->addDelivery($delivery);
+			if(B::PARAMETER_CHECK(['groups'], true) && is_array($_REQUEST['groups'])){
+				foreach($_REQUEST['groups'] as $group_id){
+					$group = new DeliveryGroup(intval($group_id));
+					$group->addDelivery($delivery);
+				}
 			}
 
 			header('Location: /admin/delivery');
 		}
 		public function processUpdateDelivery($delivery_id){
-			B::PARAMETER_CHECK(['title', 'description', 'contact', 'thumbnail', 'contract', 'promotion', 'groups']);
+			B::PARAMETER_CHECK(['title', 'description', 'contact', 'thumbnail', 'contract', 'promotion']);
 
 			$delivery = new Delivery($delivery_id);
 			$delivery->title = $_REQUEST['title'];
@@ -324,17 +326,19 @@
 
 			$delivery->update();
 
-			$delivery->releaseAllBelongingGroups();
-			foreach($_REQUEST['groups'] as $group_id){
-				$group = new DeliveryGroup(intval($group_id));
-				$group->addDelivery($delivery);
+			if(B::PARAMETER_CHECK(['groups'], true) && is_array($_REQUEST['groups'])){
+				$delivery->releaseAllBelongingGroups();
+				foreach($_REQUEST['groups'] as $group_id){
+					$group = new DeliveryGroup(intval($group_id));
+					$group->addDelivery($delivery);
+				}
 			}
 
 			header('Location: /admin/delivery/' . $delivery->id);
 		}
 		public function processDeleteDelivery($delivery_id){
-			$group = new Delivery($delivery_id);
-			$group->delete();
+			$delivery = new Delivery($delivery_id);
+			$delivery->delete();
 
 			header('Location: /admin/delivery');
 		}

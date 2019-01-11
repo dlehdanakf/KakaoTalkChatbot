@@ -84,29 +84,58 @@
             <div class="thumbnail"></div>
             {% endif %}
             <div class="content">
-                <span class="title">{{group.title}}</span>
-                <span class="description">{{group.description}}</span>
+                <span class="title">{{affiliate.title}}</span>
+                <span class="description">{{affiliate.description}}</span>
             </div>
             <div class="buttons">
-                <span class="button">목록보기</span>
+                <span class="button">자세히보기</span>
+                <span class="button">공유하기</span>
             </div>
         </div>
     </div>
-    <h4 class="section-title">그룹정보 수정</h4>
-    <form class="aui" action="/admin/affiliate/groups/{{group.id}}/edit" method="POST">
+    <h4 class="section-title">제휴업체 정보 수정</h4>
+    <form class="aui" style="margin-top: 24px;" action="/admin/delivery/{{affiliate.id}}/edit" method="POST">
         <div class="field-group">
-            <label for="f-title">카드 제목<span class="aui-icon icon-required"></span></label>
-            <input class="text long-field" type="text" id="f-title" name="title" title="그룹 제목" value="{{group.title}}" />
-            <div class="description">카카오톡 카드에 노출될 제목을 입력하세요.</div>
-        </div>
-        <div class="field-group">
-            <label for="f-label">라벨<span class="aui-icon icon-required"></span></label>
-            <input class="text" type="text" id="f-label" name="label" title="라벨" value="{{group.label}}" />
+            <label for="f-title">업체명<span class="aui-icon icon-required"></span></label>
+            <input class="text long-field" type="text" id="f-title" name="title" title="업체명" value="{{affiliate.title}}" />
         </div>
         <div class="field-group">
             <label for="f-description">설명<span class="aui-icon icon-required"></span></label>
-            <input class="text long-field" type="text" id="f-description" name="description" title="설명" value="{{group.description}}" />
-            <div class="description">카카오톡 카드의 제목 아래에 노출될 설명을 입력하세요.</div>
+            <input class="text long-field" type="text" id="f-description" name="description" title="설명" value="{{affiliate.description}}" />
+            <div class="description">카카오톡 카드의 제목 아래에 노출될 설명을 입력하세요. 최대 32글자</div>
+        </div>
+        <div class="field-group">
+            <label for="select-group">소속된 그룹<span class="aui-icon icon-required"></span></label>
+            <div>
+                <select id="select-group" multiple="" name="groups[]">
+                    {% for i in range(0, group_list|length - 1) %}
+                    {% set item = group_list[i] %}
+                    {% set is_active = 0 %}
+                    {% if belonging|length > 0 %}
+                    {% for j in range(0, belonging|length - 1) %}
+                    {% if belonging[j].id == item.id %}{% set is_active = 1 %}{% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    <option value="{{item.id}}" {% if is_active %}selected="selected"{% endif %}>{{item.label}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="field-group">
+            <label for="f-location">주소</label>
+            <input class="text" type="text" id="f-location" name="location" title="주소" value="{{affiliate.location}}" />
+            <div class="description">통일된 양식, 도로명주소에 따라 기입할 것. 서울특별시, 서울시 입력 X, 건물명 입력 X</div>
+        </div>
+        <div class="field-group">
+            <label for="f-map_y">위도, 경도</label>
+            <input class="text short-field" type="text" id="f-map_y" name="map_y" title="위도" value="{{affiliate.map_y}}" />
+            <span>, </span>
+            <input class="text short-field" type="text" id="f-map_x" name="map_x" title="경도" value="{{affiliate.map_x}}" />
+        </div>
+        <div class="field-group">
+            <label for="f-description">전화번호</label>
+            <input class="text" type="text" id="f-contact" name="contact" title="전화번호" value="{{affiliate.contact}}" />
+            <div class="description">ex) 02-1234-5678 | 양식 준수할 것.</div>
         </div>
         <div class="field-group">
             <label for="f-thumbnail">썸네일</label>
@@ -131,37 +160,50 @@
             </div>
         </div>
         <div class="field-group">
-            <label for="f-priority">우선순위<span class="aui-icon icon-required"></span></label>
-            <input class="text short-field" type="number" id="f-priority" name="priority" title="우선순위" value="{{group.priority}}" />
-            <div class="description">그룹 목록에서 먼저 표시될 우선순위를 입력해주세요. 숫자가 클 수록 먼저 표시됩니다.</div>
+            <label for="f-description">할인유형<span class="aui-icon icon-required"></span></label>
+            <div class="radio">
+                <input class="radio" type="radio" {% if affiliate.promotion == 0 %}checked="checked"{% endif %} name="promotion" id="f-promotion-1" value="0" />
+                <label for="f-promotion-1">할인 없음</label>
+            </div>
+            <div class="radio">
+                <input class="radio" type="radio" {% if affiliate.promotion == 1 %}checked="checked"{% endif %} name="promotion" id="f-promotion-2" value="1" />
+                <label for="f-promotion-2">재학생 할인</label>
+            </div>
+            <div class="radio">
+                <input class="radio" type="radio" {% if affiliate.promotion == 2 %}checked="checked"{% endif %} name="promotion" id="f-promotion-3" value="2" />
+                <label for="f-promotion-3">음료수 제공</label>
+            </div>
+            <div class="radio">
+                <input class="radio" type="radio" {% if affiliate.promotion == 3 %}checked="checked"{% endif %} name="promotion" id="f-promotion-4" value="3" />
+                <label for="f-promotion-4">사이드메뉴 제공</label>
+            </div>
         </div>
         <div class="field-group">
-            <label for="f-catergory">카테고리<span class="aui-icon icon-required"></span></label>
-            <div>
-                {% set F = 'F' %}
-                {% set P = 'P' %}
-                <aui-select
-                    id="f-category"
-                    name="category"
-                    placeholder="그룹 카테고리를 선택하세요"
-                    no-empty-values
-                >
-                    <aui-option value="F" {% if group.category == F %}selected{% endif %}>음식점, 카페, 술집</aui-option>
-                    <aui-option value="P" {% if group.category == P %}selected{% endif %}>문화시설, 기타</aui-option>
-                </aui-select>
+            <label for="f-description">게재유형<span class="aui-icon icon-required"></span></label>
+            <div class="radio">
+                <input class="radio" type="radio" {% if affiliate.contract == 0 %}checked="checked"{% endif %} name="contract" id="f-contract-1" value="0" />
+                <label for="f-contract-1">운영진이 임의로 추가함</label>
+            </div>
+            <div class="radio">
+                <input class="radio" type="radio" {% if affiliate.contract == 1 %}checked="checked"{% endif %} name="contract" id="f-contract-2" value="1" />
+                <label for="f-contract-2">무료로 게재할 것을 합의함</label>
+            </div>
+            <div class="radio">
+                <input class="radio" type="radio" {% if affiliate.contract == 2 %}checked="checked"{% endif %} name="contract" id="f-contract-3" value="2" />
+                <label for="f-contract-3">유료로 계약함</label>
             </div>
         </div>
         <div class="buttons-container">
             <div class="buttons">
                 <button type="submit" class="aui-button aui-button-primary">수정하기</button>
-                <a class="cancel" href="/admin/delivery/groups">취소</a>
+                <a class="cancel" href="/admin/delivery">취소</a>
             </div>
         </div>
     </form>
-    <h4 class="section-title">그룹정보 수정</h4>
-    <form class="aui" action="/admin/affiliate/groups/{{group.id}}/delete" method="POST" id="group-delete">
+    <h4 class="section-title">제휴업체 정보 삭제</h4>
+    <form class="aui" action="/admin/delivery/{{affiliate.id}}/delete" method="POST" id="group-delete">
         <div class="field-group">
-            <label for="f-priority">그룹 삭제</label>
+            <label>제휴업체 삭제</label>
             <button type="submit" class="aui-button">삭제하기</button>
             <div class="description">주의, 본 작업은 되돌릴 수 없습니다.</div>
         </div>
