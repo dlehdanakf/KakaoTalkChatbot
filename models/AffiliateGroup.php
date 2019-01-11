@@ -128,7 +128,7 @@
 				$thumbnail = new DefaultThumbnail;
 
 			$basicCard->setThumbnail($thumbnail);
-			$basicCard->addButton((new Button("목록보기"))->setMessageText($this->label . " 목록 보여줘"));
+			$basicCard->addButton((new Button("목록보기"))->setBlockID('5c389f6b5f38dd44d86a5805', $this->label . " 목록 보여줘"));
 
 			return $basicCard;
 		}
