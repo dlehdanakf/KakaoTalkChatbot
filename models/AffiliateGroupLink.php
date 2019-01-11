@@ -4,6 +4,14 @@
 		public $group_id;
 		public $register_date;
 
+		public static function GET_GROUPED_AFFILIATES_COUNT(AffiliateGroup $group){
+			$query = B::DB()->prepare("SELECT COUNT(affiliate_id) AS `cnt` FROM affiliate_group_link WHERE group_id = :g");
+			$query->execute([
+				':g' => $group->id
+			]);
+
+			return (int) $query->fetch(PDO::FETCH_ASSOC)['cnt'];
+		}
 		public static function GET_ALL_GROUPED_AFFILIATES(AffiliateGroup $group){
 			$query = B::DB()->prepare("SELECT affiliate_id FROM affiliate_group_link WHERE group_id = :g ORDER BY register_date DESC");
 			$query->execute([

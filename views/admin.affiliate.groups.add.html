@@ -1,0 +1,138 @@
+{% extends "layouts/admin.delivery.layout.html" %}
+
+{% block head %}
+<script>
+    AJS.$(function(){
+        $(document).on('click', "#delete-thumbnail", function(e){
+            $("#thumbnail-value").val(0);
+            $('#upload-thumbnail').attr('disabled', false);
+            $(this).attr('disabled', true);
+
+            var span = $("<span class='placeholder'>이미지를 선택하세요</span>");
+            $("#thumbnail-preview").empty().append(span);
+        });
+        $('#upload-thumbnail').on('click', function(e){
+            if(document.getElementById("f-thumbnail").files.length == 0){
+                alert('업로드할 파일을 선택해주세요.');
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('attachment', document.getElementById("f-thumbnail").files[0]);
+            $.ajax({
+                url: '/attachment/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function(){
+                    $('#upload-thumbnail').attr('disabled', true);
+                },
+                success: function(data){
+                    if(data.result == 200){
+                        var id = data.returns.id,
+                            dir = data.returns.dir,
+                            ext = data.returns.ext;
+
+                        if((['jpg', 'jpeg', 'png', 'gif']).indexOf(ext) == -1){
+                            alert("지원되는 이미지 형식이 아닙니다!");
+                            return;
+                        }
+
+                        var div = $("<div class='img' style='background-image: url(" + dir + ");'></div>");
+                        $("#delete-thumbnail").attr('disabled', false);
+                        $("#thumbnail-preview").empty().append(div);
+                        $("#thumbnail-value").val(id);
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: function(request, status, error){
+                    alert(error);
+                },
+                complete: function(){
+                    document.getElementById("f-thumbnail").value = "";
+                }
+            });
+        });
+        $("#f-thumbnail").on('change', function(e){
+            $('#upload-thumbnail').attr('disabled', false);
+        });
+
+        $("#group-delete").on('submit', function(e){
+            if(!confirm("정말로 삭제하시겠습니까?")){
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+
+            return true;
+        });
+        AJS.$("#select-group").auiSelect2();
+    });
+</script>
+{% endblock %}
+
+{% block article %}
+<div class="article-content delivery-group-add">
+    <form class="aui" style="margin-top: 24px;" action="/admin/affiliate/groups/add" method="POST">
+        <div class="field-group">
+            <label for="f-title">카드 제목<span class="aui-icon icon-required"></span></label>
+            <input class="text" type="text" id="f-title" name="title" title="그룹 제목" />
+            <div class="description">카카오톡 카드에 노출될 제목을 입력하세요.</div>
+        </div>
+        <div class="field-group">
+            <label for="f-label">라벨<span class="aui-icon icon-required"></span></label>
+            <input class="text" type="text" id="f-label" name="label" title="라벨" />
+        </div>
+        <div class="field-group">
+            <label for="f-description">설명</label>
+            <input class="text long-field" type="text" id="f-description" name="description" title="설명" />
+            <div class="description">카카오톡 카드의 제목 아래에 노출될 설명을 입력하세요.</div>
+        </div>
+        <div class="field-group">
+            <label for="f-thumbnail">썸네일</label>
+            <div class="form-thumbnail">
+                <div class="thumbnail" id="thumbnail-preview">
+                    <span class="placeholder">이미지를 선택하세요</span>
+                </div>
+                <button type="button" class="aui-button aui-button-compact" id="delete-thumbnail" disabled>삭제</button>
+            </div>
+            <div style="padding: 6px 0;">
+                <input type="hidden" name="thumbnail" id="thumbnail-value" />
+                <input class="upfile" type="file" id="f-thumbnail" title="upload file" />
+                <button type="button" id="upload-thumbnail" class="aui-button aui-button-compact" disabled>업로드</button>
+            </div>
+            <div class="description">
+                * 권장 이미지 크기 : 800 x 400, 600 x 300, 2:1 비율<br/>
+                * 지원되는 파일 형식 : jpg, jpeg, png, gif
+            </div>
+        </div>
+        <div class="field-group">
+            <label for="f-priority">우선순위<span class="aui-icon icon-required"></span></label>
+            <input class="text short-field" type="number" id="f-priority" name="priority" title="우선순위" value="0" />
+            <div class="description">그룹 목록에서 먼저 표시될 우선순위를 입력해주세요. 숫자가 클 수록 먼저 표시됩니다.</div>
+        </div>
+        <div class="field-group">
+            <label for="f-catergory">카테고리<span class="aui-icon icon-required"></span></label>
+            <div>
+                <aui-select
+                    id="f-category"
+                    name="category"
+                    placeholder="그룹 카테고리를 선택하세요"
+                    no-empty-values
+                >
+                    <aui-option value="F" selected>음식점, 카페, 술집</aui-option>
+                    <aui-option value="P">문화시설, 기타</aui-option>
+                </aui-select>
+            </div>
+        </div>
+        <div class="buttons-container">
+            <div class="buttons">
+                <button type="submit" class="aui-button aui-button-primary">추가하기</button>
+                <a class="cancel" href="/admin/delivery/groups">취소</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

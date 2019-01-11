@@ -85,6 +85,32 @@
 			$router->post('/{delivery_id:i}/item/{item_id:i}/delete', ["DeliveryController", "processDeleteDeliveryItem"]);
 		});
 
+		$router->group(['prefix' => 'affiliate'], function($router){
+			$router->get('groups', ["AffiliateController", "adminViewAffiliateGroupList"]);
+			$router->get('groups/add', ["AffiliateController", "adminViewAffiliateGroupAdd"]);
+			$router->post('groups/add', ["AffiliateController", "processAddAffiliateGroup"]);
+			$router->get('groups/{group_id:i}', ["AffiliateController", "adminViewAffiliateGroupInfo"]);
+			$router->post('groups/{group_id:i}/edit', ["AffiliateController", "processUpdateAffiliateGroup"]);
+			$router->post('groups/{group_id:i}/delete', ["AffiliateController", "processDeleteAffiliateGroup"]);
+
+			$router->get('category', ["AffiliateController", "adminViewDeliveryCategory"]);
+			$router->get('category/{category_id:i}', ["AffiliateController", "adminViewDeliveryCategoryInfo"]);
+			$router->post('category/{category_id:i}/edit', ["AffiliateController", "processUpdateDeliveryCategory"]);
+
+			$router->get('/', ["AffiliateController", "adminViewDeliveryList"]);
+			$router->get('add', ["AffiliateController", "adminViewDeliveryAdd"]);
+			$router->post('add', ["AffiliateController", "processAddDelivery"]);
+			$router->get('/{delivery_id:i}', ["AffiliateController", "adminViewDeliveryInfo"]);
+			$router->post('/{delivery_id:i}/edit', ["AffiliateController", "processUpdateDelivery"]);
+			$router->post('/{delivery_id:i}/delete', ["AffiliateController", "processDeleteDelivery"]);
+			$router->get('/{delivery_id:i}/item', function($delivery_id){ header('Location: /admin/delivery/' . $delivery_id); });
+			$router->get('/{delivery_id:i}/item/add', ["AffiliateController", "adminViewAddDeliveryItem"]);
+			$router->post('/{delivery_id:i}/item/add', ["AffiliateController", "processAddDeliveryItem"]);
+			$router->get('/{delivery_id:i}/item/{item_id:i}', ["AffiliateController", "adminViewDeliveryItem"]);
+			$router->post('/{delivery_id:i}/item/{item_id:i}/edit', ["AffiliateController", "processUpdateDeliveryItem"]);
+			$router->post('/{delivery_id:i}/item/{item_id:i}/delete', ["AffiliateController", "processDeleteDeliveryItem"]);
+		});
+
 		$router->group(['prefix' => 'service'], function($router){
 			$router->get('/', function(){ header('Location: /admin/service/thumbnail'); });
 

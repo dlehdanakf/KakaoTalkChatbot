@@ -1,13 +1,20 @@
 <?php
 	class AffiliateGroup extends BasicModel {
+		const CATEGORY_FOOD = 'F';
+		const CATEGORY_PLAY = 'P';
+
 		public $title;
+		public $label;
 		public $description;
 		protected $thumbnail_id;
 		public $priority;
+		public $category;
 
-		public static function GET_ORDERED_LIST(){
-			$query = B::DB()->prepare("SELECT id FROM affiliate_group ORDER BY priority, id DESC");
-			$query->execute();
+		public static function GET_ORDERED_LIST($category){
+			$query = B::DB()->prepare("SELECT id FROM affiliate_group WHERE category = :c ORDER BY priority, id DESC");
+			$query->execute([
+				':c' => $category
+			]);
 
 			$return_array = [];
 			$result = $query->fetchAll(PDO::FETCH_COLUMN);
@@ -18,17 +25,31 @@
 			return $return_array;
 		}
 
-		public function save() {
+		public function save(){
 			$pdo = B::DB();
-			$query = $pdo->prepare("INSERT INTO affiliate_group (title, description, thumbnail_id, priority) VALUE (:t, :d, :i, :p)");
+			$query = $pdo->prepare("INSERT INTO affiliate_group (title, label, description, thumbnail_id, priority, category) VALUE (:t, :l, :d, :i, :p, :c)");
 			$query->execute([
 				':t' => $this->title,
+				':l' => $this->label,
 				':d' => $this->description,
 				':i' => $this->thumbnail_id,
-				':p' => $this->priority
+				':p' => $this->priority,
+				':c' => $this->category
 			]);
 
 			$this->id = $pdo->lastInsertId();
+		}
+		public function update(){
+			$query = B::DB()->prepare("UPDATE affiliate_group SET title = :t, label = :l, description = :d, thumbnail_id = :i, priority = :p, category = :c WHERE id = :id");
+			$query->execute([
+				':t' => $this->title,
+				':l' => $this->label,
+				':d' => $this->description,
+				':i' => $this->thumbnail_id,
+				':p' => $this->priority,
+				':c' => $this->category,
+				':id' => $this->id
+			]);
 		}
 		public function delete(){
 			$query = B::DB()->prepare("DELETE FROM affiliate_group WHERE id = :i");
@@ -37,14 +58,28 @@
 			]);
 		}
 
+		public function getCategory(){
+			switch($this->category){
+				case self::CATEGORY_FOOD: return '음식';
+				case self::CATEGORY_PLAY: return '문화';
+				default: return '기타';
+			}
+		}
+
 		public function getThumbnail(){
 			if(!$this->thumbnail_id)
 				return null;
 
 			return Attachment::CREATE_BY_MYSQLID($this->thumbnail_id);
 		}
+		public function getThumbnailID(){
+			return $this->thumbnail_id;
+		}
 		public function setThumbnail(Attachment $attachment){
 			$this->thumbnail_id = $attachment->id;
+		}
+		public function removeThumbnail(){
+			$this->thumbnail_id = null;
 		}
 
 		public function getAllAffiliates(){
