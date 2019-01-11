@@ -21,9 +21,9 @@
             {% set item = delivery_list[i] %}
             <tr>
                 <td>{{item.id}}</td>
-                <td><a href="/admin/delivery/{{item.id}}">{{item.title}}</a></td>
-                <td><span class="aui-label">{{item.getContract}}</span></td>
-                <td>{{item.getPromotion}}</td>
+                <td class="nowrap"><a href="/admin/delivery/{{item.id}}">{{item.title}}</a></td>
+                <td class="nowrap"><span class="aui-label">{{item.getContract}}</span></td>
+                <td class="nowrap">{{item.getPromotion}}</td>
                 {% set count = item.getItemCount %}
                 {% if count > 0 %}
                 <td>{{count}}</td>

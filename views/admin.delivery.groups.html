@@ -19,8 +19,8 @@
                 {% set item = group_list[i] %}
                 <tr>
                     <td>{{item.id}}</td>
-                    <td><a href="/admin/delivery/groups/{{item.id}}">{{item.title}}</a></td>
-                    <td><span class="aui-label">{{item.label}}</span></td>
+                    <td class="nowrap"><a href="/admin/delivery/groups/{{item.id}}">{{item.title}}</a></td>
+                    <td class="nowrap"><span class="aui-label">{{item.label}}</span></td>
                     <td><span style="font-size: 12px; color: #AAA;">{% if item.description %}{{item.description}}{% else %}없음{% endif %}</span></td>
                 </tr>
             {% endfor %}
