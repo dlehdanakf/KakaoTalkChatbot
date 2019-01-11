@@ -93,6 +93,46 @@
             </div>
         </div>
     </div>
+    <h4 class="section-title">
+        배달업체 아이템 관리
+        <a
+            href="/admin/affiliate/{{affiliate.id}}/item/add"
+            style="vertical-align: bottom; margin-left: 9px;"
+            class="aui-button aui-button-compact aui-button-primary"
+        >
+            추가하기
+        </a>
+    </h4>
+    <p>제휴업체 당 서비스 갯수는 최대 10개까지 등록 가능합니다.</p>
+    <table class="aui">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>제목</th>
+            <th>가격</th>
+            <th>할인</th>
+            <th>등록일</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if item_list|length > 0 %}
+            {% for i in range(0, item_list|length - 1) %}
+                {% set item = item_list[i] %}
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td><a href="/admin/delivery/{{affiliate.id}}/item/{{item.id}}">{{item.title}}</a></td>
+                    <td>{{number_format(item.price)}}</td>
+                    <td>{{number_format(item.discount)}}</td>
+                    <td>{{date_format(item.register_date, "Y.m.d H:i")}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="5" style="text-align: center; font-style: italic;">등록된 아이템이 없습니다</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
     <h4 class="section-title">제휴업체 정보 수정</h4>
     <form class="aui" style="margin-top: 24px;" action="/admin/delivery/{{affiliate.id}}/edit" method="POST">
         <div class="field-group">

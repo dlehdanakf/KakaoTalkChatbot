@@ -115,4 +115,17 @@
 		public function releaseAllBelongingGroups(){
 			AffiliateGroupLink::DELETE_ALL_BELONGING_GROUPS($this);
 		}
+
+		public function getItemCount(){
+			return AffiliateItem::GET_AFFILIATE_GROUPED_COUNT($this);
+		}
+		public function getAllItems($count = 999){
+			return AffiliateItem::GET_ALL_AFFILIATE_GROUPED_LIST($this, $count);
+		}
+		public function getRandomItems($count = 10){
+			return AffiliateItem::GET_RANDOM_AFFILIATE_GROUPED_LIST($this, $count);
+		}
+		public function deleteAllItems(){
+			AffiliateItem::DELETE_ALL_AFFILIATE_GROUPED_ITEM($this);
+		}
 	}

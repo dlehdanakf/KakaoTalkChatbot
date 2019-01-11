@@ -53,14 +53,14 @@
 		public function adminViewAffiliateInfo($affiliate_id){
 			$affiliate = new Affiliate($affiliate_id);
 			$groups = AffiliateGroup::GET_LIST();
-//			$items = $delivery->getAllItems();
+			$items = $affiliate->getAllItems();
 
 			return $this->adminView()->render('admin.affiliate.edit.html', [
 				'sub_title' => "제휴업체 정보",
 				'active_title' => "제휴업체 목록",
 				'affiliate' => $affiliate,
 				'group_list' => $groups,
-//				'item_list' => $items,
+				'item_list' => $items,
 				'belonging' => $affiliate->getBelongingGroups(),
 				'thumbnail' => $affiliate->getThumbnail()
 			]);
