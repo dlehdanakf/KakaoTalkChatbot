@@ -38,7 +38,46 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewAffiliateList(){
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['sys_text']);
 
+			$groupLabel = $requestBody['params']['sys_text'];
+			try {
+				$affiliateGroup = AffiliateGroup::CREATE_BY_LABEL($groupLabel);
+			} catch(ModelNotFoundException $e) {
+				throw new Exception($groupLabel . " 배달업체 그룹을 찾을 수 없습니다.");
+			}
+
+			$skillResponse = new SkillResponse;
+			$count = $affiliateGroup->getAffiliateCount();
+			if($count > 10)
+				$skillResponse->addQuickReplies((new QuickReply("더보기"))->setBlockID("5c389f6b5f38dd44d86a5805", [
+					'sys_text' => $requestBody['params']['sys_text']
+				]));
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
+
+			$affiliates = $affiliateGroup->getRandomAffiliates();
+			if(count($affiliates) < 1){
+				$skillResponse->addResponseComponent(new SimpleText(
+					"🚫 " . $affiliates->label ." 그룹에 등록된 업체를 찾을 수 없습니다."
+				));
+
+				return json_encode($skillResponse->render());
+			}
+
+			if($requestBody['utterance'] != "더보기")
+				$skillResponse->addResponseComponent(new SimpleText(
+					"【 " . $groupLabel . " 】" . "\n" .
+					"(멘트 추가예정)"
+				));
+
+			$carousel = new Carousel;
+			foreach($affiliates as $affiliate){
+				$carousel->addCard($affiliate->getBasicCard());
+			}
+
+			$skillResponse->addResponseComponent($carousel);
+
+			return json_encode($skillResponse->render());
 		}
 		public function skillViewAffiliateItemList(){
 

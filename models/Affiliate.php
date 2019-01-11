@@ -128,4 +128,22 @@
 		public function deleteAllItems(){
 			AffiliateItem::DELETE_ALL_AFFILIATE_GROUPED_ITEM($this);
 		}
+
+		public function getBasicCard(){
+			$basicCard = new BasicCard;
+			$basicCard->title = $this->title;
+			$basicCard->description = $this->description;
+
+			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
+				$thumbnail = new Thumbnail("http://chatbot.kunnect.net" . $this->getThumbnail()->getDownloadLinkDirectory());
+			else
+				$thumbnail = new DefaultThumbnail;
+
+			$basicCard->setThumbnail($thumbnail);
+
+			if($this->getItemCount() > 0) $basicCard->addButton((new Button("자세히보기"))->setActionShare());
+			$basicCard->addButton((new Button("공유하기"))->setActionShare());
+
+			return $basicCard;
+		}
 	}

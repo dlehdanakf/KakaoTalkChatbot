@@ -24,6 +24,23 @@
 
 			return $return_array;
 		}
+		public static function CREATE_BY_LABEL($label){
+			$query = B::DB()->prepare("SELECT * FROM affiliate_group WHERE label = :l");
+			$query->execute([
+				':l' => $label
+			]);
+
+			$instance = new self;
+			if($query->rowCount() < 1)
+				throw new ModelNotFoundException(get_class($instance) . " 객체를 찾을 수 없습니다. label - " . $label);
+
+			$result = $query->fetch(PDO::FETCH_ASSOC);
+			foreach($result as $i => $v){
+				$instance->$i = $v;
+			}
+
+			return $instance;
+		}
 
 		public function save(){
 			$pdo = B::DB();
@@ -82,6 +99,9 @@
 			$this->thumbnail_id = null;
 		}
 
+		public function getAffiliateCount(){
+			return AffiliateGroupLink::GET_GROUPED_AFFILIATES_COUNT($this);
+		}
 		public function getAllAffiliates(){
 			return AffiliateGroupLink::GET_ALL_GROUPED_AFFILIATES($this);
 		}
