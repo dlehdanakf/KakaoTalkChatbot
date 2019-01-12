@@ -89,7 +89,7 @@
 			if($diffCount <= 0)
 				$type = 'minus';
 
-			$rand = (int) random() * 1000 % 100;
+			$rand = (int) rand() * 1000 % 100;
 
 			return "http://chatbot.kunnect.net:8080/c?c=" . abs($diffCount) . "&m=$mode&t=$type&r=$rand";
 		}
