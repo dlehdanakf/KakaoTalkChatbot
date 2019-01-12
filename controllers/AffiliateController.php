@@ -8,7 +8,7 @@
 
 			$skillResponse = new SkillResponse;
 			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
-			
+
 			$groups = AffiliateGroup::GET_ORDERED_LIST($category);
 			if(count($groups) < 1) {
 				$skillResponse->addResponseComponent(new SimpleText(
@@ -56,10 +56,10 @@
 				$skillResponse->addQuickReplies((new QuickReply("더보기"))->setBlockID("5c389f6b5f38dd44d86a5805", [
 					'affiliate_group' => $groupLabel
 				]));
-			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
 			$affiliates = $affiliateGroup->getRandomAffiliates();
 			if(count($affiliates) < 1){
+				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 				$skillResponse->addResponseComponent(new SimpleText(
 					"🚫 " . $groupLabel ." 그룹에 등록된 업체를 찾을 수 없습니다."
 				));
