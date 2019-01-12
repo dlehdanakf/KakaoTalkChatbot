@@ -106,7 +106,7 @@
 
 			if(count($items) < 1){
 				$skillResponse->addResponseComponent(new SimpleText(
-					"🚫 " . $affiliateLabel . " 에 등록된 메뉴가 없습니다."
+					"🚫 " . $affiliateLabel . " 에 등록된 상세메뉴가 없습니다."
 				));
 			} else {
 				$carousel = new Carousel;
