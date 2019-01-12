@@ -95,7 +95,7 @@
 				return json_encode($skillResponse->render());
 			}
 
-			$affiliateLabel = array_slice($utterance, 0, count($utterance) - 1);
+			$affiliateLabel = implode(" ", array_slice($utterance, 0, count($utterance) - 1));
 			$affiliate = Affiliate::CREATE_BY_TITLE($affiliateLabel);
 			$items = $affiliate->getRandomItems();
 
