@@ -159,6 +159,6 @@
 			$group = $this->getDeliveryGroup($int);
 			if($group === null) return;
 
-			$basicCard->addButton((new Button($group->title))->setMessageText('5c30a7de384c5518d11fec0b', $group->label . " 배달음식점 목록"));
+			$basicCard->addButton((new Button($group->title))->setBlockID('5c30a7de384c5518d11fec0b', $group->label . " 배달음식점 목록"));
 		}
 	}
