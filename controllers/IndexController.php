@@ -51,9 +51,9 @@
 			/** 1.4 건대신문 */
 			$basicCard = new BasicCard;
 			$basicCard->setThumbnail($this->getCardThumbnail(5));
-			$basicCard->addButton((new Button("건대신문 최신기사"))->setMessageText("건대신문 최신기사 보여줘"));
+			$basicCard->addButton((new Button("최신기사 모아보기"))->setMessageText("건대신문 최신기사 보여줘"));
 			$basicCard->addButton((new Button("기사 제보(투고)하기"))->setWebLinkUrl("http://popkon.konkuk.ac.kr/com/jb.html"));
-			$basicCard->addButton((new Button("공식 페이스북 페이지"))->setWebLinkUrl("http://chatbot.kunnect.net/redirect/facebook/press"));
+			$basicCard->addButton((new Button("건대신문 공식 페이스북"))->setWebLinkUrl("http://facebook.com/kkpressb"));
 			$carousel->addCard($basicCard);
 
 			$skillResponse->addResponseComponent($carousel);
