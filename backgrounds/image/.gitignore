@@ -1,4 +1,6 @@
 /node_modules/
 /calculator_caches/
+/service_caches/
+/dist
 
 .env
