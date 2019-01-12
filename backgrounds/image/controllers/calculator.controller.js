@@ -50,13 +50,9 @@ const renderCalculatorThumbnail = (req, res, attempt) => {
     const originalImage = protectedGetOriginalFileName(fileName);
     const processedImage = protectedGetCacheFileName(fileName, typeString, count);
 
-    console.log('A');
     fs.readFile(processedImage, function (err, content) {
-        console.log('B');
         if (err) {
-            console.log('C');
             if(attempt > 2) {
-                console.log('D');
                 res.writeHead(500, {'Content-type': 'image/png'})
                 res.end("Internal Server Error");
                 return;
@@ -70,10 +66,7 @@ const renderCalculatorThumbnail = (req, res, attempt) => {
                 'position': 'Center',
                 'pointsize': 54
             }, function(e){
-                console.log('E');
                 if(e){
-                    console.log('F');
-                    //  do something
                     res.writeHead(500, {'Content-type': 'image/png'})
                     res.end("Internal Server Error");
                     return;
@@ -81,9 +74,7 @@ const renderCalculatorThumbnail = (req, res, attempt) => {
 
                 renderCalculatorThumbnail(req, res, attempt + 1);
             });
-
         } else {
-            console.log('G');
             res.writeHead(200, {'Content-type': 'image/png'});
             res.end(content);
         }
