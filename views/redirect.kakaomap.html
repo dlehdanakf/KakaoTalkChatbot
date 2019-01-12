@@ -21,7 +21,7 @@
                 if (isiOS || isAndroid) {
                     // Load our custom protocol in the iframe, for Chrome and Opera this burys the error dialog (which is actually HTML)
                     // for iOS we will get a popup error if this protocol is not supported, but it won't block javascript
-                    document.getElementById('loader').src = '{{kakao_map.mobile}}' + window.location.search + window.location.hash;
+                    document.getElementById('loader').src = '{{kakao_map.mobile}}';
                 }
 
                 // Now we just wait for everything to execute, if the user is redirected to your custom app
