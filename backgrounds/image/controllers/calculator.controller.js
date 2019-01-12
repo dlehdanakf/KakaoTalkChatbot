@@ -63,8 +63,8 @@ const renderCalculatorThumbnail = (req, res, attempt) => {
                 'color': 'rgba(0,0,0,.8)',
                 'dstPath': processedImage,
                 'align': 'ltr',
-                'position': 'SouthCenter',
-                'pointsize': 58
+                'position': 'SouthWest',
+                'pointsize': 74
             }, function(e){
                 if(e){
                     res.writeHead(500, {'Content-type': 'image/png'})
