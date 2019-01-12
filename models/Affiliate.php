@@ -157,7 +157,7 @@
 
 			if($this->map_y && $this->map_x)
 				$basicCard->addButton(
-					(new Button("지도보기"))
+					(new Button("카카오맵 지도보기"))
 						->setWebLinkUrl("http://chatbot.kunnect.net/redirect/kakaomap?a=" . $this->id)
 				);
 			if($this->contact)
