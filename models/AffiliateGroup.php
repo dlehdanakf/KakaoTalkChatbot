@@ -11,7 +11,7 @@
 		public $category;
 
 		public static function GET_ORDERED_LIST($category){
-			$query = B::DB()->prepare("SELECT id FROM affiliate_group WHERE category = :c ORDER BY priority, RAND() DESC");
+			$query = B::DB()->prepare("SELECT id FROM affiliate_group WHERE category = :c ORDER BY priority DESC, RAND()");
 			$query->execute([
 				':c' => $category
 			]);
