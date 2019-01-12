@@ -3,10 +3,12 @@ import path from 'path';
 import watermark from 'image-watermark-2';
 
 const protectedGetOriginalFileName = (fileName) => {
-    return path.resolve(__dirname, "../images/" + fileName + ".png");
+    console.log(path.resolve("images/" + fileName + ".png"));
+
+    return path.resolve("images/" + fileName + ".png");
 };
 const protectedGetCacheFileName = (fileName, typeString, count) => {
-    return path.resolve(__dirname, "../calculator_caches/" + fileName + "." + typeString + "." + count + ".png");
+    return path.resolve("calculator_caches/" + fileName + "." + typeString + "." + count + ".png");
 };
 const protectedGetRandomFileName = (mode, count) => {
     const good = [ "happy", "like", "happy" ];
