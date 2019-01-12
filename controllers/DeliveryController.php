@@ -59,7 +59,7 @@
 				$skillResponse->addQuickReplies((new QuickReply("더보기"))->setBlockID("5c30a7de384c5518d11fec0b", [
 					'delivery_category' => $groupLabel
 				]));
-			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setMessageText("배달음식점 목록 보여줘"));
+			$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setMessageText("배달음식점 목록 보여줘"));
 			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
 			$deliveries = $deliveryGroup->getRandomDeliveries(10);
@@ -97,7 +97,7 @@
 			$utterance = implode(' ', array_slice($utteranceArray, 0, count($utteranceArray) - 1));
 
 			$skillResponse = new SkillResponse;
-			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setMessageText("배달음식점 목록 보여줘"));
+			$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setMessageText("배달음식점 목록 보여줘"));
 			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
 			try {

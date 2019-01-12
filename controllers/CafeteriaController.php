@@ -64,7 +64,7 @@
 				[ "정보오류 제보", "학식메뉴 오류 제보하기" ],
 				[ "메인으로", "메인으로 돌아가기" ]
 			];
-			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setBlockID('5c2778fe5f38dd44d86a0e9b'));
+			$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setBlockID('5c2778fe5f38dd44d86a0e9b'));
 			foreach($quickReplies as $quickReply){
 				$skillResponse->addQuickReplies((new QuickReply($quickReply[0]))->setMessageText($quickReply[1]));
 			}
