@@ -19,9 +19,8 @@
 		header('Content-Type: application/json');
 	});
 
-	$router->any('facebook', function(){
-		return B::VIEW()->render('facebook.kunnect.html');
-	});
+	$router->any('redirect/facebook/{fb_page:a}', ["RedirectController", "facebookAppRedirect"]);
+
 	$router->any('events', function(){
 		return B::VIEW()->render('event.detail.html');
 	});
