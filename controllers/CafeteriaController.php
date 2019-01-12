@@ -56,14 +56,9 @@
 				throw new Exception("식당 이름을 채팅봇이 알아들을 수 없습니다.\n다른 이름으로 다시 시도해주세요.");
 			}
 
-			$basicCard = new BasicCard;
-			$basicCard->title = "(멘붕) 별로 땡기는 메뉴가 없나요?";
-			$basicCard->description =
-				"오늘 점심은 학교 밖에서 먹는건 어때요?" . "\n" .
-				"우리학교 주변 맛집 리스트에서 골라보세요!"
-			;
-			$basicCard->addButton((new Button("학교주변 맛집 알아보기"))->setMessageText("제휴업체"));
-			$skillResponse->addResponseComponent($basicCard);
+			$recommend = $this->randomRecommendCard();
+			if($recommend !== null)
+				$skillResponse->addResponseComponent($recommend);
 
 			$quickReplies = [
 				[ "정보오류 제보", "학식메뉴 오류 제보하기" ],
@@ -87,5 +82,31 @@
 			$weekNum = date("w", $strTime);
 
 			return $year . "년 " . $month . "월 " . $date . "일(" . $weekList[$weekNum] . ")";
+		}
+		protected function randomRecommendCard(){
+			$rand = rand(0, 3);
+			if($rand < 2) return null;
+
+			$basicCard = new BasicCard;
+			if($rand == 2) {
+				$time = '저녁';
+				if(date('H') < 15)
+					$time = '점심';
+
+				$basicCard->title = "(멘붕) 별로 땡기는 메뉴가 없나요?";
+				$basicCard->description = "오늘 " . $time ."은 학교 밖에서 먹는건 어때요?" . "\n" . "우리학교 주변 맛집 리스트에서 골라보세요!";
+				$basicCard->addButton((new Button("학교주변 맛집 알아보기"))->setMessageText("학교주변 맛집 추천해줘"));
+
+				return $basicCard;
+			} else if($rand ==  3){
+				$rand = rand(0, 3);
+				$place = ['동방', '과방', '강의실', '연구실'];
+
+				$basicCard->title = "(아잉) " . $place[$rand] . "에서 배달이나 시킬까?";
+				$basicCard->description = "학교 안까지 배달되는 업체만 모아놨어요!" . "\n" . "나가기도 귀찮은데 오늘은 배달음식 ㄱㄱ?";
+				$basicCard->addButton((new Button("배달음식 주문하기"))->setMessageText("배달음식점 목록 보여줘"));
+
+				return $basicCard;
+			}
 		}
 	}
