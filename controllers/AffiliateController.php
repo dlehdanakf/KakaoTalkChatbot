@@ -214,8 +214,8 @@
 			$affiliate->title = $_REQUEST['title'];
 			$affiliate->description = $_REQUEST['description'];
 			$affiliate->location = $_REQUEST['location'];
-			$affiliate->map_x = $_REQUEST['map_x'];
-			$affiliate->map_y = $_REQUEST['map_y'];
+			$affiliate->map_x = (double) $_REQUEST['map_x'];
+			$affiliate->map_y = (double) $_REQUEST['map_y'];
 			$affiliate->contact = $_REQUEST['contact'];
 			$affiliate->contract = 0;
 			$affiliate->promotion = 0;
@@ -242,8 +242,8 @@
 			$affiliate->title = $_REQUEST['title'];
 			$affiliate->description = $_REQUEST['description'];
 			$affiliate->location = $_REQUEST['location'];
-			$affiliate->map_x = $_REQUEST['map_x'];
-			$affiliate->map_y = $_REQUEST['map_y'];
+			$affiliate->map_x = (double) $_REQUEST['map_x'];
+			$affiliate->map_y = (double) $_REQUEST['map_y'];
 			$affiliate->contact = $_REQUEST['contact'];
 
 			if(in_array($_REQUEST['contract'], [1, 2])) $affiliate->contract = $_REQUEST['contract'];
