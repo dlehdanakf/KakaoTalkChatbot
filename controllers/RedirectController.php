@@ -31,4 +31,24 @@
 				'fb_page' => $routes[$fb_page]
 			]);
 		}
+		public function kakaoMapRedirect(){
+			if(!B::PARAMETER_CHECK(['a'], true))
+				throw new Exception("필수 파라미터 없음 - a");
+
+			try {
+				$affiliate = new Affiliate($_REQUEST['a']);
+
+				if(!$affiliate->map_x || !$affiliate->map_y)
+					throw new Exception($affiliate->title . " 업체의 지도 위치가 등록되어있지 않습니다.");
+
+				return B::VIEW()->render('redirect.kakaomap.html', [
+					'kakao_map' => [
+						'mobile' => 'daummaps://look?p=' . $affiliate->map_x . ',' . $affiliate->map_y,
+						'web' => 'http://map.daum.net/link/map/' . implode(',', [$affiliate->title, $affiliate->map_x, $affiliate->map_y])
+					]
+				]);
+			} catch(ModelNotFoundException $e) {
+				throw new \Phroute\Phroute\Exception\HttpRouteNotFoundException();
+			}
+		}
 	}

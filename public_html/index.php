@@ -20,6 +20,7 @@
 	});
 
 	$router->any('redirect/facebook/{fb_page:a}', ["RedirectController", "facebookAppRedirect"]);
+	$router->any('redirect/kakaomap', ["RedirectController", "kakaoMapRedirect"]);
 
 	$router->any('events', function(){
 		return B::VIEW()->render('event.detail.html');
