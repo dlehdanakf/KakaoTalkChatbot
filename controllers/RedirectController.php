@@ -43,8 +43,8 @@
 
 				return B::VIEW()->render('redirect.kakaomap.html', [
 					'kakao_map' => [
-						'mobile' => 'daummaps://look?p=' . $affiliate->map_x . ',' . $affiliate->map_y,
-						'web' => 'http://map.daum.net/link/map/' . implode(',', [$affiliate->title, $affiliate->map_x, $affiliate->map_y])
+						'mobile' => 'daummaps://look?p=' . $affiliate->map_y . ',' . $affiliate->map_x,
+						'web' => 'http://map.daum.net/link/map/' . implode(',', [$affiliate->title, $affiliate->map_y, $affiliate->map_x])
 					]
 				]);
 			} catch(ModelNotFoundException $e) {
