@@ -7,9 +7,10 @@
 				$category = AffiliateGroup::CATEGORY_PLAY;
 
 			$skillResponse = new SkillResponse;
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
+			
 			$groups = AffiliateGroup::GET_ORDERED_LIST($category);
 			if(count($groups) < 1) {
-				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 				$skillResponse->addResponseComponent(new SimpleText(
 					"🚫 " . $requestBody['params']['affiliate_category'] . " 제휴업체를 찾을 수 없습니다."
 				));
