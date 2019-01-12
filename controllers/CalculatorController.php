@@ -18,8 +18,6 @@
 			/**
 			 *	개강일 디데이
 			 */
-			$temporary_thumbnail = "http://kung.kr/files/attach/images/247/123/041/006/bca9d3b106a8d89f73a9fc40daef22b2.png";
-
 			$skillResponse = new SkillResponse;
 			$skillResponse->addResponseComponent(new SimpleText(
 				"📆 다음학기 개강일은? 😱💣" . "\n" .
@@ -27,7 +25,7 @@
 			));
 
 			$basicCard = new BasicCard;
-			$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail)));
+			$basicCard->setThumbnail((new Thumbnail($this->getThumbnailURL($diffCount, 'vacation'))));
 			$basicCard->title = (
 				"개강까지 앞으로 【 " . abs($diffCount) . "일 】 남았습니다." . "\n\n" .
 				"⚠️ 본 계산결과는 행정효력이 없으며 학사일정상 변동될 수 있습니다."
@@ -49,8 +47,6 @@
 			/**
 			 *	종강일 디데이
 			 */
-			$temporary_thumbnail = "http://kung.kr/files/attach/images/247/123/041/006/bca9d3b106a8d89f73a9fc40daef22b2.png";
-
 			$skillResponse = new SkillResponse;
 			$skillResponse->addResponseComponent(new SimpleText(
 				"📆 이번학기 종강일은? 😆🎉" . "\n" .
@@ -58,7 +54,7 @@
 			));
 
 			$basicCard = new BasicCard;
-			$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail)));
+			$basicCard->setThumbnail((new Thumbnail($this->getThumbnailURL($diffCount, 'semester'))));
 			$basicCard->title = (
 				"종강까지 앞으로 【 " . abs($diffCount) . "일 】 남았습니다." . "\n\n" .
 				"⚠️ 본 계산결과는 행정효력이 없으며 학사일정상 변동될 수 있습니다."
@@ -87,5 +83,12 @@
 			$weekNum = date("w", $strTime);
 
 			return $year . "년 " . $month . "월 " . $date . "일(" . $weekList[$weekNum] . ")";
+		}
+		protected function getThumbnailURL($diffCount = 0, $mode = 'semester'){
+			$type = 'plus';
+			if($diffCount <= 0)
+				$type = 'minus';
+
+			return "http://chatbot.kunnect.net:8080/c?c=" . abs($diffCount) . "&m=$mode&t=$type";
 		}
 	}
