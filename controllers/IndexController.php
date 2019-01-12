@@ -16,7 +16,7 @@
 			$basicCard->setThumbnail($this->getCardThumbnail(1));
 			$basicCard->addButton((new Button("오늘의 학식메뉴"))->setMessageText("오늘의 학식메뉴 알려줘"));
 //			$basicCard->addButton((new Button("학식 이용후기 남기기"))->setMessageText("학식 이용후기 남길래"));
-			$basicCard->addButton((new Button("공식 페북 페이지"))->setWebLinkUrl("http://chatbot.kunnect.net/redirect/facebook/official"));
+			$basicCard->addButton((new Button("공식 페이스북 페이지"))->setWebLinkUrl("http://chatbot.kunnect.net/redirect/facebook/official"));
 			$basicCard->addButton((new Button("단무지의 추천 ⭐"))->setMessageText("단무지야 혼밥장소 추천해줘"));
 			$carousel->addCard($basicCard);
 
@@ -53,7 +53,7 @@
 			$basicCard->setThumbnail($this->getCardThumbnail(5));
 			$basicCard->addButton((new Button("건대신문 최신기사"))->setMessageText("건대신문 최신기사 보여줘"));
 			$basicCard->addButton((new Button("기사 제보(투고)하기"))->setWebLinkUrl("http://popkon.konkuk.ac.kr/com/jb.html"));
-			$basicCard->addButton((new Button("공식 페이스북 페이지"))->setWebLinkUrl("http://facebook.com/kkpressb"));
+			$basicCard->addButton((new Button("공식 페이스북 페이지"))->setWebLinkUrl("http://chatbot.kunnect.net/redirect/facebook/press"));
 			$carousel->addCard($basicCard);
 
 			$skillResponse->addResponseComponent($carousel);
