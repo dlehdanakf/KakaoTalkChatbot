@@ -19,6 +19,9 @@
 		header('Content-Type: application/json');
 	});
 
+	$router->any('facebook', function(){
+		return B::VIEW()->render('facebook.kunnect.html');
+	});
 	$router->any('events', function(){
 		return B::VIEW()->render('event.detail.html');
 	});
