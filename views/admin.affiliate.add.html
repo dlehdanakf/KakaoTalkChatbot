@@ -59,6 +59,86 @@
             $('#upload-thumbnail').attr('disabled', false);
         });
         AJS.$("#select-group").auiSelect2();
+
+
+        function ajaxMapResult(e){
+            e.preventDefault();
+            e.stopPropagation();
+
+            $.ajax({
+                url: '/admin/api/map?q=' + $("#f-location").val(),
+                type: 'GET',
+                dataType: 'json',
+                success: function(data){
+                    if(data.result != 200){
+                        alert(data.message);
+                        return;
+                    }
+
+                    var wrap = $("#admin-map-result");
+                    var results = data.returns.location;
+
+                    wrap.empty();
+                    results.map(function(v, i){
+                        var road_address = v.road_address;
+                        if(road_address === null){
+                            alert("올바르지 않은 검색어를 입력하셨습니다.");
+                            return;
+                        }
+
+                        var block = $('<div class="block"></div>'),
+                            p = $('<p></p>'),
+                            a = $('<a href="#" class="map-result-item">적용</a>'),
+                            span = $('<span></span>');
+
+                        p.html(
+                            "(" + road_address.zone_no + ") " + road_address.address_name
+                        );
+                        a
+                            .attr('data-x', road_address.x)
+                            .attr('data-y', road_address.y)
+                            .attr('data-name', road_address.address_name)
+                            .attr('data-zone', road_address.zone_no)
+                            .appendTo(p);
+                        span.html(
+                            "x: " + road_address.x + ", y: " + road_address.y
+                        );
+
+                        block.append(p).append(span).appendTo(wrap);
+                    });
+                }
+            });
+        }
+        $("#f-location").on('change', function (e) {
+            if($(this).val().length > 0)
+                $("#map-search").attr('disabled', false);
+            else
+
+                $("#map-search").attr('disabled', true);
+        });
+        $("#f-location").keypress(function (e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                ajaxMapResult(e);
+
+                return false;
+            }
+        });
+        $("#map-search").on('click', ajaxMapResult);
+        $(document).on('click', '.map-result-item', function(e){
+            e.preventDefault();
+
+            var x = $(this).attr('data-x'),
+                y = $(this).attr('data-y'),
+                name = $(this).attr('data-name'),
+                zone = $(this).attr('data-zone');
+
+            $("#f-map_x").val(x);
+            $("#f-map_y").val(y);
+            $("#f-location").val(name);
+        });
     });
 </script>
 {% endblock %}
@@ -88,8 +168,14 @@
         </div>
         <div class="field-group">
             <label for="f-location">주소</label>
-            <input class="text" type="text" id="f-location" name="location" title="주소" />
-            <div class="description">통일된 양식, 도로명주소에 따라 기입할 것. 서울특별시, 서울시 입력 X, 건물명 입력 X</div>
+            <input class="text" type="text" id="f-location" name="location" title="주소" />&nbsp;
+            <button type="button" class="aui-button" id="map-search" disabled>지도검색</button>
+            <div class="description">통일된 양식, 도로명주소에 따라 기입할 것. 서울시 입력 필수, 건물명 입력 X</div>
+            <div id="admin-map-result">
+                <div class="block">
+                    <p>지도 검색결과가 여기에 표시됩니다.</p>
+                </div>
+            </div>
         </div>
         <div class="field-group">
             <label for="f-map_y">위도, 경도</label>

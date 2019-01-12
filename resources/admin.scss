@@ -170,6 +170,47 @@ h4.section-title {
     }
   }
 }
+#admin-map-result {
+  max-width: 340px;
+  height: 120px;
+  background-color: #F5F5F5;
+  border: 1px solid #DCDCDC;
+  margin-top: 6px;
+  overflow-y: scroll;
+
+  .block {
+    padding: 12px;
+    border-top: 1px solid #E8E8E8;
+
+    p {
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+      font-size: 13px;
+      color: #222;
+
+      a {
+        margin-left: 6px;
+        cursor: pointer;
+      }
+    }
+    span {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      line-height: 1;
+      color: #AAA;
+    }
+
+    &:first-child {
+      border-top: 0;
+    }
+  }
+
+  &.white {
+    background-color: #FFF;
+  }
+}
 
 #header {
   margin: 0;
