@@ -8,6 +8,8 @@ const protectedGetOriginalFileName = (fileName) => {
     return path.resolve("images/" + fileName + ".png");
 };
 const protectedGetCacheFileName = (fileName, typeString, count) => {
+    console.log("cache", path.resolve("calculator_caches/" + fileName + "." + typeString + "." + count + ".png"));
+
     return path.resolve("calculator_caches/" + fileName + "." + typeString + "." + count + ".png");
 };
 const protectedGetRandomFileName = (mode, count) => {
