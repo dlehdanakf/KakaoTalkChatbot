@@ -59,7 +59,7 @@ const renderCalculatorThumbnail = (req, res, attempt) => {
             }
 
             watermark.embedWatermarkWithCb(originalImage, {
-                'text': '. D ' + type + ' ' + count,
+                'text': '. D ' + type + ' ' + count,
                 'color': 'rgba(0,0,0,.8)',
                 'dstPath': processedImage,
                 'align': 'ltr',
