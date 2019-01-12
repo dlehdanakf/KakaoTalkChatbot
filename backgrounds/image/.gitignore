@@ -1,0 +1,4 @@
+/node_modules/
+/calculator_caches/
+
+.env
