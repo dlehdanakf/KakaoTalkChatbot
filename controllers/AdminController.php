@@ -33,6 +33,30 @@
 			header('Location: /admin/service/thumbnail');
 		}
 
+		public function apiGetMapCoordinate(){
+			if(!B::PARAMETER_CHECK(['q'], true)){
+				B::DIE_MESSAGE(403, "파라미터 에러 - q");
+			}
+
+			$snoopy = new Snoopy;
+			$snoopy->_httpmethod = 'GET';
+			$snoopy->read_timeout = 3;
+			$snoopy->rawheaders['Authorization'] = 'KakaoAK ' . B::GET_KAKAO_TOKEN();
+			$snoopy->submit('https://dapi.kakao.com/v2/local/search/address.json', [
+				'query' => $_REQUEST['q'],
+				'size' => 15
+			]);
+
+			$result = $snoopy->results;
+			$json_result = json_decode($result, true);
+			if(json_last_error() !== JSON_ERROR_NONE)
+				B::DIE_MESSAGE(500, "카카오톡 지도검색 API에 문제가 있습니다.");
+
+			B::DIE_MESSAGE(200,'성공', [
+				'location' => $json_result['documents']
+			]);
+		}
+
 		/**
 		 * @return Twig_Environment
 		 */

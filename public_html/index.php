@@ -64,6 +64,7 @@
 
 	$router->group(['prefix' => 'admin'], function($router){
 		$router->get('/', ["AdminController", "viewIndexPage"]);
+		$router->get('/api/map', ["AdminController", "apiGetMapCoordinate"]);
 
 		$router->group(['prefix' => 'delivery'], function($router){
 			$router->get('groups', ["DeliveryController", "adminViewDeliveryGroupList"]);

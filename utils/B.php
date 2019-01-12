@@ -70,6 +70,9 @@
 		public static function GET_ACCESS_TOKEN(){
 			return self::$ENVIRONMENT->ACCESS_TOKEN;
 		}
+		public static function GET_KAKAO_TOKEN(){
+			return self::$ENVIRONMENT->KAKAO_TOKEN;
+		}
 
 		/**
 		 * @param array $e
