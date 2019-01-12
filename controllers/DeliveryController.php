@@ -43,7 +43,9 @@
 		public function skillViewDeliveryList(){
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['delivery_category']);
 
-			$groupLabel = $requestBody['params']['delivery_category'];
+			if($requestBody['utterance'] == '더보기') $groupLabel = $requestBody['params']['affiliate_group'];
+			else $groupLabel = explode(' ', $requestBody['utterance'])[0];
+
 			try {
 				$deliveryGroup = DeliveryGroup::CREATE_BY_LABEL($groupLabel);
 			} catch(ModelNotFoundException $e) {
@@ -53,8 +55,8 @@
 			$skillResponse = new SkillResponse;
 			$count = $deliveryGroup->getDeliveryCount();
 			if($count > 10)
-				$skillResponse->addQuickReplies((new QuickReply("더보기"))->setBlockID("5c35e4c6384c5518d1200aa4", [
-					'delivery_category' => $requestBody['params']['delivery_category']
+				$skillResponse->addQuickReplies((new QuickReply("더보기"))->setBlockID("5c30a7de384c5518d11fec0b", [
+					'delivery_category' => $groupLabel
 				]));
 			$skillResponse->addQuickReplies((new QuickReply("돌아가기"))->setMessageText("배달음식점 목록 보여줘"));
 			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
