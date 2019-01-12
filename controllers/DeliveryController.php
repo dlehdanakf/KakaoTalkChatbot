@@ -14,7 +14,7 @@
 
 			$in_night = false;
 			$current_time = date("H");
-			if($current_time > 21 && $current_time < 9)
+			if($current_time > 21 || $current_time < 9)
 				$in_night = true;
 
 
