@@ -73,7 +73,8 @@
 			if($requestBody['utterance'] != "더보기")
 				$skillResponse->addResponseComponent(new SimpleText(
 					"【 " . $groupLabel . " 】" . "\n" .
-					"(멘트 추가예정)"
+					"👉 자세히 보기 버튼을 누르면 매장위치 및 상세메뉴를 확인하실 수 있습니다." . "\n" .
+					"👉 공유하기 버튼을 통해 친구 단톡방에 전달할 수 있습니다."
 				));
 
 			$carousel = new Carousel;
