@@ -41,7 +41,7 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewDeliveryList(){
-			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY(['delivery_category']);
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
 
 			if($requestBody['utterance'] == '더보기') $groupLabel = $requestBody['params']['affiliate_group'];
 			else $groupLabel = explode(' ', $requestBody['utterance'])[0];
