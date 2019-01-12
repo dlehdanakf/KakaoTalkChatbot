@@ -115,7 +115,7 @@
 				$thumbnail = new DefaultThumbnail;
 
 			$basicCard->setThumbnail($thumbnail);
-			$basicCard->addButton((new Button("목록보기"))->setBlockID('5c30a7de384c5518d11fec0b', $this->label . " 목록"));
+			$basicCard->addButton((new Button("목록보기"))->setBlockID('5c30a7de384c5518d11fec0b', $this->label . " 배달음식점 목록"));
 
 			return $basicCard;
 		}
