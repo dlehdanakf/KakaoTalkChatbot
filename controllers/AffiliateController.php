@@ -190,7 +190,7 @@
 			]);
 		}
 		public function adminViewAddAffiliateItem($affiliate_id){
-			$affiliate = new Delivery($affiliate_id);
+			$affiliate = new Affiliate($affiliate_id);
 
 			return $this->adminView()->render('admin.affiliate.item.add.html', [
 				'sub_title' => "제휴업체 아이템 추가",
@@ -343,7 +343,7 @@
 			$affiliate = new Affiliate($affiliate_id);
 			$affiliateItem = new AffiliateItem($item_id);
 
-			if($affiliateItem->getDeliveryID() !== $affiliate->id)
+			if($affiliateItem->getAffiliateID() !== $affiliate->id)
 				throw new \Phroute\Phroute\Exception\HttpRouteNotFoundException();
 
 			$affiliateItem->title = $_REQUEST['title'];
@@ -361,18 +361,18 @@
 
 			$affiliateItem->update();
 
-			header('Location: /admin/delivery/' . $affiliate->id . '/item/' . $affiliateItem->id);
+			header('Location: /admin/affiliate/' . $affiliate->id . '/item/' . $affiliateItem->id);
 		}
 		public function processDeleteAffiliateItem($affiliate_id, $item_id){
 			$affiliate = new Affiliate($affiliate_id);
 			$affiliateItem = new AffiliateItem($item_id);
 
-			if($affiliateItem->getDeliveryID() !== $affiliate->id)
+			if($affiliateItem->getAffiliateID() !== $affiliate->id)
 				throw new \Phroute\Phroute\Exception\HttpRouteNotFoundException();
 
 			$affiliateItem->delete();
 
-			header('Location: /admin/delivery/' . $affiliate->id);
+			header('Location: /admin/affiliate/' . $affiliate->id);
 		}
 
 		/**
