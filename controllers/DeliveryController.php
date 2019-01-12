@@ -13,8 +13,8 @@
 				throw new Exception("배달업체 카테고리을 가져오는데 오류가 발생했습니다.");
 
 			$in_night = false;
-			$current_time = strtotime('now');
-			if ($current_time > strtotime('21:00') && $current_time < strtotime('05:00'))
+			$current_time = date("H");
+			if($current_time > 21 && $current_time < 9)
 				$in_night = true;
 
 
