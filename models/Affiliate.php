@@ -141,7 +141,7 @@
 
 			$basicCard->setThumbnail($thumbnail);
 
-			if($this->getItemCount() > 0) $basicCard->addButton((new Button("자세히보기"))->setActionShare());
+			$basicCard->addButton((new Button("자세히보기"))->setBlockID('5c397263384c5518d120223a', $this->title . " 자세히"));
 			$basicCard->addButton((new Button("공유하기"))->setActionShare());
 
 			return $basicCard;
