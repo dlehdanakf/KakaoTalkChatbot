@@ -99,8 +99,8 @@
 
 				return $basicCard;
 			} else if($rand ==  3){
-				$rand = rand(0, 3);
-				$place = ['동방', '과방', '강의실', '연구실'];
+				$rand = rand(0, 4);
+				$place = ['동방', '과방', '강의실', '연구실', '기숙사'];
 
 				$basicCard->title = "(아잉) " . $place[$rand] . "에서 배달이나 시킬까?";
 				$basicCard->description = "학교 안까지 배달되는 업체만 모아놨어요!" . "\n" . "나가기도 귀찮은데 오늘은 배달음식 ㄱㄱ?";
