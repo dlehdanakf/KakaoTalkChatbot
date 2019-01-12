@@ -7,9 +7,9 @@
 				$category = AffiliateGroup::CATEGORY_PLAY;
 
 			$skillResponse = new SkillResponse;
-			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 			$groups = AffiliateGroup::GET_ORDERED_LIST($category);
 			if(count($groups) < 1) {
+				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 				$skillResponse->addResponseComponent(new SimpleText(
 					"🚫 " . $requestBody['params']['affiliate_category'] . " 제휴업체를 찾을 수 없습니다."
 				));
@@ -79,6 +79,9 @@
 
 			$skillResponse->addResponseComponent($carousel);
 
+			$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setMessageText($affiliateGroup->getUtterance()));
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
+
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewAffiliateItemList(){
@@ -113,6 +116,13 @@
 
 				$skillResponse->addResponseComponent($carousel);
 			}
+
+			$affiliateGroups = $affiliate->getBelongingGroups();
+			if(count($affiliateGroups) > 0){
+				$affiliateGroup = $affiliateGroups[0];
+				$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setMessageText($affiliateGroup->getUtterance()));
+			}
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
 			return json_encode($skillResponse->render());
 		}

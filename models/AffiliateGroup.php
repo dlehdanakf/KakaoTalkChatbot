@@ -132,4 +132,10 @@
 
 			return $basicCard;
 		}
+		public function getUtterance(){
+			switch($this->category){
+				case 'F': return "학교주변 맛집 알려줘";
+				case 'P': return "학교주변 놀거리 추천해줘";
+			}
+		}
 	}
