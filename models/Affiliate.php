@@ -151,8 +151,8 @@
 			$basicCard->title =
 				$this->title . "\n" .
 				"━━━━━━━━━━━━━━━━" . "\n" .
-				"🏡 : " . ($this->location ? $this->location : "(등록된 주소 없음)") . "\n" .
-				"📞 : " . ($this->contact ? $this->contact : "(등록된 연락처 없음)")
+				"🗺️ : " . ($this->location ? $this->location : "(등록된 주소 없음)") . "\n" .
+				"☎️ : " . ($this->contact ? $this->contact : "(등록된 연락처 없음)")
 			;
 
 			if($this->map_y && $this->map_x) $basicCard->addButton((new Button("지도보기"))->setActionShare());
