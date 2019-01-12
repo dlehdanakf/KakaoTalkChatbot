@@ -82,7 +82,39 @@
 			return json_encode($skillResponse->render());
 		}
 		public function skillViewAffiliateItemList(){
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
+			$utterance = explode(' ', $requestBody['utterance']);
 
+			$skillResponse = new SkillResponse;
+			if($utterance[count($utterance) - 1] != "자세히"){
+				$skillResponse->addResponseComponent(new SimpleText(
+					"🚫 채팅봇이 이해할 수 없는 문장을 입력하셨습니다."
+				));
+				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
+
+				return json_encode($skillResponse->render());
+			}
+
+			$affiliateLabel = array_slice($utterance, 0, count($utterance) - 1);
+			$affiliate = Affiliate::CREATE_BY_TITLE($affiliateLabel);
+			$items = $affiliate->getRandomItems();
+
+			$skillResponse->addResponseComponent($affiliate->getBasicInformationCard());
+
+			if(count($items) < 1){
+				$skillResponse->addResponseComponent(new SimpleText(
+					"🚫 " . $affiliateLabel . " 에 등록된 메뉴가 없습니다."
+				));
+			} else {
+				$carousel = new Carousel;
+				foreach($items as $item){
+					$carousel->addCard($item->getCommerceCard());
+				}
+
+				$skillResponse->addResponseComponent($carousel);
+			}
+
+			return json_encode($skillResponse->render());
 		}
 
 		public function adminViewAffiliateGroupList(){

@@ -6,6 +6,7 @@
 				"교내로 배달이 가능한 업체만 모아놨어요!" . "\n" .
 				"다음 목록에서 주문하고싶은 음식의 분류를 선택해주세요."
 			));
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
 			$carousel = new Carousel;
 			$categories = DeliveryGroupCategory::GET_ORDERED_LIST();

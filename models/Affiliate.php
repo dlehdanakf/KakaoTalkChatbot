@@ -146,4 +146,20 @@
 
 			return $basicCard;
 		}
+		public function getBasicInformationCard(){
+			$basicCard = new BasicCard;
+			$basicCard->title =
+				$this->title . "\n" .
+				"━━━━━━━━━━━━━━━━"
+			;
+			$basicCard->description =
+				"📍 : " . ($this->location ? $this->location : "(등록된 주소 없음)") . "\n" .
+				"📞 : " . ($this->contact ? $this->contact : "(등록된 연락처 없음)")
+			;
+
+			if($this->map_y && $this->map_x) $basicCard->addButton((new Button("지도보기"))->setActionShare());
+			if($this->contact) $basicCard->addButton((new Button("전화 문의하기"))->setPhoneNumber($this->contact));
+
+			return $basicCard;
+		}
 	}
