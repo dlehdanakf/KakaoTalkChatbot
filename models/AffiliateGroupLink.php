@@ -58,6 +58,18 @@
 
 			return $return_array;
 		}
+		public static function DELETE_ALL_AFFILIATES(AffiliateGroup $group){
+			$query = B::DB()->prepare("DELETE FROM affiliate_group_link WHERE group_id = :g");
+			$query->execute([
+				':g' => $group->id
+			]);
+		}
+		public static function DELETE_ALL_BELONGING_GROUPS(Affiliate $affiliate){
+			$query = B::DB()->prepare("DELETE FROM affiliate_group_link WHERE affiliate_id = :d");
+			$query->execute([
+				':d' => $affiliate->id
+			]);
+		}
 
 		public function __construct(Affiliate $affiliate = null, AffiliateGroup $group = null){
 			if($affiliate === null || $group === null)
