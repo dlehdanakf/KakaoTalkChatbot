@@ -64,7 +64,7 @@ const renderCalculatorThumbnail = (req, res, attempt) => {
                 'dstPath': processedImage,
                 'align': 'ltr',
                 'position': 'Center',
-                'pointsize': 54
+                'pointsize': 58
             }, function(e){
                 if(e){
                     res.writeHead(500, {'Content-type': 'image/png'})
