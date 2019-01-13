@@ -9,8 +9,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async-request": "^1.2.0",
-    "await-sleep": "0.0.1",
     "base64-img": "^1.0.4",
     "canvas": "^1.6.5",
     "dotenv": "^6.1.0",
