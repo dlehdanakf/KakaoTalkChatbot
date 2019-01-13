@@ -347,8 +347,15 @@
 				$affiliateItem->is_visible = $_REQUEST['is_visible'];
 
 			$affiliateItem->setAffiliate($affiliate);
-			if(intval($_REQUEST['thumbnail']) > 0)
-				$affiliateItem->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+			if(intval($_REQUEST['thumbnail']) > 0) {
+				$attachment = Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']);
+				$affiliateItem->setThumbnail($attachment);
+
+				if(B::PARAMETER_CHECK(['instagram'], true)){
+					$attachment->instagram = $_REQUEST['instagram'];
+					$attachment->updateInstagramSource();
+				}
+			}
 
 			$affiliateItem->save();
 
@@ -370,10 +377,17 @@
 			if(in_array($_REQUEST['is_visible'], ['Y', 'N']))
 				$affiliateItem->is_visible = $_REQUEST['is_visible'];
 
-			if(intval($_REQUEST['thumbnail']) > 0)
-				$affiliateItem->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
-			else
+			if(intval($_REQUEST['thumbnail']) > 0) {
+				$attachment = Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']);
+				$affiliateItem->setThumbnail($attachment);
+
+				if(B::PARAMETER_CHECK(['instagram'], true)){
+					$attachment->instagram = $_REQUEST['instagram'];
+					$attachment->updateInstagramSource();
+				}
+			} else {
 				$affiliateItem->removeThumbnail();
+			}
 
 			$affiliateItem->update();
 

@@ -359,8 +359,15 @@
 				$deliveryItem->is_visible = $_REQUEST['is_visible'];
 
 			$deliveryItem->setDelivery($delivery);
-			if(intval($_REQUEST['thumbnail']) > 0)
-				$deliveryItem->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
+			if(intval($_REQUEST['thumbnail']) > 0) {
+				$attachment = Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']);
+				$deliveryItem->setThumbnail($attachment);
+
+				if(B::PARAMETER_CHECK(['instagram'], true)){
+					$attachment->instagram = $_REQUEST['instagram'];
+					$attachment->updateInstagramSource();
+				}
+			}
 
 			$deliveryItem->save();
 
@@ -382,10 +389,17 @@
 			if(in_array($_REQUEST['is_visible'], ['Y', 'N']))
 				$deliveryItem->is_visible = $_REQUEST['is_visible'];
 
-			if(intval($_REQUEST['thumbnail']) > 0)
-				$deliveryItem->setThumbnail(Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']));
-			else
+			if(intval($_REQUEST['thumbnail']) > 0) {
+				$attachment = Attachment::CREATE_BY_MYSQLID($_REQUEST['thumbnail']);
+				$deliveryItem->setThumbnail($attachment);
+
+				if(B::PARAMETER_CHECK(['instagram'], true)){
+					$attachment->instagram = $_REQUEST['instagram'];
+					$attachment->updateInstagramSource();
+				}
+			} else {
 				$deliveryItem->removeThumbnail();
+			}
 
 			$deliveryItem->update();
 

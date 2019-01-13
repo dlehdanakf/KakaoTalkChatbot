@@ -5,6 +5,7 @@
 		public $hashed_name;
 		public $original_name;
 		public $extension;
+		public $instagram;
 
 		public static function CREATE_BY_MYSQLID($id){
 			$attachment = new self;
@@ -51,6 +52,14 @@
 				":i" => $this->id
 			]);
 		}
+		public function updateInstagramSource(){
+			$query = B::DB()->prepare("UPDATE attachment SET instagram = :s WHERE id = :i");
+			$query->execute([
+				':i' => $this->id,
+				':s' => $this->instagram ? $this->instagram : null
+			]);
+		}
+
 		public function preventFileAlreadyExist(){
 			//	희박한 확률이지만 같은 경로, 같은 이름의 파일이 이미 존재하는경우
 			try {
