@@ -130,7 +130,7 @@
 				$commerceCard->discount = (int) $this->discount;
 
 			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
-				$thumbnail = new Thumbnail(B::GET_SERVICE_URL() . $this->getThumbnail()->getDownloadLinkDirectory());
+				$thumbnail = new Thumbnail(B::GET_IMAGE_URL() . "/delivery/item/" . $this->id);
 			else
 				$thumbnail = new DefaultThumbnail;
 

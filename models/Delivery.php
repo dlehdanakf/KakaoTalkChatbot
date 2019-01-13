@@ -132,7 +132,7 @@
 			$basicCard->description = $this->getBasicCardDescription();
 
 			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
-				$thumbnail = new Thumbnail(B::GET_SERVICE_URL() . $this->getThumbnail()->getDownloadLinkDirectory());
+				$thumbnail = new Thumbnail(B::GET_IMAGE_URL() . "/delivery/thumbnail/" . $this->id);
 			else
 				$thumbnail = new DefaultThumbnail;
 
