@@ -10,9 +10,14 @@ class Attachment {
         this.directory = null;
         this.hashed_name = null;
         this.extension = null;
+        this.instagram = "";
 
         this.fetchDataFromDB = this.fetchDataFromDB.bind(this);
         this.getDownloadLink = this.getDownloadLink.bind(this);
+        this.getCachedFileName = this.getCachedFileName.bind(this);
+        this.getCachedItemFileName = this.getCachedItemFileName.bind(this);
+        this.getCachedFileDir = this.getCachedFileDir.bind(this);
+        this.makeDirPath = this.makeDirPath.bind(this);
     }
 
     async fetchDataFromDB(){
@@ -38,10 +43,14 @@ class Attachment {
                 )
                     return false;
 
-                let { directory, hashed_name, extension } = rows[0];
+                let { directory, hashed_name, extension, instagram } = rows[0];
                 this.directory = directory;
                 this.hashed_name = hashed_name;
                 this.extension = extension;
+                this.instagram = instagram || "";
+
+                if(!this.instagram)
+                    this.instagram = "";
 
                 return true;
             } catch(err) {
@@ -69,6 +78,14 @@ class Attachment {
     getCachedFileName(model){
         const { name } = path.parse(this.hashed_name);
         const rules = ([name, model.promotion, model.sticker, model.contract]).join(".");
+
+        return "./caches/" + this.directory + rules + '.png';
+    }
+    getCachedItemFileName(){
+        const { name } = path.parse(this.hashed_name);
+        let rules = ([name, "item"]).join(".");
+        if(this.instagram && this.instagram.toString().length > 0)
+            rules = ([name, "item", this.instagram.toString()]).join(".");
 
         return "./caches/" + this.directory + rules + '.png';
     }
