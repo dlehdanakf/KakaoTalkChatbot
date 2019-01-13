@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 import watermark from 'image-watermark-2';
 
 const protectedGetOriginalFileName = (fileName) => {
