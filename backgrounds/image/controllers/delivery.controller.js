@@ -128,7 +128,7 @@ const renderDeliveryItemThumbnail = async (req, res, attempt) => {
         attachment.directory = "/";
         attachment.hashed_name = "default.png";
         attachment.extension = "png";
-        attachment.instagram = "Attachment.instagram";
+        attachment.instagram = "";
     }
 
     const cachedName = attachment.getCachedItemFileName();
