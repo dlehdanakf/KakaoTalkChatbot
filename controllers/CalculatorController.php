@@ -91,6 +91,6 @@
 
 			$rand = (int) rand() * 1000 % 100;
 
-			return "http://chatbot.kunnect.net:8080/c?c=" . abs($diffCount) . "&m=$mode&t=$type&r=$rand";
+			return B::GET_IMAGE_URL() . "/c?c=" . abs($diffCount) . "&m=$mode&t=$type&r=$rand";
 		}
 	}

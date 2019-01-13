@@ -135,7 +135,7 @@
 			$basicCard->description = $this->description;
 
 			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
-				$thumbnail = new Thumbnail("http://chatbot.kunnect.net" . $this->getThumbnail()->getDownloadLinkDirectory());
+				$thumbnail = new Thumbnail(B::GET_SERVICE_URL() . $this->getThumbnail()->getDownloadLinkDirectory());
 			else
 				$thumbnail = new DefaultThumbnail;
 
@@ -159,7 +159,7 @@
 			if($this->map_y && $this->map_x)
 				$basicCard->addButton(
 					(new Button("카카오맵 지도보기"))
-						->setWebLinkUrl("http://chatbot.kunnect.net/redirect/kakaomap?a=" . $this->id)
+						->setWebLinkUrl(B::GET_SERVICE_URL() . "/redirect/kakaomap?a=" . $this->id)
 				);
 			if($this->contact)
 				$basicCard->addButton((new Button("전화 문의하기"))->setPhoneNumber($this->contact));

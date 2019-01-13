@@ -17,7 +17,7 @@
 			$basicCard->addButton((new Button("오늘의 학식메뉴"))->setMessageText("오늘의 학식메뉴 알려줘"));
 //			$basicCard->addButton((new Button("학식 이용후기 남기기"))->setMessageText("학식 이용후기 남길래"));
 			$basicCard->addButton((new Button("단무지의 추천 ⭐"))->setMessageText("단무지야 혼밥장소 추천해줘"));
-			$basicCard->addButton((new Button("공식 페이스북 페이지"))->setWebLinkUrl("http://chatbot.kunnect.net/redirect/facebook/official"));
+			$basicCard->addButton((new Button("공식 페이스북 페이지"))->setWebLinkUrl(B::GET_SERVICE_URL() . "/redirect/facebook/official"));
 			$carousel->addCard($basicCard);
 
 			/** 1.1 제휴업체 목록 */
@@ -66,7 +66,7 @@
 				$value = B::GET_SETTING($key);
 				$attachment = Attachment::CREATE_BY_MYSQLID($value);
 
-				return new Thumbnail("http://chatbot.kunnect.net" . $attachment->getDownloadLinkDirectory());
+				return new Thumbnail(B::GET_SERVICE_URL() . $attachment->getDownloadLinkDirectory());
 			} catch(Exception $e) {
 				return new DefaultThumbnail();
 			}

@@ -73,6 +73,12 @@
 		public static function GET_KAKAO_TOKEN(){
 			return self::$ENVIRONMENT->KAKAO_TOKEN;
 		}
+		public static function GET_SERVICE_URL(){
+			return self::$ENVIRONMENT->SERVICE_URL;
+		}
+		public static function GET_IMAGE_URL(){
+			return self::$ENVIRONMENT->IMAGE_URL;
+		}
 
 		/**
 		 * @param array $e
