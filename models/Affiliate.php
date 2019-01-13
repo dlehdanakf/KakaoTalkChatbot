@@ -135,7 +135,7 @@
 			$basicCard->description = $this->description;
 
 			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
-				$thumbnail = new Thumbnail(B::GET_IMAGE_URL() . "/affiliate/thumbnail/" . $this->id);
+				$thumbnail = new Thumbnail($this->getThumbnailURL());
 			else
 				$thumbnail = new DefaultThumbnail;
 
@@ -165,5 +165,8 @@
 				$basicCard->addButton((new Button("전화 문의하기"))->setPhoneNumber($this->contact));
 
 			return $basicCard;
+		}
+		public function getThumbnailURL(){
+			return B::GET_IMAGE_URL() . "/affiliate/thumbnail/" . $this->id;
 		}
 	}

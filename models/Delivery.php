@@ -132,7 +132,7 @@
 			$basicCard->description = $this->getBasicCardDescription();
 
 			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
-				$thumbnail = new Thumbnail(B::GET_IMAGE_URL() . "/delivery/thumbnail/" . $this->id);
+				$thumbnail = new Thumbnail($this->getThumbnailURL());
 			else
 				$thumbnail = new DefaultThumbnail;
 
@@ -143,6 +143,9 @@
 			$basicCard->addButton((new Button("공유하기"))->setActionShare());
 
 			return $basicCard;
+		}
+		public function getThumbnailURL(){
+			return B::GET_IMAGE_URL() . "/delivery/thumbnail/" . $this->id;
 		}
 
 		protected function getBasicCardDescription(){

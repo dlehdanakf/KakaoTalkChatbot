@@ -130,7 +130,7 @@
 				$commerceCard->discount = (int) $this->discount;
 
 			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
-				$thumbnail = new Thumbnail(B::GET_IMAGE_URL() . "/affiliate/item/" . $this->id);
+				$thumbnail = new Thumbnail($this->getThumbnailURL());
 			else
 				$thumbnail = new DefaultThumbnail;
 
@@ -138,5 +138,8 @@
 			$commerceCard->addButtons((new Button("공유하기"))->setActionShare());
 
 			return $commerceCard;
+		}
+		public function getThumbnailURL(){
+			return B::GET_IMAGE_URL() . "/affiliate/item/" . $this->id;
 		}
 	}
