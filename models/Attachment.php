@@ -112,6 +112,7 @@
 			$this->hashed_name	 = $result['hashed_name'];
 			$this->original_name = $result['original_name'];
 			$this->extension	 = $result['extension'];
+			$this->instagram	 = $result['instagram'];
 			$this->register_date = $result['register_date'];
 		}
 		protected function generateFileSrl(){
