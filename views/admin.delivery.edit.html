@@ -74,12 +74,12 @@
 {% endblock %}
 
 {% block article %}
-<div class="article-content delivery-group-info">
+<div class="article-content delivery-info">
     <h4 class="section-title" style="margin-top: 0;">카카오톡 채팅방 미리보기</h4>
     <div class="kakaotalk-preview" style="width: 240px;">
         <div class="basicCard">
             {% if thumbnail %}
-            <div class="thumbnail" style="background-image: url('{{thumbnail.getDownloadLinkDirectory}}')"></div>
+            <div class="thumbnail" style="background-image: url('{{delivery.getThumbnailURL}}')"></div>
             {% else %}
             <div class="thumbnail"></div>
             {% endif %}

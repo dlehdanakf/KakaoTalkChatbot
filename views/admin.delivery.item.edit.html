@@ -79,7 +79,7 @@
     <div class="kakaotalk-preview" style="width: 240px;">
         <div class="basicCard">
             {% if thumbnail %}
-            <div class="thumbnail" style="background-image: url('{{thumbnail.getDownloadLinkDirectory}}')"></div>
+            <div class="thumbnail" style="background-image: url('{{deliveryItem.getThumbnailURL}}')"></div>
             {% else %}
             <div class="thumbnail"></div>
             {% endif %}
