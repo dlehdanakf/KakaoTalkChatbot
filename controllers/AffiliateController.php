@@ -73,8 +73,8 @@
 			if($requestBody['utterance'] != "더보기")
 				$skillResponse->addResponseComponent(new SimpleText(
 					"【 " . $groupLabel . " 】" . "\n" .
-					"👉 자세히 보기 버튼을 누르면 매장위치 및 상세메뉴를 확인하실 수 있습니다." . "\n" .
-					"👉 공유하기 버튼을 통해 친구 단톡방에 전달할 수 있습니다."
+					"👉 자세히 보기를 누르면 매장위치 및 상세메뉴를 확인하실 수 있습니다." . "\n" .
+					"공유하기 버튼을 통해 친구 단톡방에 전달할 수 있습니다."
 				));
 
 			$carousel = new Carousel;
@@ -197,6 +197,21 @@
 				'sub_title' => "제휴업체 아이템 추가",
 				'active_title' => "제휴업체 목록",
 				'affiliate' => $affiliate
+			]);
+		}
+		public function adminViewAffiliateItemInfo($affiliate_id, $item_id){
+			$affiliate = new Affiliate($affiliate_id);
+			$item = new AffiliateItem($item_id);
+
+			if($item->getAffiliateID() !== $affiliate->id)
+				throw new \Phroute\Phroute\Exception\HttpRouteNotFoundException();
+
+			return $this->adminView()->render('admin.affiliate.item.edit.html', [
+				'sub_title' => "제휴업체 아이템 정보",
+				'active_title' => "제휴업체 목록",
+				'affiliate' => $affiliate,
+				'affiliateItem' => $item,
+				'thumbnail' => $item->getThumbnail()
 			]);
 		}
 
