@@ -29,15 +29,10 @@
 			$carousel->addCard($basicCard);
 
 			/** 1.2 문화초대 이벤트 */
-			$link = new Link("http://facebook.com/kunnectTimetable");
-			$link->pc = "http://facebook.com/kunnectTimetable";
-			$link->mobile = "fb://page/1967018396922579";
-
 			$basicCard = new BasicCard;
 			$basicCard->title = "건국대학교 학우에게만 제공되는 다양한 무료 이벤트!";
 			$basicCard->setThumbnail($this->getCardThumbnail(3));
 			$basicCard->addButton((new Button("최신 문화초대 이벤트"))->setMessageText("최신 문화초대 이벤트 알려줘"));
-			$basicCard->addButton((new Button("쿠넥트 페이스북 페이지"))->setOsLink($link));
 //			$carousel->addCard($basicCard);
 
 			/** 1.3 학사일정 */
