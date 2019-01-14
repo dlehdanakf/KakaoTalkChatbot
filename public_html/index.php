@@ -15,9 +15,7 @@
 	B::LOAD_SETTING();
 
 	$router = new RouteCollector();
-	$router->filter('skillBefore', function(){
-		header('Content-Type: application/json');
-	});
+	$router->filter('skillBefore', ["RouterFilter", "beforeSkillResponse"]);
 
 	$router->any('redirect/facebook/{fb_page:a}', ["RedirectController", "facebookAppRedirect"]);
 	$router->any('redirect/kakaomap', ["RedirectController", "kakaoMapRedirect"]);

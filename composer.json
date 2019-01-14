@@ -1,5 +1,6 @@
 {
     "require": {
+        "theiconic/php-ga-measurement-protocol": "^2.0",
         "twig/twig": "^1.27",
         "paragonie/anti-csrf": "^2.0",
         "phroute/phroute": "^2.1",

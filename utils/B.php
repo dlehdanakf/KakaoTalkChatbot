@@ -73,6 +73,9 @@
 		public static function GET_KAKAO_TOKEN(){
 			return self::$ENVIRONMENT->KAKAO_TOKEN;
 		}
+		public static function GET_GA_TOKEN(){
+			return self::$ENVIRONMENT->GA_TOKEN;
+		}
 		public static function GET_SERVICE_URL(){
 			return self::$ENVIRONMENT->SERVICE_URL;
 		}
@@ -107,7 +110,8 @@
 			$return_array = [
 				'user' => '',
 				'utterance' => '',
-				'params' => []
+				'params' => [],
+				'all_params' => []
 			];
 
 			/** 0. 사용자 정보 확인 */
@@ -148,6 +152,14 @@
 				}
 			} catch(Exception $e) {
 				throw new Exception("Skill 형식을 갖추지 못했습니다 / " . $e->getMessage());
+			}
+
+			/** 2. 기타 모든 액션 저장 */
+			foreach($obj['action']['clientExtra'] as $i => $v){
+				$return_array['all_params'][$i] = $v;
+			}
+			foreach($obj['action']['params'] as $i => $v){
+				$return_array['all_params'][$i] = $v;
 			}
 
 			return $return_array;

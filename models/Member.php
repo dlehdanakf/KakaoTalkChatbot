@@ -5,9 +5,29 @@
 		public $phone;
 		public $seed;
 
+		public static function CREATE_BY_KEY($key){
+			$query = B::DB()->prepare("SELECT * FROM member WHERE user_key = :k");
+			$query->execute([
+				':k' => $key
+			]);
+
+			$instance = new self;
+			if($query->rowCount() < 1)
+				throw new ModelNotFoundException(get_class($instance) . " 객체를 찾을 수 없습니다. key - " . $key);
+
+			$result = $query->fetch(PDO::FETCH_ASSOC);
+			foreach($result as $i => $v){
+				$instance->$i = $v;
+			}
+
+			return $instance;
+		}
+
 		public function save(){
-			if($this->isDuplicatedKey())
+			if($this->isDuplicatedKey()){
 				$this->update();
+				return;
+			}
 
 			$this->insert();
 		}
