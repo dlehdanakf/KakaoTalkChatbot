@@ -25,12 +25,16 @@
 				if($member === null)
 					return;
 
+				$url = $_SERVER['REQUEST_URI'];
+				if(count($requestBody['all_params']) > 0)
+					$url = $url . '?' . http_build_query($requestBody['all_params']);
+
 				$analytics = new Analytics(true);
 				$analytics
 					->setProtocolVersion('1')
 					->setTrackingId(B::GET_GA_TOKEN())
 					->setClientId($member->user_key)
-					->setDocumentPath($_SERVER['REQUEST_URI'])
+					->setDocumentPath($url)
 					->setIpOverride($_SERVER['REMOTE_ADDR']);
 
 				$analytics->sendPageview();
