@@ -181,7 +181,7 @@ const renderDeliveryItemThumbnail = async (req, res, attempt) => {
                                 const b64 = await mergeImages([
                                     { src: path.resolve(cachedName), x: 0, y: 0 },
                                     { src: path.resolve("./images/instagram.png"), x: 0, y: 0 },
-                                    { src: path.resolve(wm), x: 52, y: 22 },
+                                    { src: path.resolve(wm), x: 56, y: 20 },
                                 ], {
                                     format: 'image/png',
                                     quality: 1,
