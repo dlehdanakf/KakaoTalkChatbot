@@ -10,7 +10,7 @@
 			try {
 				$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
 				$user_key = $requestBody['user'];
-				if(strtoupper($user_key) == 'TEST')
+				if(strtoupper($user_key) == 'TEST' || strlen((String) $user_key) < 1)
 					return;
 
 				try {

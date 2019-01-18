@@ -108,6 +108,9 @@
 					$imageUrl = B::GET_SERVICE_URL() . $leaflet->getDownloadLinkDirectory();
 					$imageAlt = $delivery->title . " 리플렛";
 
+					$skillResponse->addResponseComponent(new SimpleText(
+						"【 " . $delivery->title . " 】"
+					));
 					$skillResponse->addResponseComponent(new SimpleImage($imageUrl, $imageAlt));
 
 					return json_encode($skillResponse);
