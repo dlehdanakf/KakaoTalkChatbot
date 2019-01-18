@@ -89,11 +89,11 @@
         <div class="field-group">
             <label for="f-thumbnail-2">메뉴판 이미지</label>
             <div class="form-thumbnail">
-                <div class="thumbnail" id="thumbnail-preview-2" style="height: 150px;">
+                <div class="thumbnail leaflet" id="thumbnail-preview-2">
                     {% if leaflet %}
-                    <div class="img" style="background-image: url('{{leaflet.getDownloadLinkDirectory}}'); height: 150px;"></div>
+                    <div class="img" style="background-image: url('{{leaflet.getDownloadLinkDirectory}}');"></div>
                     {% else %}
-                    <span class="placeholder" style="padding: 67px 0;">이미지를 선택하세요</span>
+                    <span class="placeholder">이미지를 선택하세요</span>
                     {% endif %}
                 </div>
                 <button

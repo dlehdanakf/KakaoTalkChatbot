@@ -51,7 +51,20 @@ table.aui {
       background: url("http://kung.kr/files/attach/images/247/123/041/006/bca9d3b106a8d89f73a9fc40daef22b2.png") no-repeat center;
       background-size: cover;
     }
-    
+
+    &.leaflet {
+      height: 150px;
+
+      span.placeholder {
+        padding: 67px 0;
+      }
+      img {
+        height: 150px;
+      }
+      div.img {
+        height: 150px;
+      }
+    }
     &::after {
       content: "";
       display: block;

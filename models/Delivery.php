@@ -55,11 +55,12 @@
 			$this->id = $pdo->lastInsertId();
 		}
 		public function update(){
-			$query = B::DB()->prepare("UPDATE delivery SET title = :t, description = :d, thumbnail_id = :i, contact = :c, contract = :r, promotion = :p WHERE id = :id");
+			$query = B::DB()->prepare("UPDATE delivery SET title = :t, description = :d, thumbnail_id = :i, leaflet_id = :f, contact = :c, contract = :r, promotion = :p WHERE id = :id");
 			$query->execute([
 				':t' => $this->title,
 				':d' => $this->description,
 				':i' => $this->thumbnail_id,
+				':f' => $this->leaflet_id,
 				':c' => $this->contact,
 				':r' => $this->contract,
 				':p' => $this->promotion,
