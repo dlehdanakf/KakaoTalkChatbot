@@ -109,7 +109,9 @@
 					$imageAlt = $delivery->title . " 리플렛";
 
 					$skillResponse->addResponseComponent(new SimpleText(
-						"【 " . $delivery->title . " 】"
+						"【 " . $delivery->title . " 】" . "\n\n" .
+						"등록된 대표메뉴가 없어요 😅" . "\n" .
+						"대신 전단지 이미지를 참고해주세요!"
 					));
 					$skillResponse->addResponseComponent(new SimpleImage($imageUrl, $imageAlt));
 
