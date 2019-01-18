@@ -91,7 +91,7 @@
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
 
 			$utteranceArray = explode(' ', $requestBody['utterance']);
-			if($utteranceArray[count($utteranceArray) - 1] != "대표메뉴")
+			if($utteranceArray[count($utteranceArray) - 1] != "대표메뉴" && $utteranceArray[count($utteranceArray) - 1] != "메뉴판")
 				throw new Exception("채팅봇이 질의 내용을 이해하지 못했습니다.");
 
 			$utterance = implode(' ', array_slice($utteranceArray, 0, count($utteranceArray) - 1));
