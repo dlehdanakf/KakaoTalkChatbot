@@ -102,6 +102,17 @@
 
 			try {
 				$delivery = Delivery::CREATE_BY_TITLE($utterance);
+				$leaflet = $delivery->getLeaflet();
+
+				if($leaflet !== null){
+					$imgeUrl = B::GET_SERVICE_URL() . $leaflet->getDownloadLinkDirectory();
+					$imgAlt = $delivery->title . " 리플렛";
+
+					$skillResponse->addResponseComponent(new SimpleImage($imgeUrl, $imgAlt));
+
+					return json_encode($skillResponse);
+				}
+
 				$items = $delivery->getRandomItems();
 
 				if(count($items) < 1){
