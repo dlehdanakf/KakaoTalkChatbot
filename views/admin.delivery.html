@@ -12,6 +12,7 @@
                 <th>제목</th>
                 <th>계약유형</th>
                 <th>할인</th>
+                <th>썸네일</th>
                 <th>메뉴</th>
                 <th>등록일</th>
             </tr>
@@ -24,13 +25,22 @@
                 <td class="nowrap"><a href="/admin/delivery/{{item.id}}">{{item.title}}</a></td>
                 <td class="nowrap"><span class="aui-label">{{item.getContract}}</span></td>
                 <td class="nowrap">{{item.getPromotion}}</td>
-                {% set count = item.getItemCount %}
-                {% if count > 0 %}
-                <td>{{count}}</td>
+                {% if item.getThumbnailID %}
+                    <td><span class="aui-lozenge aui-lozenge-subtle aui-lozenge-success">OK</span></td>
                 {% else %}
-                <td><span style="color: #AAA; font-size: 12px;">-</span></td>
+                    <td><span style="color: #AAA; font-size: 12px;">-</span></td>
                 {% endif %}
-                <td>{{date_format(item.register_date, "Y.m.d H:i")}}</td>
+                {% if item.getLeafletID %}
+                    <td>전단</td>
+                {% else %}
+                    {% set count = item.getItemCount %}
+                    {% if count > 0 %}
+                        <td>{{count}}개</td>
+                    {% else %}
+                        <td><span style="color: #AAA; font-size: 12px;">-</span></td>
+                    {% endif %}
+                {% endif %}
+                <td>{{date_format(item.register_date, "Y.m.d")}}</td>
             </tr>
             {% endfor %}
         </tbody>
