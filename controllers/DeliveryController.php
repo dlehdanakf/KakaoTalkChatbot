@@ -190,7 +190,8 @@
 				'group_list' => $groups,
 				'item_list' => $items,
 				'belonging' => $delivery->getBelongingGroups(),
-				'thumbnail' => $delivery->getThumbnail()
+				'thumbnail' => $delivery->getThumbnail(),
+				'leaflet' => $delivery->getLeaflet()
 			]);
 		}
 		public function adminViewAddDeliveryItem($delivery_id){
@@ -336,6 +337,19 @@
 					$group->addDelivery($delivery);
 				}
 			}
+
+			header('Location: /admin/delivery/' . $delivery->id);
+		}
+		public function processUpdateDeliveryLeaflet($delivery_id){
+			B::PARAMETER_CHECK(['leaflet']);
+
+			$delivery = new Delivery($delivery_id);
+			if(intval($_REQUEST['leaflet']) > 0)
+				$delivery->setLeaflet(Attachment::CREATE_BY_MYSQLID($_REQUEST['leaflet']));
+			else
+				$delivery->removeLeaflet();
+
+			$delivery->update();
 
 			header('Location: /admin/delivery/' . $delivery->id);
 		}

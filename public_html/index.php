@@ -82,6 +82,7 @@
 			$router->post('add', ["DeliveryController", "processAddDelivery"]);
 			$router->get('/{delivery_id:i}', ["DeliveryController", "adminViewDeliveryInfo"]);
 			$router->post('/{delivery_id:i}/edit', ["DeliveryController", "processUpdateDelivery"]);
+			$router->post('/{delivery_id:i}/leaflet', ["DeliveryController", "processUpdateDeliveryLeaflet"]);
 			$router->post('/{delivery_id:i}/delete', ["DeliveryController", "processDeleteDelivery"]);
 
 			$router->get('/{delivery_id:i}/item', function($delivery_id){ header('Location: /admin/delivery/' . $delivery_id); });

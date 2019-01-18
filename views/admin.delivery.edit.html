@@ -1,64 +1,9 @@
 {% extends "layouts/admin.sub.layout.html" %}
 
 {% block head %}
+<script src="{{js('thumbnail.js')}}" type="text/javascript"></script>
 <script>
     AJS.$(function(){
-        $(document).on('click', "#delete-thumbnail", function(e){
-            $("#thumbnail-value").val(0);
-            $('#upload-thumbnail').attr('disabled', false);
-            $(this).attr('disabled', true);
-
-            var span = $("<span class='placeholder'>이미지를 선택하세요</span>");
-            $("#thumbnail-preview").empty().append(span);
-        });
-        $('#upload-thumbnail').on('click', function(e){
-            if(document.getElementById("f-thumbnail").files.length == 0){
-                alert('업로드할 파일을 선택해주세요.');
-                return;
-            }
-
-            var formData = new FormData();
-            formData.append('attachment', document.getElementById("f-thumbnail").files[0]);
-            $.ajax({
-                url: '/attachment/upload',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                beforeSend: function(){
-                    $('#upload-thumbnail').attr('disabled', true);
-                },
-                success: function(data){
-                    if(data.result == 200){
-                        var id = data.returns.id,
-                            dir = data.returns.dir,
-                            ext = data.returns.ext;
-
-                        if((['jpg', 'jpeg', 'png', 'gif']).indexOf(ext) == -1){
-                            alert("지원되는 이미지 형식이 아닙니다!");
-                            return;
-                        }
-
-                        var div = $("<div class='img' style='background-image: url(" + dir + ");'></div>");
-                        $("#delete-thumbnail").attr('disabled', false);
-                        $("#thumbnail-preview").empty().append(div);
-                        $("#thumbnail-value").val(id);
-                    } else {
-                        alert(data.message);
-                    }
-                },
-                error: function(request, status, error){
-                    alert(error);
-                },
-                complete: function(){
-                    document.getElementById("f-thumbnail").value = "";
-                }
-            });
-        });
-        $("#f-thumbnail").on('change', function(e){
-            $('#upload-thumbnail').attr('disabled', false);
-        });
-
         $("#group-delete").on('submit', function(e){
             if(!confirm("정말로 삭제하시겠습니까?")){
                 e.preventDefault();
@@ -100,11 +45,15 @@
             href="/admin/delivery/{{delivery.id}}/item/add"
             style="vertical-align: bottom; margin-left: 9px;"
             class="aui-button aui-button-compact aui-button-primary"
+            {% if leaflet %}disabled{% endif %}
         >
             추가하기
         </a>
     </h4>
     <p>배달업체 당 서비스 갯수는 최대 10개까지 등록 가능합니다.</p>
+    {% if leaflet %}
+    <p style="color: #ff0000;">메뉴판 이미지가 등록되어있어 아이템을 추가하실 수 없습니다. 메뉴판 삭제 후 시도해주세요.</p>
+    {% endif %}
     <table class="aui">
         <thead>
             <tr>
@@ -134,6 +83,59 @@
             {% endif %}
         </tbody>
     </table>
+    <h4 class="section-title">배달업체 메뉴판 관리</h4>
+    <p>아이템을 하나하나 등록하기 어려운 업체일 경우 메뉴판을 스캔해서 업로드합니다.</p>
+    <form class="aui" action="/admin/delivery/{{delivery.id}}/leaflet" method="POST">
+        <div class="field-group">
+            <label for="f-thumbnail-2">메뉴판 이미지</label>
+            <div class="form-thumbnail">
+                <div class="thumbnail" id="thumbnail-preview-2" style="height: 150px;">
+                    {% if leaflet %}
+                    <div class="img" style="background-image: url('{{leaflet.getDownloadLinkDirectory}}'); height: 150px;"></div>
+                    {% else %}
+                    <span class="placeholder" style="padding: 67px 0;">이미지를 선택하세요</span>
+                    {% endif %}
+                </div>
+                <button
+                    type="button"
+                    class="aui-button aui-button-compact delete-thumbnail"
+                    id="delete-thumbnail-2"
+                    data-value="#thumbnail-value-2"
+                    data-button="#upload-thumbnail-2"
+                    data-preview="#thumbnail-preview-2"
+                    {% if not leaflet %}disabled{% endif %}
+                >
+                    삭제
+                </button>
+            </div>
+            <div style="padding: 6px 0;">
+                <input type="hidden" name="leaflet" id="thumbnail-value-2" value="{{leaflet.id}}" />
+                <input class="upfile" type="file" id="f-thumbnail-2" title="upload file" data-button="#upload-thumbnail-2" />
+                <button
+                    type="button"
+                    id="upload-thumbnail-2"
+                    class="aui-button aui-button-compact upload-thumbnail"
+                    data-input="f-thumbnail-2"
+                    data-delete="#delete-thumbnail-2"
+                    data-preview="#thumbnail-preview-2"
+                    data-value="#thumbnail-value-2"
+                    disabled
+                >
+                    업로드
+                </button>
+            </div>
+            <div class="description">
+                * 권장 이미지 크기 : 800 x 600, 600 x 450, 4:3 비율, 모든 사이즈(비율) 허용<br/>
+                * 지원되는 파일 형식 : jpg, jpeg, png, gif
+            </div>
+        </div>
+        <div class="buttons-container">
+            <div class="buttons">
+                <button type="submit" class="aui-button aui-button-primary">메뉴판 수정하기</button>
+                <a class="cancel" href="/admin/delivery">취소</a>
+            </div>
+        </div>
+    </form>
     <h4 class="section-title">배달업체 정보 수정</h4>
     <form class="aui" style="margin-top: 24px;" action="/admin/delivery/{{delivery.id}}/edit" method="POST">
         <div class="field-group">
@@ -168,21 +170,42 @@
             <div class="description">ex) 02-1234-5678 | 양식 준수할 것.</div>
         </div>
         <div class="field-group">
-            <label for="f-thumbnail">썸네일</label>
+            <label for="f-thumbnail-1">썸네일</label>
             <div class="form-thumbnail">
-                <div class="thumbnail" id="thumbnail-preview">
+                <div class="thumbnail" id="thumbnail-preview-1">
                     {% if thumbnail %}
-                        <div class="img" style="background-image: url('{{thumbnail.getDownloadLinkDirectory}}')"></div>
+                    <div class="img" style="background-image: url('{{thumbnail.getDownloadLinkDirectory}}')"></div>
                     {% else %}
-                        <span class="placeholder">이미지를 선택하세요</span>
+                    <span class="placeholder">이미지를 선택하세요</span>
                     {% endif %}
                 </div>
-                <button type="button" class="aui-button aui-button-compact" id="delete-thumbnail" {% if not thumbnail %}disabled{% endif %}>삭제</button>
+                <button
+                    type="button"
+                    class="aui-button aui-button-compact delete-thumbnail"
+                    id="delete-thumbnail-1"
+                    data-value="#thumbnail-value-1"
+                    data-button="#upload-thumbnail-1"
+                    data-preview="#thumbnail-preview-1"
+                    {% if not thumbnail %}disabled{% endif %}
+                >
+                    삭제
+                </button>
             </div>
             <div style="padding: 6px 0;">
-                <input type="hidden" name="thumbnail" id="thumbnail-value" value="{{thumbnail.id}}" />
-                <input class="upfile" type="file" id="f-thumbnail" title="upload file" />
-                <button type="button" id="upload-thumbnail" class="aui-button aui-button-compact" disabled>업로드</button>
+                <input type="hidden" name="thumbnail" id="thumbnail-value-1" value="{{thumbnail.id}}" />
+                <input class="upfile" type="file" id="f-thumbnail-1" title="upload file" data-button="#upload-thumbnail-1" />
+                <button
+                    type="button"
+                    id="upload-thumbnail-1"
+                    class="aui-button aui-button-compact upload-thumbnail"
+                    data-input="f-thumbnail-1"
+                    data-delete="#delete-thumbnail-1"
+                    data-preview="#thumbnail-preview-1"
+                    data-value="#thumbnail-value-1"
+                    disabled
+                >
+                    업로드
+                </button>
             </div>
             <div class="description">
                 * 권장 이미지 크기 : 800 x 400, 600 x 300, 2:1 비율<br/>

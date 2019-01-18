@@ -10,6 +10,7 @@
 		public $title;
 		public $description;
 		protected $thumbnail_id;
+		protected $leaflet_id;
 		public $contact;
 		public $contract;
 		public $promotion;
@@ -104,6 +105,22 @@
 		}
 		public function removeThumbnail(){
 			$this->thumbnail_id = null;
+		}
+
+		public function getLeaflet(){
+			if(!$this->leaflet_id)
+				return null;
+
+			return Attachment::CREATE_BY_MYSQLID($this->leaflet_id);
+		}
+		public function getLeafletID(){
+			return $this->leaflet_id;
+		}
+		public function setLeaflet(Attachment $attachment){
+			$this->leaflet_id = $attachment->id;
+		}
+		public function removeLeaflet(){
+			$this->leaflet_id = null;
 		}
 
 		public function getBelongingGroups(){
