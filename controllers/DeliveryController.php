@@ -105,10 +105,10 @@
 				$leaflet = $delivery->getLeaflet();
 
 				if($leaflet !== null){
-					$imgeUrl = B::GET_SERVICE_URL() . $leaflet->getDownloadLinkDirectory();
-					$imgAlt = $delivery->title . " 리플렛";
+					$imageUrl = B::GET_SERVICE_URL() . $leaflet->getDownloadLinkDirectory();
+					$imageAlt = $delivery->title . " 리플렛";
 
-					$skillResponse->addResponseComponent(new SimpleImage($imgeUrl, $imgAlt));
+					$skillResponse->addResponseComponent(new SimpleImage($imageUrl, $imageAlt));
 
 					return json_encode($skillResponse);
 				}
