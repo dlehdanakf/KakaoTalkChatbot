@@ -2,6 +2,7 @@
 	class Attachment extends BasicModel {
 		public $file_srl;
 		public $directory;
+		public $md5_hash;
 		public $hashed_name;
 		public $original_name;
 		public $extension;
@@ -22,6 +23,17 @@
 
 			return $attachment;
 		}
+		public static function CREATE_BY_MD5($md5_hash){
+			try {
+				$attachment = new self;
+				$attachment->md5_hash = $md5_hash;
+				$attachment->getFileInfoByMD5Hash();
+
+				return $attachment;
+			} catch(ModelNotFoundException $e) {
+				return null;
+			}
+		}
 
 		public function __construct($filename = null){
 			if(!$filename) return;
@@ -34,10 +46,11 @@
 		}
 		public function save(){
 			$pdo = B::DB();
-			$query = $pdo->prepare("INSERT INTO attachment (file_srl, directory, extension, hashed_name, original_name) VALUES (:n, :d, :e, :h, :o)");
+			$query = $pdo->prepare("INSERT INTO attachment (file_srl, directory, md5_hash, extension, hashed_name, original_name) VALUES (:n, :d, :m, :e, :h, :o)");
 			$query->execute([
 				":n" => $this->file_srl,
 				":d" => $this->directory,
+				":m" => $this->md5_hash,
 				":e" => $this->extension,
 				":h" => $this->hashed_name,
 				":o" => $this->original_name
@@ -97,10 +110,27 @@
 			$query = $pdo->prepare("SELECT * FROM attachment WHERE file_srl = :n AND hashed_name = :h");
 			$query->execute([
 				":n" => $this->file_srl,
-				":h" => $this->hashed_name,
+				":h" => $this->hashed_name
 			]);
 			$this->storeDBFetchResult($query);
 		}
+
+		/**
+		 * @throws ModelNotFoundException
+		 */
+		protected function getFileInfoByMD5Hash(){
+			$pdo = B::DB();
+			$query = $pdo->prepare("SELECT * FROM attachment WHERE md5_hash = :m");
+			$query->execute([
+				":m" => $this->md5_hash
+			]);
+			$this->storeDBFetchResult($query);
+		}
+
+		/**
+		 * @param PDOStatement $query
+		 * @throws ModelNotFoundException
+		 */
 		protected function storeDBFetchResult(PDOStatement $query){
 			if($query->rowCount() < 1)
 				throw new ModelNotFoundException("Attachment::첨부파일이 존재하지 않습니다");

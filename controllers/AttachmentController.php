@@ -46,9 +46,22 @@
 					throw new RuntimeException('해당 확장자는 업로드할 수 없습니다');
 				}
 
+				$checkMD5 = Attachment::CREATE_BY_MD5(md5_file($_FILES['attachment']['tmp_name']));
+				if($checkMD5 !== null){
+					B::DIE_MESSAGE(200, '성공', [
+						'id' => $checkMD5->id,
+						'name' => $checkMD5->original_name,
+						'link' => $checkMD5->getDownloadUrl(),
+						'dir' => $checkMD5->getDownloadLinkDirectory(),
+						'ext' => $checkMD5->extension
+					]);
+				}
+
 				$attachment = new Attachment($_FILES['attachment']['name']);
 				$attachment->extension = $ext;
 				$attachment->hashed_name = $attachment->hashed_name . '.' . $ext;
+				$attachment->md5_hash = md5_file($_FILES['attachment']['tmp_name']);
+
 				//	같은 경로에 같은 파일명으로 된 첨부파일이 저장되는 것을 방지
 				$attachment->preventFileAlreadyExist();
 				//	해당 첨부파일 DB에 기록
