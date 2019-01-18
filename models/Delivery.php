@@ -155,8 +155,10 @@
 				$thumbnail = new DefaultThumbnail;
 
 			$basicCard->setThumbnail($thumbnail);
-			if($this->getItemCount() > 0)
-				$basicCard->addButton((new Button("대표메뉴"))->setBlockID('5c3596ce384c5518d1200851', $this->title ." 대표메뉴"));
+			if($this->leaflet_id)
+				$basicCard->addButton((new Button("메뉴판 상세보기"))->setBlockID('5c3596ce384c5518d1200851', $this->title . " 메뉴판"));
+			else if($this->getItemCount() > 0)
+				$basicCard->addButton((new Button("대표메뉴 목록보기"))->setBlockID('5c3596ce384c5518d1200851', $this->title . " 대표메뉴"));
 			$basicCard->addButton((new Button("배달 주문하기"))->setPhoneNumber($this->contact));
 			$basicCard->addButton((new Button("공유하기"))->setActionShare());
 
