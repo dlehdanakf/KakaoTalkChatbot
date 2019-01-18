@@ -44,7 +44,7 @@
 		public function skillViewDeliveryList(){
 			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
 
-			if($requestBody['utterance'] == '더보기') $groupLabel = $requestBody['params']['delivery_category'];
+			if($requestBody['utterance'] == '더보기') $groupLabel = $requestBody['all_params']['delivery_category'];
 			else $groupLabel = explode(' ', $requestBody['utterance'])[0];
 
 			try {
