@@ -113,7 +113,7 @@
 					));
 					$skillResponse->addResponseComponent(new SimpleImage($imageUrl, $imageAlt));
 
-					return json_encode($skillResponse);
+					return json_encode($skillResponse->render());
 				}
 
 				$items = $delivery->getRandomItems();
