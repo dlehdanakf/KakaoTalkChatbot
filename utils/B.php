@@ -114,11 +114,6 @@
 				'all_params' => []
 			];
 
-			$applicationSetting = new ApplicationSetting;
-			$applicationSetting->sys_key = 'last_skill';
-			$applicationSetting->sys_value = $json;
-			$applicationSetting->save();
-
 			/** 0. 사용자 정보 확인 */
 			try {
 				if(!isset($obj['userRequest'])){
