@@ -9,6 +9,10 @@
 		 */
 		protected $thumbnails;
 		/**
+		 * @var Profile
+		 */
+		protected $profile;
+		/**
 		 * @var array Buttons
 		 */
 		protected $buttons;
@@ -19,9 +23,13 @@
 			$this->currency = '₩';
 			$this->discount = 0;
 			$this->thumbnails = [];
+			$this->profile = null;
 			$this->buttons = [];
 		}
 
+		public function setProfile(Profile $profile = null){
+			$this->profile = $profile;
+		}
 		public function addThumbnail(Thumbnail $e){
 			if(count($this->thumbnails) > 3) return;
 			array_push($this->thumbnails, $e);
@@ -58,6 +66,9 @@
 				if($btn !== null)
 					array_push($return_array['buttons'], $btn);
 			}
+
+			if($this->profile !== null)
+				$return_array['profile'] = $this->profile->render();
 
 			return $return_array;
 		}

@@ -164,6 +164,17 @@
 
 			return $basicCard;
 		}
+		public function getProfile(){
+			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
+				$thumbnail = new Thumbnail($this->getThumbnailURL());
+			else
+				$thumbnail = new DefaultThumbnail;
+
+			$profile = new Profile($this->title);
+			$profile->setThumbnail($thumbnail);
+
+			return $profile;
+		}
 		public function getThumbnailURL(){
 			return B::GET_IMAGE_URL() . "/delivery/thumbnail/" . $this->id;
 		}

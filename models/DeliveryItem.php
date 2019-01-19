@@ -158,6 +158,7 @@
 				$thumbnail = new DefaultThumbnail;
 
 			$commerceCard->addThumbnail($thumbnail);
+			$commerceCard->setProfile($delivery->getProfile());
 
 			$commerceCard->addButtons((new Button("배달 주문하기"))->setPhoneNumber($delivery->contact));
 			$commerceCard->addButtons((new Button("다른 대표메뉴 보기"))->setBlockID('5c3596ce384c5518d1200851', $delivery->title . " 대표메뉴"));
