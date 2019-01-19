@@ -132,10 +132,12 @@
 
 				$basicCard = new BasicCard;
 				$basicCard->title =
-					"【 " . $delivery->title . " 】" . "\n\n" .
-					"배달업체의 대표메뉴(최대 10개)를 보여드려요." . "\n" .
-					"공유하기 버튼을 통해 친구에게 전달할 수 있습니다."
+					"【 " . $delivery->title . " 】" . "\n" .
+					"대표메뉴(최대 10개)를 보여드려요." . "\n\n" .
+					"👉 공유하기 버튼을 통해 친구에게 전달할 수 있습니다." . "\n" .
+					"👉 'MY메뉴 등록'을 통해 나만의 배달책자를 만들어보세요!"
 				;
+				$basicCard->description = $delivery->description;
 				$basicCard->addButton((new Button("배달 주문하기"))->setPhoneNumber($delivery->contact));
 				$skillResponse->addResponseComponent($basicCard);
 
