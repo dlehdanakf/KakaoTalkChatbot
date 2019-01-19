@@ -178,8 +178,8 @@
 
 				$skillResponse = new SkillResponse;
 				$skillResponse->addResponseComponent(new SimpleText(
-					"'" . $deliveryItem->title . "' 메뉴를 MY메뉴에 등록했어요!" ."\n" .
-					"메인메뉴 - 배달음식 주문하기 - MY메뉴 보러가기 버튼을 통해 확인하실 수 있습니다."
+					"'" . $deliveryItem->title . "' 메뉴를 MY메뉴에 등록했어요!" ."\n\n" .
+					"'메인메뉴' - '배달음식 주문하기' - 'MY메뉴 보러가기' 버튼을 통해 확인하실 수 있습니다."
 				));
 				$skillResponse->addQuickReplies((new QuickReply("MY메뉴 보러가기")));
 				$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setMessageText("배달음식점 목록 보여줘"));
