@@ -220,7 +220,7 @@
 
 			try {
 				$deliveryItem = new DeliveryItem(intval($deliveryInfoArray[1]));
-				if(intval($deliveryInfoArray[0]) !== $deliveryItem->getDeliveryID())
+				if($deliveryInfoArray[0] != $deliveryItem->getDeliveryID())
 					throw new Exception("유효하지 않은 배달번호를 입력하셨습니다.");
 
 				$member = Member::CREATE_BY_KEY($user_key);
