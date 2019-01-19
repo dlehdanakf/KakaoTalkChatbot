@@ -38,6 +38,21 @@
 			]);
 		}
 
+		public function getFavoriteDeliveryItems(){
+			return DeliveryFavorite::GET_FAVORITE_DELIVERIES($this);
+		}
+		public function addFavoriteDeliveryItem(DeliveryItem $deliveryItem){
+			if(DeliveryFavorite::GET_FAVORITE_DELIVERY_COUNT($this) >= 10)
+				throw new Exception("MY메뉴는 10개이상 등록하실 수 없습니다.");
+
+			$deliveryFavorite = new DeliveryFavorite($this, $deliveryItem);
+			$deliveryFavorite->save();
+		}
+		public function deleteFavoriteDeliveryItem(DeliveryItem $deliveryItem){
+			$deliveryFavorite = new DeliveryFavorite($this, $deliveryItem);
+			$deliveryFavorite->delete();
+		}
+
 		protected function isDuplicatedKey(){
 			$query = B::DB()->prepare("SELECT id FROM member WHERE user_key = :k");
 			$query->execute([

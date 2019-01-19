@@ -135,7 +135,9 @@
 				$thumbnail = new DefaultThumbnail;
 
 			$commerceCard->addThumbnail($thumbnail);
-			$commerceCard->addButtons((new Button("자주 찾는 메뉴로 등록하기"))->setActionShare());
+			$commerceCard->addButtons((new Button("MY메뉴로 등록하기"))->setBlockID(
+				'5c4324be384c5518d120532b', $this->delivery_id . '@' . $this->id . ' MY메뉴 등록'
+			));
 			$commerceCard->addButtons((new Button("공유하기"))->setActionShare());
 
 			return $commerceCard;

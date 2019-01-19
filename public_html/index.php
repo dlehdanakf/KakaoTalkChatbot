@@ -49,6 +49,9 @@
 		$router->any('delivery', ["DeliveryController", "skillViewDeliveryGroups"]);
 		$router->any('delivery/group', ["DeliveryController", "skillViewDeliveryList"]);
 		$router->any('delivery/item', ["DeliveryController", "skillViewDeliveryItemList"]);
+		$router->any('delivery/favorite', ["DeliveryController", "skillViewFavoriteMenu"]);
+		$router->any('delivery/favorite/add', ["DeliveryController", "skillAddFavoriteMenu"]);
+		$router->any('delivery/favorite/delete', ["DeliveryController", "skillDeleteFavoriteMenu"]);
 
 		$router->any('affiliate', ["AffiliateController", "skillViewAffiliateGroups"]);
 		$router->any('affiliate/group', ["AffiliateController", "skillViewAffiliateList"]);

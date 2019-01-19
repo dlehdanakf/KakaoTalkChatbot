@@ -150,6 +150,89 @@
 				return json_encode($skillResponse->render());
 			}
 		}
+		public function skillAddFavoriteMenu(){
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
+			$user_key = $requestBody['user'];
+			if(strtoupper($user_key) == 'TEST' || strlen((String) $user_key) < 1)
+				throw new Exception("회원정보가 없어 요청을 완료할 수 없습니다.");
+
+			$utteranceArray = explode(' ', $requestBody['utterance']);
+			if(strpos($utteranceArray[0], '@') === false)
+				throw new Exception("채팅봇이 이해할 수 없는 발화를 입력하셨습니다.");
+
+			$deliveryInfoArray = explode('@', $utteranceArray[0]);
+			if(
+				count($deliveryInfoArray) !== 2 ||
+				is_numeric($deliveryInfoArray[0]) === false ||
+				is_numeric($deliveryInfoArray[1]) === false
+			)
+				throw new Exception("채팅봇이 이해할 수 없는 발화를 입력하셨습니다.");
+
+			try {
+				$deliveryItem = new DeliveryItem(intval($deliveryInfoArray[1]));
+				if(intval($deliveryInfoArray[0]) !== $deliveryItem->getDeliveryID())
+					throw new Exception("유효하지 않은 배달번호를 입력하셨습니다.");
+
+				$member = Member::CREATE_BY_KEY($user_key);
+				$member->addFavoriteDeliveryItem($deliveryItem);
+
+				$skillResponse = new SkillResponse;
+				$skillResponse->addResponseComponent(new SimpleText(
+					"'" . $deliveryItem->title . "' 메뉴를 MY메뉴에 등록했어요!" ."\n" .
+					"메인메뉴 - 배달음식 주문하기 - MY메뉴 보러가기 버튼을 통해 확인하실 수 있습니다."
+				));
+				$skillResponse->addQuickReplies((new QuickReply("MY메뉴 보러가기")));
+				$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setMessageText("배달음식점 목록 보여줘"));
+				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
+
+			} catch(ModelNotFoundException $e) {
+				throw new Exception("배달업체 또는 배달메뉴 번호가 유효하지 않습니다.");
+			} catch(Exception $e) {
+				throw $e;
+			}
+		}
+		public function skillDeleteFavoriteMenu(){
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
+			$user_key = $requestBody['user'];
+			if(strtoupper($user_key) == 'TEST' || strlen((String) $user_key) < 1)
+				throw new Exception("회원정보가 없어 요청을 완료할 수 없습니다.");
+
+			$utteranceArray = explode(' ', $requestBody['utterance']);
+			if(strpos($utteranceArray[0], '@') === false)
+				throw new Exception("채팅봇이 이해할 수 없는 발화를 입력하셨습니다.");
+
+			$deliveryInfoArray = explode('@', $utteranceArray[0]);
+			if(
+				count($deliveryInfoArray) !== 2 ||
+				is_numeric($deliveryInfoArray[0]) === false ||
+				is_numeric($deliveryInfoArray[1]) === false
+			)
+				throw new Exception("채팅봇이 이해할 수 없는 발화를 입력하셨습니다.");
+
+			try {
+				$deliveryItem = new DeliveryItem(intval($deliveryInfoArray[1]));
+				if(intval($deliveryInfoArray[0]) !== $deliveryItem->getDeliveryID())
+					throw new Exception("유효하지 않은 배달번호를 입력하셨습니다.");
+
+				$member = Member::CREATE_BY_KEY($user_key);
+				$member->deleteFavoriteDeliveryItem($deliveryItem);
+
+				$skillResponse = new SkillResponse;
+				$skillResponse->addResponseComponent(new SimpleText(
+					"'" . $deliveryItem->title . "' 메뉴를 MY메뉴에서 삭제했습니다."
+				));
+				$skillResponse->addQuickReplies((new QuickReply("이전으로")));
+				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
+
+			} catch(ModelNotFoundException $e) {
+				throw new Exception("배달업체 또는 배달메뉴 번호가 유효하지 않습니다.");
+			} catch(Exception $e) {
+				throw $e;
+			}
+		}
+		public function skillViewFavoriteMenu(){
+
+		}
 
 		public function adminViewDeliveryGroupList(){
 			$groups = DeliveryGroup::GET_LIST();
