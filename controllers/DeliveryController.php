@@ -233,6 +233,8 @@
 				$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setBlockID('5c43366b5f38dd44d86aacef'));
 				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
+				return json_encode($skillResponse->render());
+
 			} catch(ModelNotFoundException $e) {
 				throw new Exception("배달업체 또는 배달메뉴 번호가 유효하지 않습니다.");
 			} catch(Exception $e) {
