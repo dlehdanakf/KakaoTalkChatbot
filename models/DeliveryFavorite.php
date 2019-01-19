@@ -5,7 +5,7 @@
 		public $register_date;
 
 		public static function GET_FAVORITE_DELIVERIES(Member $member){
-			$query = B::DB()->prepare("SELECT delivery_id FROM delivery_favorite WHERE member_id = :m LIMIT 10 ORDER BY register_date DESC");
+			$query = B::DB()->prepare("SELECT delivery_id FROM delivery_favorite WHERE member_id = :m ORDER BY register_date DESC LIMIT 10");
 			$query->execute([
 				':m' => $member->id
 			]);
