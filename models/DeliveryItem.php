@@ -142,6 +142,31 @@
 
 			return $commerceCard;
 		}
+		public function getFavoriteCommerceCard(){
+			$delivery = $this->getDelivery();
+
+			$commerceCard = new CommerceCard;
+			$commerceCard->description = (string) $this->title;
+			$commerceCard->price = (int) $this->price;
+
+			if(intval($this->discount) > 0)
+				$commerceCard->discount = (int) $this->discount;
+
+			if($this->thumbnail_id != 0 && $this->thumbnail_id != null)
+				$thumbnail = new Thumbnail($this->getThumbnailURL());
+			else
+				$thumbnail = new DefaultThumbnail;
+
+			$commerceCard->addThumbnail($thumbnail);
+
+			$commerceCard->addButtons((new Button("배달 주문하기"))->setPhoneNumber($delivery->contact));
+			$commerceCard->addButtons((new Button("다른 대표메뉴 보기"))->setBlockID('5c3596ce384c5518d1200851', $delivery->title . " 대표메뉴"));
+			$commerceCard->addButtons((new Button("MY메뉴에서 삭제하기"))->setBlockID(
+				'5c4324be384c5518d120532b', $this->delivery_id . '@' . $this->id . ' MY메뉴 삭제'
+			));
+
+			return $commerceCard;
+		}
 		public function getThumbnailURL(){
 			return B::GET_IMAGE_URL() . "/delivery/item/" . $this->id;
 		}

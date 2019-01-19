@@ -236,7 +236,37 @@
 			}
 		}
 		public function skillViewFavoriteMenu(){
+			$requestBody = B::VALIDATE_SKILL_REQUEST_BODY();
+			$user_key = $requestBody['user'];
+			if(strtoupper($user_key) == 'TEST' || strlen((String) $user_key) < 1)
+				throw new Exception("회원정보가 없어 요청을 완료할 수 없습니다.");
 
+			$skillResponse = new SkillResponse;
+			$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
+
+			$member = Member::CREATE_BY_KEY($user_key);
+			$deliveryItems = $member->getFavoriteDeliveryItems();
+			if(count($deliveryItems) < 1){
+				$skillResponse->addResponseComponent(new SimpleText(
+					"😨 MY메뉴에 추가된 배달음식이 없습니다." . "\n" .
+					"'배달업체 대표메뉴'에서 MY메뉴를 추가할 수 있어요!"
+				));
+
+				return json_encode($skillResponse->render());
+			}
+
+			$skillResponse->addResponseComponent(new SimpleText(
+				"🐓 MY메뉴로 등록하신 배달업체 별 대표메뉴 목록입니다."
+			));
+
+			$carousel = new Carousel;
+			foreach($deliveryItems as $deliveryItem){
+				$carousel->addCard($deliveryItem->getFavoriteCommerceCard());
+			}
+
+			$skillResponse->addResponseComponent($carousel);
+
+			return json_encode($skillResponse->render());
 		}
 
 		public function adminViewDeliveryGroupList(){
