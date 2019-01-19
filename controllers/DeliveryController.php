@@ -230,7 +230,7 @@
 				$skillResponse->addResponseComponent(new SimpleText(
 					"'" . $deliveryItem->title . "' 메뉴를 MY메뉴에서 삭제했습니다."
 				));
-				$skillResponse->addQuickReplies((new QuickReply("이전으로")));
+				$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setBlockID('5c43366b5f38dd44d86aacef'));
 				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
 			} catch(ModelNotFoundException $e) {
