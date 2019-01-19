@@ -18,6 +18,8 @@
 			if($current_time > 21 || $current_time < 9)
 				$in_night = true;
 
+			/** MY메뉴 카드 추가 */
+			$carousel->addCard($this->getFavoriteBasicCard());
 
 			if($in_night === true){
 				try {
@@ -184,7 +186,7 @@
 					"'" . $deliveryItem->title . "' 메뉴를 MY메뉴에 등록했어요!" ."\n\n" .
 					"'메인메뉴' - '배달음식 주문하기' - 'MY메뉴 보러가기' 버튼을 통해 확인하실 수 있습니다."
 				));
-				$skillResponse->addQuickReplies((new QuickReply("MY메뉴 보러가기")));
+				$skillResponse->addQuickReplies((new QuickReply("MY메뉴 보러가기"))->setMessageText("자주찾는 배달음식 메뉴 보여줘"));
 				$skillResponse->addQuickReplies((new QuickReply("이전으로"))->setMessageText("배달음식점 목록 보여줘"));
 				$skillResponse->addQuickReplies((new QuickReply("메인으로"))->setMessageText("메인으로 돌아가기"));
 
@@ -623,5 +625,14 @@
 			]);
 
 			return $twig;
+		}
+		protected function getFavoriteBasicCard(){
+			$favorite = new BasicCard;
+			$favorite->setThumbnail(new DefaultThumbnail());
+			$favorite->title = "직접 만드는 나만의 배달책자";
+			$favorite->description = "자주 주문하는 배달음식을 MY메뉴로 등록해서 간편하고 빠르게 주문하세요!";
+			$favorite->addButton((new Button("MY메뉴 보러가기"))->setMessageText("자주찾는 배달음식 메뉴 보여줘"));
+
+			return $favorite;
 		}
 	}
