@@ -304,7 +304,7 @@
 		}
 		protected function getFormattedDate(){
 			$e = strtotime($this->date);
-			$weekList = ["월", "화", "수", "목", "금", "토", "일"];
+			$weekList = ["일","월", "화", "수", "목", "금", "토"];
 
 			$week = date("w", $e);
 			$year = date("Y", $e);
