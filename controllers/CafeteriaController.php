@@ -17,7 +17,7 @@
 			$cafeterias = Cafeteria::GET_ORDERED_LIST();
 			foreach($cafeterias as $cafeteria){
 				$basicCard = new BasicCard;
-				$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail)));
+//				$basicCard->setThumbnail((new Thumbnail($temporary_thumbnail)));
 				$basicCard->title =
 					$cafeteria->title . "\n" .
 					"🏢 " . $cafeteria->location . "\n" .
